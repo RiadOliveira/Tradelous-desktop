@@ -11,7 +11,7 @@ export const Container = styled.div`
 export const Content = styled(animated.div)`
   font-family: Poppins;
   font-size: 22px;
-  width: 48%;
+  max-width: 460px;
 
   display: flex;
   flex-direction: column;
