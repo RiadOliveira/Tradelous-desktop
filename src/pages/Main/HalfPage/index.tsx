@@ -57,7 +57,7 @@ const HalfPage: React.FC<HalfPageProps> = ({
         <strong>{header}</strong>
       </Header>
 
-      <div>{content}</div>
+      <>{content}</>
     </Container>
   );
 };

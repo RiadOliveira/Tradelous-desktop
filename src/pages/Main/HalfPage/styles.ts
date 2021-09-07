@@ -29,18 +29,6 @@ export const Container = styled(animated.button)<HalfPageProps>`
         width: 56%;
       }
     `}
-
-  div {
-    font-family: Poppins;
-    font-size: 22px;
-    width: 48%;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    gap: 24px;
-  }
 `;
 
 export const Header = styled.header`
