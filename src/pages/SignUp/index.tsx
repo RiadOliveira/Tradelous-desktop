@@ -7,14 +7,16 @@ const SignUp: React.FC = () => {
   const animatedProps = useSpring({
     from: {
       opacity: 0,
+      display: 'none',
     },
     to: {
       opacity: 1,
+      display: 'block',
     },
     config: {
-      duration: 800,
+      duration: 1000,
     },
-    delay: 800,
+    delay: 1000,
   });
 
   return <Container style={animatedProps}>SignUp page</Container>;

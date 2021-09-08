@@ -61,7 +61,7 @@ const Input: React.FC<InputHTMLAttributes<HTMLInputElement>> = ({
 
       <InputContainer
         ref={inputRef}
-        onBlur={() => setPlaceHolderState('in')}
+        onBlur={() => !inputRef.current?.value && setPlaceHolderState('in')}
         onClick={() => setPlaceHolderState('out')}
         {...props}
       />

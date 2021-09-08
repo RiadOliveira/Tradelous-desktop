@@ -7,9 +7,11 @@ const SignIn: React.FC = () => {
   const animatedProps = useSpring({
     from: {
       opacity: 0,
+      display: 'none',
     },
     to: {
       opacity: 1,
+      display: 'block',
     },
     config: {
       duration: 1000,
