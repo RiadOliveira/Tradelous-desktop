@@ -53,6 +53,7 @@ const Main: React.FC = () => {
         side="left"
         isHidden={selectedPage === 'SignIn'}
         $isFull={selectedPage === 'SignUp'}
+        disabled={!!selectedPage}
         onClick={() => setSelectedPage('SignUp')}
       />
 
@@ -80,6 +81,7 @@ const Main: React.FC = () => {
         side="right"
         isHidden={selectedPage === 'SignUp'}
         $isFull={selectedPage === 'SignIn'}
+        disabled={!!selectedPage}
         onClick={() => setSelectedPage('SignIn')}
       />
     </Container>
