@@ -1,6 +1,6 @@
 import React, { ButtonHTMLAttributes, ReactNode } from 'react';
 import { useSpring } from 'react-spring';
-import { Container, Header } from './styles';
+import { Container, ButtonContainer, Header } from './styles';
 
 interface HalfPageProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   header: string;
@@ -48,11 +48,9 @@ const HalfPage: React.FC<HalfPageProps> = ({
   );
 
   return (
-    <Container
-      style={{ ...style, ...animationProps }}
-      $isFull={$isFull}
-      {...props}
-    >
+    <Container style={{ ...style, ...animationProps }} $isFull={$isFull}>
+      {!$isFull && <ButtonContainer {...props} />}
+
       <Header>
         <strong>{header}</strong>
       </Header>

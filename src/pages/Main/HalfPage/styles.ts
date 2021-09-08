@@ -5,7 +5,7 @@ interface HalfPageProps {
   $isFull: boolean;
 }
 
-export const Container = styled(animated.button)<HalfPageProps>`
+export const Container = styled(animated.div)<HalfPageProps>`
   width: 50%;
   height: 100%;
 
@@ -22,13 +22,22 @@ export const Container = styled(animated.button)<HalfPageProps>`
   ${props =>
     !props.$isFull &&
     css`
-      cursor: pointer;
       transition: width 0.5s;
 
       &:hover {
         width: 56%;
       }
     `}
+`;
+
+export const ButtonContainer = styled.button`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  opacity: 0;
+  z-index: 1;
+  cursor: pointer;
 `;
 
 export const Header = styled.header`
