@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { animated } from 'react-spring';
 
 export const Container = styled.div`
-  width: 360px;
-  height: 30px;
+  width: 600px;
+  height: 60px;
   padding: 10px 16px 10px 12px;
 
   background-color: #fff;
@@ -15,18 +15,17 @@ export const Container = styled.div`
   position: relative;
 
   & ~ & {
-    margin-top: 60px;
+    margin-top: 70px;
   }
 `;
 
 export const InputContainer = styled.input`
   flex: 1;
-  max-width: 88%;
 
   outline: 0;
   border: 0;
   font-family: Poppins;
-  font-size: 16px;
+  font-size: 32px;
 
   text-align: center;
 `;
@@ -37,10 +36,17 @@ export const PlaceHolder = styled(animated.button)`
   border: 0;
   background-color: transparent;
 
-  left: 36%;
+  left: 50%;
 
-  font-size: 18px;
+  font-size: 32px;
   font-weight: bold;
 
+  display: flex;
+
   cursor: text;
+
+  p {
+    position: relative;
+    left: -50%;
+  }
 `;

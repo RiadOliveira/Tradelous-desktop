@@ -16,11 +16,11 @@ const Input: React.FC<InputHTMLAttributes<HTMLInputElement>> = ({
   // PlaceHolder animation
   const placeHolderStyles = {
     in: {
-      top: 12,
+      top: -10,
       color: '#000',
     },
     out: {
-      top: -32,
+      top: -76,
       color: '#fff',
     },
   };
@@ -56,7 +56,7 @@ const Input: React.FC<InputHTMLAttributes<HTMLInputElement>> = ({
         }}
         style={placeHolderAnimation}
       >
-        {placeholder}
+        <p>{placeholder}</p>
       </PlaceHolder>
 
       <InputContainer
