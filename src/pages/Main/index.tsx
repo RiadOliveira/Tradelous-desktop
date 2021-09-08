@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSpring } from 'react-spring';
+import { useTransition } from 'react-spring';
 import { MdStoreMallDirectory, MdPersonAdd } from 'react-icons/md';
 import { Container, Content } from './styles';
 
@@ -12,15 +12,18 @@ const Main: React.FC = () => {
     '',
   );
 
-  const animationProps = useSpring({
+  const transition = useTransition(selectedPage, {
     from: {
       opacity: 0,
     },
-    to: {
+    enter: {
       opacity: 1,
     },
+    leave: {
+      opacity: 0,
+    },
     config: {
-      duration: 1000,
+      duration: 800,
     },
   });
 
@@ -29,14 +32,19 @@ const Main: React.FC = () => {
       <HalfPage
         header="Criar conta"
         content={
-          selectedPage === 'SignUp' ? (
-            <SignUp />
-          ) : (
-            <Content style={animationProps}>
-              <MdPersonAdd size={160} />
-              Ainda não possui uma conta? Crie-a agora para iniciar a gestão.
-            </Content>
-          )
+          <>
+            {transition((style, item) =>
+              !item ? (
+                <Content style={style}>
+                  <MdPersonAdd size={160} />
+                  Ainda não possui uma conta? Crie-a agora para iniciar a
+                  gestão.
+                </Content>
+              ) : (
+                item === 'SignUp' && <SignUp />
+              ),
+            )}
+          </>
         }
         style={{
           background: '#49B454',
@@ -51,15 +59,19 @@ const Main: React.FC = () => {
       <HalfPage
         header="Fazer login"
         content={
-          selectedPage === 'SignIn' ? (
-            <SignIn />
-          ) : (
-            <Content style={animationProps}>
-              <MdStoreMallDirectory size={160} />
-              Entrar no Tradelous para gerenciar produtos e vendas de sua
-              empresa.
-            </Content>
-          )
+          <>
+            {transition((style, item) =>
+              !item ? (
+                <Content style={style}>
+                  <MdStoreMallDirectory size={160} />
+                  Entrar no Tradelous para gerenciar produtos e vendas de sua
+                  empresa.
+                </Content>
+              ) : (
+                item === 'SignIn' && <SignIn />
+              ),
+            )}
+          </>
         }
         style={{
           background: '#1c274e',
