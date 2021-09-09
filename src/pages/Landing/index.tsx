@@ -3,11 +3,11 @@ import { useTransition } from 'react-spring';
 import { MdStoreMallDirectory, MdPersonAdd } from 'react-icons/md';
 import { Container, Content } from './styles';
 
-import SignIn from '../SignIn';
-import SignUp from '../SignUp';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
 import HalfPage from './HalfPage';
 
-const Main: React.FC = () => {
+const Landing: React.FC = () => {
   const [selectedPage, setSelectedPage] = useState<'SignUp' | 'SignIn' | ''>(
     '',
   );
@@ -95,4 +95,4 @@ const Main: React.FC = () => {
   );
 };
 
-export default Main;
+export default Landing;
