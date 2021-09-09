@@ -2,6 +2,7 @@ import React from 'react';
 import { useSpring } from 'react-spring';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
+import SideBar from '../../components/SideBar';
 
 import { Container, InputLine, CheckBoxInput } from './styles';
 
@@ -46,6 +47,8 @@ const SignUp: React.FC = () => {
         text="Confirmar"
         style={{ position: 'absolute', bottom: 80 }}
       />
+
+      <SideBar />
     </Container>
   );
 };
