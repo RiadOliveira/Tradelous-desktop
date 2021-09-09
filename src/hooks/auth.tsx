@@ -35,7 +35,7 @@ interface IAuthContextData extends IAuthProps {
   signIn(data: SignInData): Promise<void>;
   updateUser(userData: IUpdateUserData): Promise<void>;
   setUserCompany(isAdmin: boolean, companyId?: string): void;
-  updateUsersAvatar(avatar: string): Promise<void>;
+  updateUsersAvatar(avatar: File): Promise<void>;
   signOut(): void;
 }
 
@@ -82,17 +82,13 @@ const AuthContext: React.FC = ({ children }) => {
   }, []);
 
   const updateUsersAvatar = useCallback(
-    async (avatar: string) => {
+    async (avatar: File) => {
       let data;
 
       if (avatar) {
         data = new FormData();
 
-        data.append('avatar', {
-          name: `${authData.user.id}.jpg`,
-          type: 'image/jpg',
-          uri: avatar,
-        });
+        data.append('avatar', avatar);
       }
 
       const response = await api.patch('/user/update-avatar', data);
@@ -110,7 +106,7 @@ const AuthContext: React.FC = ({ children }) => {
           ...value,
           user: {
             ...value.user,
-            avatar,
+            avatar: avatar.name,
           },
         };
       });
@@ -165,7 +161,6 @@ const AuthContext: React.FC = ({ children }) => {
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const useAuth = () => useContext(authContext);
+const useAuth = (): IAuthContextData => useContext(authContext);
 
 export { AuthContext, useAuth };
