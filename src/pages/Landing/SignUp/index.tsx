@@ -8,6 +8,7 @@ import Input from 'components/Input';
 import SideBar from 'components/SideBar';
 import api from 'services/api';
 
+import { useAuth } from 'hooks/auth';
 import { Container, InputLine, CheckBoxInput, FormContainer } from './styles';
 
 interface ScreenProps {
@@ -29,6 +30,7 @@ interface SignUpData {
 const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useHistory();
+  const { signIn } = useAuth();
 
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -60,6 +62,8 @@ const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
           isAdmin,
         });
 
+        await signIn({ email: data.email, password: data.password });
+
         if (isAdmin) {
           navigation.push('/register-company');
         }
@@ -70,13 +74,11 @@ const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
         //     text2: 'Entre em uma empresa para gerenciar seu estoque.',
         //   });
         // }
-
-        // await signIn(data);
       } catch (err) {
         // ErrorCatcher(err as Error | yup.ValidationError, formRef); Will be made with toast.
       }
     },
-    [isAdmin, navigation],
+    [isAdmin, navigation, signIn],
   );
 
   return (

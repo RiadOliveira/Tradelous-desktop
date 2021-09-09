@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import SideBar from 'components/SideBar';
-import api from 'services/api';
+import { useAuth } from 'hooks/auth';
 import { Container, FormContainer } from './styles';
 
 interface ScreenProps {
@@ -22,29 +22,33 @@ interface SignInData {
 
 const SignIn: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
   const formRef = useRef<FormHandles>(null);
+  const { signIn } = useAuth();
 
-  const handleSubmit = useCallback(async (data: SignInData) => {
-    try {
-      const schema = yup.object().shape({
-        email: yup
-          .string()
-          .required('E-mail obrigatório')
-          .email('Formato de e-mail incorreto'),
-        password: yup
-          .string()
-          .required('Senha obrigatória')
-          .min(6, 'Senha de no mínimo 6 caracteres'),
-      });
+  const handleSubmit = useCallback(
+    async (data: SignInData) => {
+      try {
+        const schema = yup.object().shape({
+          email: yup
+            .string()
+            .required('E-mail obrigatório')
+            .email('Formato de e-mail incorreto'),
+          password: yup
+            .string()
+            .required('Senha obrigatória')
+            .min(6, 'Senha de no mínimo 6 caracteres'),
+        });
 
-      await schema.validate(data, {
-        abortEarly: false,
-      });
+        await schema.validate(data, {
+          abortEarly: false,
+        });
 
-      await api.post('/user/sessions', data);
-    } catch (err) {
-      // ErrorCatcher(err as Error | yup.ValidationError, formRef); Will be made with toasts.
-    }
-  }, []);
+        await signIn(data);
+      } catch (err) {
+        // ErrorCatcher(err as Error | yup.ValidationError, formRef); Will be made with toasts.
+      }
+    },
+    [signIn],
+  );
 
   return (
     <Container style={animatedStyle}>
