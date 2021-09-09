@@ -1,5 +1,6 @@
 import { FormHandles } from '@unform/core';
 import React, { useCallback, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { SpringValue } from 'react-spring';
 import * as yup from 'yup';
 import Button from '../../../components/Button';
@@ -27,6 +28,7 @@ interface SignUpData {
 
 const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
   const formRef = useRef<FormHandles>(null);
+  const navigation = useHistory();
 
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -58,9 +60,10 @@ const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
           isAdmin,
         });
 
-        // if (switchValue) {
-        //   navigation.navigate('RegisterCompany');
-        // } else {
+        if (isAdmin) {
+          navigation.push('/register-company');
+        }
+        // else {
         //   Toast.show({
         //     type: 'success',
         //     text1: 'Cadastro realizado com sucesso!',
@@ -73,7 +76,7 @@ const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
         // ErrorCatcher(err as Error | yup.ValidationError, formRef); Will be made with toast.
       }
     },
-    [isAdmin],
+    [isAdmin, navigation],
   );
 
   return (

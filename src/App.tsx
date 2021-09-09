@@ -1,6 +1,6 @@
 import React from 'react';
-import Main from './pages/Landing';
+import Routes from './routes';
 
-const App: React.FC = () => <Main />;
+const App: React.FC = () => <Routes />;
 
 export default App;

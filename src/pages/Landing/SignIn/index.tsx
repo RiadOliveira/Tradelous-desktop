@@ -41,8 +41,6 @@ const SignIn: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
       });
 
       await api.post('/user/sessions', data);
-
-      // await signIn(data);
     } catch (err) {
       // ErrorCatcher(err as Error | yup.ValidationError, formRef); Will be made with toasts.
     }
