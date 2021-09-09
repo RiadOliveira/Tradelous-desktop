@@ -2,6 +2,7 @@ import React, { useCallback, useRef } from 'react';
 import { SpringValue } from 'react-spring';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
+import * as yup from 'yup';
 import { Container } from './styles';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -24,8 +25,28 @@ const SignIn: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(async (data: SignInData) => {
-    console.log(data);
-    // await api.post('/user/sessions', data);
+    try {
+      const schema = yup.object().shape({
+        email: yup
+          .string()
+          .required('E-mail obrigatório')
+          .email('Formato de e-mail incorreto'),
+        password: yup
+          .string()
+          .required('Senha obrigatória')
+          .min(6, 'Senha de no mínimo 6 caracteres'),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
+      await api.post('/user/sessions', data);
+
+      // await signIn(data);
+    } catch (err) {
+      // ErrorCatcher(err as Error | yup.ValidationError, formRef); Will be made with toasts.
+    }
   }, []);
 
   return (
@@ -37,7 +58,7 @@ const SignIn: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
 
       <Button
         text="Entrar"
-        onClick={formRef.current?.submitForm}
+        onClick={() => formRef.current?.submitForm()}
         color="#49B454"
         style={{ position: 'absolute', bottom: 80 }}
       />

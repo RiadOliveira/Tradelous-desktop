@@ -67,6 +67,7 @@ const Input: React.FC<InputProps> = ({
   return (
     <Container style={style}>
       <PlaceHolder
+        type="button"
         onClick={() => {
           setPlaceHolderState('out');
           inputRef.current?.focus();
@@ -79,7 +80,7 @@ const Input: React.FC<InputProps> = ({
       <InputContainer
         ref={inputRef}
         onBlur={() => !inputRef.current?.value && setPlaceHolderState('in')}
-        onClick={() => setPlaceHolderState('out')}
+        onFocus={() => setPlaceHolderState('out')}
         {...props}
       />
     </Container>
