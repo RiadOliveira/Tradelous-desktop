@@ -1,9 +1,15 @@
 import { useSpring } from 'react-spring';
-import React, { InputHTMLAttributes, useRef, useState } from 'react';
+import React, { InputHTMLAttributes, useEffect, useRef, useState } from 'react';
+import { useField } from '@unform/core';
 
 import { Container, InputContainer, PlaceHolder } from './styles';
 
-const Input: React.FC<InputHTMLAttributes<HTMLInputElement>> = ({
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  name: string;
+}
+
+const Input: React.FC<InputProps> = ({
+  name,
   placeholder,
   style,
   ...props
@@ -13,6 +19,16 @@ const Input: React.FC<InputHTMLAttributes<HTMLInputElement>> = ({
   const [placeHolderState, setPlaceHolderState] = useState<
     'in' | 'out' | 'none'
   >('none');
+
+  const { fieldName, registerField } = useField(name);
+
+  useEffect(() => {
+    registerField({
+      name: fieldName,
+      ref: inputRef.current,
+      path: 'value',
+    });
+  }, [fieldName, registerField]);
 
   // PlaceHolder animation
   const placeHolderStyles = {

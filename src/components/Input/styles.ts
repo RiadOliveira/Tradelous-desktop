@@ -38,7 +38,6 @@ export const PlaceHolder = styled(animated.button)`
   font-weight: bold;
 
   display: flex;
-
   cursor: text;
 
   p {
