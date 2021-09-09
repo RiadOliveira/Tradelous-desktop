@@ -2,11 +2,11 @@ import React, { useCallback, useRef } from 'react';
 import { SpringValue } from 'react-spring';
 import { FormHandles } from '@unform/core';
 import * as yup from 'yup';
+import Button from 'components/Button';
+import Input from 'components/Input';
+import SideBar from 'components/SideBar';
+import api from 'services/api';
 import { Container, FormContainer } from './styles';
-import Button from '../../../components/Button';
-import Input from '../../../components/Input';
-import SideBar from '../../../components/SideBar';
-import api from '../../../services/api';
 
 interface ScreenProps {
   resetFunction: () => void;

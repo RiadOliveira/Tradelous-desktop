@@ -3,10 +3,10 @@ import React, { useCallback, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { SpringValue } from 'react-spring';
 import * as yup from 'yup';
-import Button from '../../../components/Button';
-import Input from '../../../components/Input';
-import SideBar from '../../../components/SideBar';
-import api from '../../../services/api';
+import Button from 'components/Button';
+import Input from 'components/Input';
+import SideBar from 'components/SideBar';
+import api from 'services/api';
 
 import { Container, InputLine, CheckBoxInput, FormContainer } from './styles';
 

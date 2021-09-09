@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Landing from '../pages/Landing';
-import RegisterCompany from '../pages/RegisterCompany';
+import Landing from 'pages/Landing';
+import RegisterCompany from 'pages/RegisterCompany';
 
 const Routes: React.FC = () => {
   return (
