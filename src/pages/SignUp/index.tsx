@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSpring } from 'react-spring';
+import { SpringValue } from 'react-spring';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import SideBar from '../../components/SideBar';
@@ -8,26 +8,14 @@ import { Container, InputLine, CheckBoxInput } from './styles';
 
 interface ScreenProps {
   resetFunction: () => void;
+  animatedStyle: {
+    [key: string]: SpringValue;
+  };
 }
 
-const SignUp: React.FC<ScreenProps> = ({ resetFunction }) => {
-  const animatedProps = useSpring({
-    from: {
-      opacity: 0,
-      display: 'none',
-    },
-    to: {
-      opacity: 1,
-      display: 'flex',
-    },
-    config: {
-      duration: 1000,
-    },
-    delay: 1000,
-  });
-
+const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
   return (
-    <Container style={animatedProps}>
+    <Container style={animatedStyle}>
       <InputLine>
         <Input placeholder="Nome" />
         <Input placeholder="E-mail" />

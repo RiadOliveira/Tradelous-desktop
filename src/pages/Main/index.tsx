@@ -15,15 +15,18 @@ const Main: React.FC = () => {
   const transition = useTransition(selectedPage, {
     from: {
       opacity: 0,
+      display: 'none',
     },
     enter: {
       opacity: 1,
+      display: 'flex',
+      delay: 500,
     },
     leave: {
       opacity: 0,
     },
     config: {
-      duration: 800,
+      duration: 500,
     },
   });
 
@@ -43,7 +46,9 @@ const Main: React.FC = () => {
                   gestão.
                 </Content>
               ) : (
-                item === 'SignUp' && <SignUp resetFunction={resetScreen} />
+                item === 'SignUp' && (
+                  <SignUp animatedStyle={style} resetFunction={resetScreen} />
+                )
               ),
             )}
           </>
@@ -52,7 +57,6 @@ const Main: React.FC = () => {
           background: '#49B454',
           left: 0,
         }}
-        side="left"
         isHidden={selectedPage === 'SignIn'}
         $isFull={selectedPage === 'SignUp'}
         disabled={!!selectedPage}
@@ -71,7 +75,9 @@ const Main: React.FC = () => {
                   empresa.
                 </Content>
               ) : (
-                item === 'SignIn' && <SignIn resetFunction={resetScreen} />
+                item === 'SignIn' && (
+                  <SignIn animatedStyle={style} resetFunction={resetScreen} />
+                )
               ),
             )}
           </>
@@ -80,7 +86,6 @@ const Main: React.FC = () => {
           background: '#1c274e',
           right: 0,
         }}
-        side="right"
         isHidden={selectedPage === 'SignUp'}
         $isFull={selectedPage === 'SignIn'}
         disabled={!!selectedPage}

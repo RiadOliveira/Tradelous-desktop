@@ -1,4 +1,10 @@
-import React, { ButtonHTMLAttributes, ReactNode } from 'react';
+import React, {
+  ButtonHTMLAttributes,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useSpring } from 'react-spring';
 import { Container, ButtonContainer, Header } from './styles';
 
@@ -7,7 +13,6 @@ interface HalfPageProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   content: ReactNode;
   $isFull: boolean;
   isHidden: boolean;
-  side: 'left' | 'right';
 }
 
 const HalfPage: React.FC<HalfPageProps> = ({
@@ -16,39 +21,120 @@ const HalfPage: React.FC<HalfPageProps> = ({
   style,
   $isFull,
   isHidden,
-  side,
   ...props
 }) => {
-  const animationStates = [
-    {
-      from: {
-        width: '50%',
+  const animationStates = useMemo(
+    () => [
+      {
+        from: {
+          width: '50%',
+        },
+        to: {
+          width: '100%',
+          zIndex: 1,
+          position: 'absolute',
+        },
+        config: {
+          duration: 500,
+        },
       },
-      to: {
-        width: '100%',
-        position: 'absolute',
-        zIndex: 1,
+      {
+        from: {
+          width: '50%',
+        },
+        to: {
+          position: 'absolute',
+          zIndex: -1,
+          width: '30%',
+        },
+        config: {
+          duration: 170,
+        },
       },
-      config: {
-        duration: 500,
+      {
+        from: {
+          position: 'absolute',
+          zIndex: -1,
+        },
+        to: {
+          zIndex: 1,
+          position: 'relative',
+          width: '50%',
+        },
+        config: {
+          duration: 300,
+        },
       },
-    },
-    {
-      to: {
-        position: 'absolute',
-        [side]: 0,
-        zIndex: -1,
-      },
-    },
-  ];
-
-  const animationProps = useSpring(
-    // eslint-disable-next-line no-nested-ternary
-    $isFull ? animationStates[0] : isHidden ? animationStates[1] : {},
+    ],
+    [],
   );
 
+  const hoverStates = useMemo(
+    () => [
+      {
+        from: {
+          width: '50%',
+        },
+        to: {
+          width: '56%',
+        },
+        config: {
+          duration: 250,
+        },
+      },
+      {
+        from: {
+          width: '56%',
+        },
+        to: {
+          width: '50%',
+        },
+        config: {
+          duration: 250,
+        },
+      },
+    ],
+    [],
+  );
+
+  const [selectedAnimation, setSelectedAnimation] = useState({});
+  const [selectedHoverState, setSelectedHoverState] = useState({});
+
+  useEffect(() => {
+    if (
+      (selectedAnimation === animationStates[0] && !$isFull) ||
+      (selectedAnimation === animationStates[1] && !isHidden)
+    ) {
+      setTimeout(() => setSelectedAnimation(animationStates[2]), 600);
+    } else if (!$isFull && !isHidden) {
+      setSelectedAnimation(selectedHoverState);
+    } else if ($isFull) {
+      setSelectedAnimation(animationStates[0]);
+    } else if (isHidden) {
+      setSelectedAnimation(animationStates[1]);
+    }
+  }, [
+    $isFull,
+    animationStates,
+    isHidden,
+    selectedAnimation,
+    selectedHoverState,
+  ]);
+
+  const handleHoverState = (state: number) => {
+    if (!$isFull && !isHidden) {
+      setSelectedHoverState(hoverStates[state]);
+    }
+  };
+
+  const animationProps = useSpring(selectedAnimation);
+
   return (
-    <Container style={{ ...style, ...animationProps }} $isFull={$isFull}>
+    <Container
+      style={{ ...style, ...animationProps }}
+      onMouseEnter={() => handleHoverState(0)}
+      onMouseOut={() => handleHoverState(1)}
+    >
       {!$isFull && <ButtonContainer {...props} />}
 
       <Header>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSpring } from 'react-spring';
+import { SpringValue } from 'react-spring';
 import { Container } from './styles';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -7,26 +7,14 @@ import SideBar from '../../components/SideBar';
 
 interface ScreenProps {
   resetFunction: () => void;
+  animatedStyle: {
+    [key: string]: SpringValue;
+  };
 }
 
-const SignIn: React.FC<ScreenProps> = ({ resetFunction }) => {
-  const animatedProps = useSpring({
-    from: {
-      opacity: 0,
-      display: 'none',
-    },
-    to: {
-      opacity: 1,
-      display: 'flex',
-    },
-    config: {
-      duration: 1000,
-    },
-    delay: 1000,
-  });
-
+const SignIn: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
   return (
-    <Container style={animatedProps}>
+    <Container style={animatedStyle}>
       <Input placeholder="E-mail" style={{ marginBottom: 80 }} />
       <Input placeholder="Senha" />
 

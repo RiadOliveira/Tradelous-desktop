@@ -1,11 +1,7 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { animated } from 'react-spring';
 
-interface HalfPageProps {
-  $isFull: boolean;
-}
-
-export const Container = styled(animated.div)<HalfPageProps>`
+export const Container = styled(animated.div)`
   width: 50%;
   height: 100%;
 
@@ -18,16 +14,6 @@ export const Container = styled(animated.div)<HalfPageProps>`
 
   justify-content: center;
   align-items: center;
-
-  ${props =>
-    !props.$isFull &&
-    css`
-      transition: width 0.5s;
-
-      &:hover {
-        width: 56%;
-      }
-    `}
 `;
 
 export const ButtonContainer = styled.button`
