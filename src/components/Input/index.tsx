@@ -5,6 +5,7 @@ import { Container, InputContainer, PlaceHolder } from './styles';
 
 const Input: React.FC<InputHTMLAttributes<HTMLInputElement>> = ({
   placeholder,
+  style,
   ...props
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -48,7 +49,7 @@ const Input: React.FC<InputHTMLAttributes<HTMLInputElement>> = ({
   );
 
   return (
-    <Container>
+    <Container style={style}>
       <PlaceHolder
         onClick={() => {
           setPlaceHolderState('out');

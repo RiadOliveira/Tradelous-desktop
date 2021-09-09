@@ -22,7 +22,7 @@ const SignIn: React.FC = () => {
 
   return (
     <Container style={animatedProps}>
-      <Input placeholder="E-mail" />
+      <Input placeholder="E-mail" style={{ marginBottom: 80 }} />
       <Input placeholder="Senha" />
 
       <Button

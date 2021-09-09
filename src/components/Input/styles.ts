@@ -13,10 +13,6 @@ export const Container = styled.div`
   justify-content: space-between;
 
   position: relative;
-
-  & ~ & {
-    margin-top: 70px;
-  }
 `;
 
 export const InputContainer = styled.input`
