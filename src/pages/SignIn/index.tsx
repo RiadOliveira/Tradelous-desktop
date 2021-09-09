@@ -1,10 +1,15 @@
 import React from 'react';
 import { useSpring } from 'react-spring';
+import { Container } from './styles';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import { Container } from './styles';
+import SideBar from '../../components/SideBar';
 
-const SignIn: React.FC = () => {
+interface ScreenProps {
+  resetFunction: () => void;
+}
+
+const SignIn: React.FC<ScreenProps> = ({ resetFunction }) => {
   const animatedProps = useSpring({
     from: {
       opacity: 0,
@@ -30,6 +35,8 @@ const SignIn: React.FC = () => {
         color="#49B454"
         style={{ position: 'absolute', bottom: 80 }}
       />
+
+      <SideBar side="left" actionFunction={resetFunction} />
     </Container>
   );
 };

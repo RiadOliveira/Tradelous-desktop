@@ -1,12 +1,18 @@
 import React from 'react';
 
-import { Container, Icon } from './styles';
+import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md';
+import { Container } from './styles';
 
-const SideBar: React.FC = () => {
+interface SideBarProps {
+  side: 'left' | 'right';
+  actionFunction: () => void;
+}
+
+const SideBar: React.FC<SideBarProps> = ({ side, actionFunction }) => {
   return (
-    <Container>
+    <Container side={side} onClick={actionFunction}>
       <aside>
-        <Icon color="#fff" />
+        {side === 'left' ? <MdKeyboardArrowLeft /> : <MdKeyboardArrowRight />}
       </aside>
     </Container>
   );

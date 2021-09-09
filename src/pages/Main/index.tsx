@@ -27,6 +27,8 @@ const Main: React.FC = () => {
     },
   });
 
+  const resetScreen = () => setSelectedPage('');
+
   return (
     <Container>
       <HalfPage
@@ -41,7 +43,7 @@ const Main: React.FC = () => {
                   gestão.
                 </Content>
               ) : (
-                item === 'SignUp' && <SignUp />
+                item === 'SignUp' && <SignUp resetFunction={resetScreen} />
               ),
             )}
           </>
@@ -69,7 +71,7 @@ const Main: React.FC = () => {
                   empresa.
                 </Content>
               ) : (
-                item === 'SignIn' && <SignIn />
+                item === 'SignIn' && <SignIn resetFunction={resetScreen} />
               ),
             )}
           </>

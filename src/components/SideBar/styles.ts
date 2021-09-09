@@ -1,17 +1,16 @@
-import styled from 'styled-components';
-import { MdKeyboardArrowRight } from 'react-icons/md';
+import styled, { css } from 'styled-components';
 
-export const Icon = styled(MdKeyboardArrowRight)`
-  width: 35px;
-  height: 35px;
+interface SideBarProps {
+  side: 'left' | 'right';
+}
 
-  transition: 0.2s;
-`;
-
-export const Container = styled.button`
+export const Container = styled.button<SideBarProps>`
   position: absolute;
-  right: 0;
   top: 0;
+  ${({ side }) =>
+    css`
+      ${side === 'left' ? 'left: 0' : 'right: 0'};
+    `}
 
   border: 0;
   outline: 0;
@@ -27,8 +26,17 @@ export const Container = styled.button`
   align-items: center;
   justify-content: center;
 
+  svg {
+    width: 35px;
+    height: 35px;
+
+    color: #fff;
+
+    transition: 0.2s;
+  }
+
   &:hover {
-    ${Icon} {
+    svg {
       width: 45px;
       height: 45px;
     }

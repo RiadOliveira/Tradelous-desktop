@@ -6,7 +6,11 @@ import SideBar from '../../components/SideBar';
 
 import { Container, InputLine, CheckBoxInput } from './styles';
 
-const SignUp: React.FC = () => {
+interface ScreenProps {
+  resetFunction: () => void;
+}
+
+const SignUp: React.FC<ScreenProps> = ({ resetFunction }) => {
   const animatedProps = useSpring({
     from: {
       opacity: 0,
@@ -48,7 +52,7 @@ const SignUp: React.FC = () => {
         style={{ position: 'absolute', bottom: 80 }}
       />
 
-      <SideBar />
+      <SideBar side="right" actionFunction={resetFunction} />
     </Container>
   );
 };
