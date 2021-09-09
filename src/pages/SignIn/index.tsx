@@ -1,9 +1,8 @@
 import React, { useCallback, useRef } from 'react';
 import { SpringValue } from 'react-spring';
-import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as yup from 'yup';
-import { Container } from './styles';
+import { Container, FormContainer } from './styles';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import SideBar from '../../components/SideBar';
@@ -51,10 +50,10 @@ const SignIn: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
 
   return (
     <Container style={animatedStyle}>
-      <Form ref={formRef} onSubmit={handleSubmit}>
+      <FormContainer ref={formRef} onSubmit={handleSubmit}>
         <Input name="email" placeholder="E-mail" style={{ marginBottom: 80 }} />
         <Input name="password" placeholder="Senha" />
-      </Form>
+      </FormContainer>
 
       <Button
         text="Entrar"
