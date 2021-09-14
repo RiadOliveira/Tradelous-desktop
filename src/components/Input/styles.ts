@@ -2,21 +2,22 @@ import styled from 'styled-components';
 import { animated } from 'react-spring';
 
 export const Container = styled.div`
-  width: 600px;
-  height: 60px;
-  padding: 10px 16px 10px 12px;
+  width: 560px;
+  height: 80px;
+  border-radius: 5px;
 
   background-color: #fff;
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 
   position: relative;
 `;
 
 export const InputContainer = styled.input`
-  flex: 1;
+  width: 90%;
+  height: 70%;
 
   outline: 0;
   border: 0;
