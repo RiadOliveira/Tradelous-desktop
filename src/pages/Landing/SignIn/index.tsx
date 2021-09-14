@@ -54,7 +54,13 @@ const SignIn: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
     <Container style={animatedStyle}>
       <FormContainer ref={formRef} onSubmit={handleSubmit}>
         <Input name="email" placeholder="E-mail" style={{ marginBottom: 80 }} />
-        <Input name="password" placeholder="Senha" />
+        <Input
+          name="password"
+          placeholder="Senha"
+          onKeyPress={key =>
+            key.code === 'Enter' && formRef.current?.submitForm()
+          }
+        />
       </FormContainer>
 
       <Button

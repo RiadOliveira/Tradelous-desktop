@@ -36,7 +36,7 @@ export const InputLine = styled.div`
 
 export const CheckBoxInput = styled.div`
   display: flex;
-  width: 628px;
+  width: 560px;
   gap: 16px;
 
   align-items: center;

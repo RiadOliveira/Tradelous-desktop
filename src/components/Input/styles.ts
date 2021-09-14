@@ -40,6 +40,7 @@ export const PlaceHolder = styled(animated.button)`
 
   display: flex;
   cursor: text;
+  user-select: none;
 
   p {
     position: relative;

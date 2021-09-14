@@ -1,5 +1,11 @@
 import { useSpring } from 'react-spring';
-import React, { InputHTMLAttributes, useEffect, useRef, useState } from 'react';
+import React, {
+  InputHTMLAttributes,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useField } from '@unform/core';
 
 import { Container, InputContainer, PlaceHolder } from './styles';
@@ -64,14 +70,18 @@ const Input: React.FC<InputProps> = ({
     placeHolderAnimations[placeHolderState],
   );
 
+  // PlaceHolde action
+  const placeHolderHandle = useCallback(() => {
+    setPlaceHolderState('out');
+    inputRef.current?.focus();
+  }, []);
+
   return (
     <Container style={style}>
       <PlaceHolder
         type="button"
-        onClick={() => {
-          setPlaceHolderState('out');
-          inputRef.current?.focus();
-        }}
+        onClick={placeHolderHandle}
+        onFocus={placeHolderHandle}
         style={placeHolderAnimation}
       >
         <p>{placeholder}</p>
@@ -81,6 +91,7 @@ const Input: React.FC<InputProps> = ({
         ref={inputRef}
         onBlur={() => !inputRef.current?.value && setPlaceHolderState('in')}
         onFocus={() => setPlaceHolderState('out')}
+        onKeyPress={key => key.code === 'Enter' && inputRef.current?.blur()}
         {...props}
       />
     </Container>
