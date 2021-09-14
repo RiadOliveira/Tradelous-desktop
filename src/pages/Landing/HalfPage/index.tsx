@@ -106,6 +106,7 @@ const HalfPage: React.FC<HalfPageProps> = ({
       (selectedAnimation === animationStates[1] && !isHidden)
     ) {
       setTimeout(() => setSelectedAnimation(animationStates[2]), 600);
+      setTimeout(() => true, 300); // In order to wait animation time to set another state.
     } else if (!$isFull && !isHidden) {
       setSelectedAnimation(selectedHoverState);
     } else if ($isFull) {
