@@ -8,16 +8,19 @@ import React, {
 } from 'react';
 import { useField } from '@unform/core';
 
+import { IconType } from 'react-icons';
 import { Container, InputContainer, PlaceHolder } from './styles';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
+  Icon: IconType;
 }
 
 const Input: React.FC<InputProps> = ({
   name,
   placeholder,
   style,
+  Icon,
   ...props
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -84,6 +87,7 @@ const Input: React.FC<InputProps> = ({
         onFocus={placeHolderHandle}
         style={placeHolderAnimation}
       >
+        <Icon />
         <p>{placeholder}</p>
       </PlaceHolder>
 
