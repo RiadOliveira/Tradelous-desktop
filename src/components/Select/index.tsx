@@ -1,17 +1,30 @@
-import React, { SelectHTMLAttributes } from 'react';
+import React, { useState } from 'react';
 import { IconType } from 'react-icons';
-import { Container, PlaceHolder, SelectContainer, ArrowIcon } from './styles';
+import {
+  Container,
+  PlaceHolder,
+  SelectContainer,
+  Option,
+  ArrowIcon,
+} from './styles';
 
-interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
+interface OptionProps {
+  id: string;
+  [key: string]: string;
+}
+
+interface SelectProps {
   placeHolder: string;
   Icon: IconType;
+  data: OptionProps[];
+  optionValueReference: string;
 }
 
 const Select: React.FC<SelectProps> = ({
-  children,
   placeHolder,
   Icon,
-  ...props
+  data,
+  optionValueReference,
 }) => {
   return (
     <Container>
@@ -24,7 +37,11 @@ const Select: React.FC<SelectProps> = ({
 
       <ArrowIcon size={40} />
 
-      <SelectContainer {...props}>{children}</SelectContainer>
+      <SelectContainer>
+        {data?.map(value => (
+          <Option key={value.id}>{value[optionValueReference]}</Option>
+        ))}
+      </SelectContainer>
     </Container>
   );
 };

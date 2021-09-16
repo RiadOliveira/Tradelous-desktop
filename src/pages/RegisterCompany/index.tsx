@@ -11,15 +11,20 @@ import { MdDomain, MdPlace } from 'react-icons/md';
 import Select from 'components/Select';
 import { Container, Header, InputLine, FormContainer } from './styles';
 
-interface IBrazilianState {
-  id: number;
+interface OptionProps {
+  [key: string]: string;
+}
+
+interface IBrazilianState extends OptionProps {
+  id: string;
   nome: string;
   sigla: string;
 }
 
-interface IBrazilianCity {
-  id: number;
+interface IBrazilianCity extends OptionProps {
+  id: string;
   nome: string;
+  [key: string]: string;
 }
 
 interface RegisterCompanyData {
@@ -104,7 +109,7 @@ const RegisterCompany: React.FC = () => {
           />
         </InputLine>
 
-        <InputLine>
+        {/* <InputLine>
           <Select
             placeHolder="Estado"
             Icon={MdPlace}
@@ -124,6 +129,20 @@ const RegisterCompany: React.FC = () => {
               </option>
             ))}
           </Select>
+        </InputLine> */}
+        <InputLine>
+          <Select
+            data={allStates}
+            optionValueReference="nome"
+            placeHolder="Estado"
+            Icon={MdPlace}
+          />
+          <Select
+            data={stateCitys}
+            optionValueReference="nome"
+            placeHolder="Estado"
+            Icon={MdPlace}
+          />
         </InputLine>
       </FormContainer>
 

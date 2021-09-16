@@ -40,7 +40,7 @@ export const ArrowIcon = styled(MdArrowDropDown)`
   top: 30%;
 `;
 
-export const SelectContainer = styled.select`
+export const SelectContainer = styled.button`
   width: 100%;
   height: 100%;
   border: 0;
@@ -64,3 +64,5 @@ export const SelectContainer = styled.select`
     font-size: 14px;
   }
 `;
+
+export const Option = styled.div``;
