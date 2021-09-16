@@ -12,4 +12,11 @@ export const Container = styled.select`
   font-family: Poppins;
   font-weight: bold;
   font-size: 28px;
+
+  text-align-last: center;
+  text-align: center;
+
+  option {
+    font-size: 14px;
+  }
 `;

@@ -8,11 +8,18 @@ import api from 'services/api';
 
 import { useAuth } from 'hooks/auth';
 import { MdDomain, MdPlace } from 'react-icons/md';
+import Select from 'components/Select';
 import { Container, Header, InputLine, FormContainer } from './styles';
 
 interface IBrazilianState {
+  id: number;
   nome: string;
   sigla: string;
+}
+
+interface IBrazilianCity {
+  id: number;
+  nome: string;
 }
 
 interface RegisterCompanyData {
@@ -27,30 +34,28 @@ const RegisterCompany: React.FC = () => {
   const { user } = useAuth();
 
   const [allStates, setAllStates] = useState<IBrazilianState[]>([]);
+  const [selectedStateId, setSelectedStateId] = useState(12); // Id of first state on API
+
+  const [stateCitys, setStateCitys] = useState<IBrazilianCity[]>([]);
 
   useEffect(() => {
     api
       .get<IBrazilianState[]>(
-        'https://servicodados.ibge.gov.br/api/v1/localidades/estados',
+        'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome',
         {
           baseURL: '',
         },
       )
-      .then(response => {
-        setAllStates(() =>
-          response.data.sort((a, b) => {
-            if (a.sigla > b.sigla) {
-              return 1;
-            }
-            if (b.sigla > a.sigla) {
-              return -1;
-            }
-
-            return 0;
-          }),
-        );
-      });
+      .then(({ data }) => setAllStates(data));
   }, []);
+
+  useEffect(() => {
+    api
+      .get(
+        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedStateId}/municipios?orderBy=nome`,
+      )
+      .then(({ data }) => setStateCitys(data));
+  }, [selectedStateId]);
 
   const handleSubmit = useCallback(
     async (data: RegisterCompanyData) => {
@@ -100,14 +105,23 @@ const RegisterCompany: React.FC = () => {
         </InputLine>
 
         <InputLine>
-          <Input name="city" placeholder="Cidade" Icon={MdPlace} />
-          <select>
+          <Select
+            onChange={event => setSelectedStateId(Number(event.target.value))}
+          >
             {allStates.map(state => (
-              <option value={state.sigla} key={state.sigla}>
+              <option value={state.id} key={state.id}>
                 {state.nome}
               </option>
             ))}
-          </select>
+          </Select>
+
+          <Select>
+            {stateCitys.map(city => (
+              <option value={city.nome} key={city.id}>
+                {city.nome}
+              </option>
+            ))}
+          </Select>
         </InputLine>
       </FormContainer>
 
