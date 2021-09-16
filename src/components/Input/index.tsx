@@ -46,7 +46,7 @@ const Input: React.FC<InputProps> = ({
       color: '#000',
     },
     out: {
-      top: -76,
+      top: -78,
       color: '#fff',
     },
   };
@@ -87,8 +87,10 @@ const Input: React.FC<InputProps> = ({
         onFocus={placeHolderHandle}
         style={placeHolderAnimation}
       >
-        <Icon />
-        <p>{placeholder}</p>
+        <div>
+          <Icon size={32} />
+          <p>{placeholder}</p>
+        </div>
       </PlaceHolder>
 
       <InputContainer

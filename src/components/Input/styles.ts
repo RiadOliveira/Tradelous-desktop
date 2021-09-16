@@ -46,11 +46,16 @@ export const PlaceHolder = styled(animated.button)`
   font-weight: bold;
 
   display: flex;
+
   cursor: text;
   user-select: none;
 
-  p {
+  div {
     position: relative;
     left: -50%;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 `;

@@ -9,8 +9,6 @@ export const Container = styled(animated.div)`
   width: 100%;
   align-items: center;
   flex-direction: column;
-
-  margin-top: -60px;
 `;
 
 export const FormContainer = styled(Form)`
