@@ -106,6 +106,8 @@ const RegisterCompany: React.FC = () => {
 
         <InputLine>
           <Select
+            placeHolder="Estado"
+            Icon={MdPlace}
             onChange={event => setSelectedStateId(Number(event.target.value))}
           >
             {allStates.map(state => (
@@ -115,7 +117,7 @@ const RegisterCompany: React.FC = () => {
             ))}
           </Select>
 
-          <Select>
+          <Select Icon={MdPlace} placeHolder="Cidade">
             {stateCitys.map(city => (
               <option value={city.nome} key={city.id}>
                 {city.nome}
