@@ -25,6 +25,13 @@ export const InputContainer = styled.input`
   font-size: 32px;
 
   text-align: center;
+
+  &[type='number'] {
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
 `;
 
 export const PlaceHolder = styled(animated.button)`

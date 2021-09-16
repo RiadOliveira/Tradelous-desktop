@@ -91,7 +91,7 @@ const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
 
         <InputLine>
           <Input name="password" placeholder="Senha" />
-          <Input name="cpf" placeholder="Cpf" />
+          <Input name="cpf" placeholder="CPF" />
         </InputLine>
 
         <InputLine>
