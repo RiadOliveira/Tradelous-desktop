@@ -1,5 +1,5 @@
 import { FormHandles } from '@unform/core';
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 import Button from 'components/Button';
@@ -9,6 +9,11 @@ import api from 'services/api';
 import { useAuth } from 'hooks/auth';
 import { MdDomain, MdPlace } from 'react-icons/md';
 import { Container, Header, InputLine, FormContainer } from './styles';
+
+interface IBrazilianState {
+  nome: string;
+  sigla: string;
+}
 
 interface RegisterCompanyData {
   name: string;
@@ -20,6 +25,32 @@ const RegisterCompany: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useHistory();
   const { user } = useAuth();
+
+  const [allStates, setAllStates] = useState<IBrazilianState[]>([]);
+
+  useEffect(() => {
+    api
+      .get<IBrazilianState[]>(
+        'https://servicodados.ibge.gov.br/api/v1/localidades/estados',
+        {
+          baseURL: '',
+        },
+      )
+      .then(response => {
+        setAllStates(() =>
+          response.data.sort((a, b) => {
+            if (a.sigla > b.sigla) {
+              return 1;
+            }
+            if (b.sigla > a.sigla) {
+              return -1;
+            }
+
+            return 0;
+          }),
+        );
+      });
+  }, []);
 
   const handleSubmit = useCallback(
     async (data: RegisterCompanyData) => {
@@ -70,8 +101,13 @@ const RegisterCompany: React.FC = () => {
 
         <InputLine>
           <Input name="city" placeholder="Cidade" Icon={MdPlace} />
-          <Input name="state" placeholder="Estado" Icon={MdPlace} />{' '}
-          {/* companyState will be changed to a Select */}
+          <select>
+            {allStates.map(state => (
+              <option value={state.sigla} key={state.sigla}>
+                {state.nome}
+              </option>
+            ))}
+          </select>
         </InputLine>
       </FormContainer>
 
