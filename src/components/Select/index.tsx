@@ -1,6 +1,6 @@
 import React, { SelectHTMLAttributes } from 'react';
 import { IconType } from 'react-icons';
-import { Container, PlaceHolder, SelectContainer } from './styles';
+import { Container, PlaceHolder, SelectContainer, ArrowIcon } from './styles';
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   placeHolder: string;
@@ -21,6 +21,8 @@ const Select: React.FC<SelectProps> = ({
           <p>{placeHolder}</p>
         </div>
       </PlaceHolder>
+
+      <ArrowIcon size={40} />
 
       <SelectContainer {...props}>{children}</SelectContainer>
     </Container>
