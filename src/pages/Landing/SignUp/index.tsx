@@ -8,6 +8,7 @@ import Input from 'components/Input';
 import SideBar from 'components/SideBar';
 import api from 'services/api';
 
+import { MdLock, MdMail, MdPerson } from 'react-icons/md';
 import { useAuth } from 'hooks/auth';
 import { Container, InputLine, CheckBoxInput, FormContainer } from './styles';
 
@@ -21,7 +22,6 @@ interface ScreenProps {
 interface SignUpData {
   name: string;
   email: string;
-  cpf: string;
   isAdmin: boolean;
   password: string;
   confirmPassword: string;
@@ -85,17 +85,20 @@ const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
     <Container style={animatedStyle}>
       <FormContainer ref={formRef} onSubmit={handleSubmit}>
         <InputLine>
-          <Input name="name" placeholder="Nome" />
-          <Input name="email" placeholder="E-mail" />
+          <Input name="name" placeholder="Nome" Icon={MdPerson} />
+          <Input name="email" placeholder="E-mail" Icon={MdMail} />
         </InputLine>
 
         <InputLine>
-          <Input name="password" placeholder="Senha" />
-          <Input name="cpf" placeholder="CPF" />
+          <Input name="password" placeholder="Senha" Icon={MdLock} />
+          <Input
+            name="confirmPassword"
+            placeholder="Confirmar senha"
+            Icon={MdLock}
+          />
         </InputLine>
 
         <InputLine>
-          <Input name="confirmPassword" placeholder="Confirmar senha" />
           <CheckBoxInput>
             <p>Dono da empresa?</p>
             <input

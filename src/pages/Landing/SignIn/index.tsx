@@ -6,6 +6,7 @@ import Button from 'components/Button';
 import Input from 'components/Input';
 import SideBar from 'components/SideBar';
 import { useAuth } from 'hooks/auth';
+import { MdLock, MdMail } from 'react-icons/md';
 import { Container, FormContainer } from './styles';
 
 interface ScreenProps {
@@ -53,13 +54,19 @@ const SignIn: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
   return (
     <Container style={animatedStyle}>
       <FormContainer ref={formRef} onSubmit={handleSubmit}>
-        <Input name="email" placeholder="E-mail" style={{ marginBottom: 80 }} />
+        <Input
+          name="email"
+          placeholder="E-mail"
+          style={{ marginBottom: 80 }}
+          Icon={MdMail}
+        />
         <Input
           name="password"
           placeholder="Senha"
           onKeyPress={key =>
             key.code === 'Enter' && formRef.current?.submitForm()
           }
+          Icon={MdLock}
         />
       </FormContainer>
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTransition } from 'react-spring';
-import { MdStoreMallDirectory, MdPersonAdd } from 'react-icons/md';
+import { MdDomain, MdPersonAdd } from 'react-icons/md';
 import { Container, Content } from './styles';
 
 import SignIn from './SignIn';
@@ -70,7 +70,7 @@ const Landing: React.FC = () => {
             {transition((style, item) =>
               !item ? (
                 <Content style={style}>
-                  <MdStoreMallDirectory size={160} />
+                  <MdDomain size={160} />
                   Entrar no Tradelous para gerenciar produtos e vendas de sua
                   empresa.
                 </Content>

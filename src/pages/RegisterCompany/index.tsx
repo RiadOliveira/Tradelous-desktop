@@ -7,6 +7,7 @@ import Input from 'components/Input';
 import api from 'services/api';
 
 import { useAuth } from 'hooks/auth';
+import { MdDomain, MdPlace } from 'react-icons/md';
 import { Container, Header, InputLine, FormContainer } from './styles';
 
 interface RegisterCompanyData {
@@ -56,19 +57,20 @@ const RegisterCompany: React.FC = () => {
 
       <FormContainer ref={formRef} onSubmit={handleSubmit}>
         <InputLine>
-          <Input name="name" placeholder="Nome da empresa" />
+          <Input name="name" placeholder="Nome da empresa" Icon={MdDomain} />
           <Input
             name="cnpj"
             placeholder="CNPJ"
             type="text"
             pattern="\d*"
             maxLength={14}
+            Icon={MdDomain}
           />
         </InputLine>
 
         <InputLine>
-          <Input name="city" placeholder="Cidade" />
-          <Input name="state" placeholder="Estado" />{' '}
+          <Input name="city" placeholder="Cidade" Icon={MdPlace} />
+          <Input name="state" placeholder="Estado" Icon={MdPlace} />{' '}
           {/* companyState will be changed to a Select */}
         </InputLine>
       </FormContainer>
