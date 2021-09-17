@@ -1,5 +1,10 @@
+import styled, { css } from 'styled-components';
+import { shade } from 'polished';
 import { MdArrowDropDown } from 'react-icons/md';
-import styled from 'styled-components';
+
+interface OptionProps {
+  isShowingOptions?: boolean;
+}
 
 export const Container = styled.div`
   width: 560px;
@@ -41,7 +46,26 @@ export const ArrowIcon = styled(MdArrowDropDown)`
   top: 30%;
 `;
 
-export const SelectContainer = styled.div`
+export const Option = styled.button`
+  border: 0;
+  outline: 0;
+  background-color: #fff;
+
+  width: 100%;
+  cursor: pointer;
+
+  font-family: Poppins;
+  font-weight: bold;
+  font-size: 28px;
+
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: ${shade(0.05, '#fff')};
+  }
+`;
+
+export const SelectContainer = styled.div<OptionProps>`
   width: 100%;
   min-height: 100%;
   max-height: 25vh;
@@ -56,19 +80,21 @@ export const SelectContainer = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-`;
 
-export const Option = styled.button`
-  border: 0;
-  outline: 0;
-  background-color: transparent;
+  ${props =>
+    props.isShowingOptions
+      ? css`
+          & button:first-of-type {
+            margin-top: 10px;
+          }
 
-  width: 100%;
-  min-height: 80px;
-
-  cursor: pointer;
-
-  font-family: Poppins;
-  font-weight: bold;
-  font-size: 28px;
+          ${Option} {
+            min-height: 60px;
+          }
+        `
+      : css`
+          ${Option} {
+            min-height: 80px;
+          }
+        `}
 `;

@@ -38,7 +38,7 @@ const Select: React.FC<SelectProps> = ({
 
   useEffect(() => {
     if (isShowingOptions && selectRef.current) {
-      selectRef.current.scrollTo({ top: selectedOption * 80 });
+      selectRef.current.scrollTo({ top: selectedOption * 60 });
     }
   }, [selectedOption, isShowingOptions]);
 
@@ -54,6 +54,8 @@ const Select: React.FC<SelectProps> = ({
       <ArrowIcon size={40} display={isShowingOptions ? 'none' : 'flex'} />
 
       <SelectContainer
+        onMouseLeave={() => setIsShowingOptions(false)}
+        isShowingOptions={isShowingOptions}
         ref={selectRef}
         style={{ overflowY: isShowingOptions ? 'scroll' : 'hidden' }}
       >
