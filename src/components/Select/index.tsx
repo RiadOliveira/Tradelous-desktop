@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { IconType } from 'react-icons';
+import { differenceInSeconds } from 'date-fns';
+import removeAccentuation from 'utils/RemoveAccentuation';
 import {
   Container,
   PlaceHolder,
@@ -21,6 +23,11 @@ interface SelectProps {
   setFunction: (optionId: string) => void;
 }
 
+interface ISearchedTextProps {
+  text: string;
+  time: Date;
+}
+
 const Select: React.FC<SelectProps> = ({
   placeHolder,
   Icon,
@@ -29,6 +36,9 @@ const Select: React.FC<SelectProps> = ({
   setFunction,
 }) => {
   const selectRef = useRef<HTMLDivElement>(null);
+
+  const [searchedTextProps, setSearchedTextProps] =
+    useState<ISearchedTextProps>({} as ISearchedTextProps);
 
   const [selectedOption, setSelectedOption] = useState<number>(0);
   const [isShowingOptions, setIsShowingOptions] = useState(false);
@@ -39,8 +49,18 @@ const Select: React.FC<SelectProps> = ({
   };
 
   useEffect(() => {
-    if (isShowingOptions && selectRef.current) {
-      selectRef.current.scrollTo({ top: selectedOption * 60 });
+    if (selectRef.current) {
+      if (isShowingOptions) {
+        selectRef.current.scrollTo({ top: selectedOption * 60 });
+
+        selectRef.current.addEventListener('keydown', event => {
+          if (event.code === 'Space') {
+            event.preventDefault();
+          }
+        });
+      } else {
+        selectRef.current?.removeEventListener('keydown', () => null);
+      }
     }
   }, [selectedOption, isShowingOptions]);
 
@@ -52,13 +72,30 @@ const Select: React.FC<SelectProps> = ({
 
   const handleKeyPress = (key: string) =>
     setSelectedOption(() => {
-      const findedIndex = data.findIndex(
-        value => value[optionValueReference][0] === key.toUpperCase(),
+      let searchText = removeAccentuation(key.toLowerCase());
+
+      if (
+        searchedTextProps.time &&
+        differenceInSeconds(new Date(Date.now()), searchedTextProps.time) < 1
+      ) {
+        searchText = removeAccentuation(
+          (searchedTextProps.text + key).toLowerCase(),
+        );
+      }
+
+      const findedIndex = data.findIndex(value =>
+        removeAccentuation(
+          value[optionValueReference].toLowerCase(),
+        ).startsWith(searchText),
       );
 
       if (findedIndex === -1) {
+        setSearchedTextProps({ text: '', time: new Date(Date.now()) });
+
         return 0;
       }
+
+      setSearchedTextProps({ text: searchText, time: new Date(Date.now()) });
 
       return findedIndex;
     });

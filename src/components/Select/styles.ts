@@ -22,7 +22,7 @@ export const PlaceHolder = styled.div`
 
   font-weight: bold;
   left: 50%;
-  top: -56%;
+  top: -58%;
 
   display: flex;
   user-select: none;

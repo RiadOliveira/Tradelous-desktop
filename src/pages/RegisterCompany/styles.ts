@@ -46,6 +46,6 @@ export const InputLine = styled.div`
   justify-content: space-between;
 
   & ~ & {
-    margin-top: 80px;
+    margin-top: 100px;
   }
 `;
