@@ -18,6 +18,7 @@ interface SelectProps {
   Icon: IconType;
   data: OptionProps[];
   optionValueReference: string;
+  setFunction: (optionId: string) => void;
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -25,6 +26,7 @@ const Select: React.FC<SelectProps> = ({
   Icon,
   data,
   optionValueReference,
+  setFunction,
 }) => {
   const selectRef = useRef<HTMLDivElement>(null);
 
@@ -41,6 +43,12 @@ const Select: React.FC<SelectProps> = ({
       selectRef.current.scrollTo({ top: selectedOption * 60 });
     }
   }, [selectedOption, isShowingOptions]);
+
+  useEffect(() => {
+    if (data.length > 0) {
+      setFunction(data[selectedOption].id);
+    }
+  }, [data, selectedOption, setFunction]);
 
   return (
     <Container>

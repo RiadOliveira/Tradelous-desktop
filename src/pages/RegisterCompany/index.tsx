@@ -39,9 +39,14 @@ const RegisterCompany: React.FC = () => {
   const { user } = useAuth();
 
   const [allStates, setAllStates] = useState<IBrazilianState[]>([]);
-  const [selectedStateId, setSelectedStateId] = useState(12); // Id of first state on API
+  const [selectedState, setSelectedState] = useState<IBrazilianState>(
+    {} as IBrazilianState,
+  ); // Id of first state on API
 
   const [stateCitys, setStateCitys] = useState<IBrazilianCity[]>([]);
+  const [selectedCity, setSelectedCity] = useState<IBrazilianCity>(
+    {} as IBrazilianCity,
+  );
 
   useEffect(() => {
     api
@@ -51,16 +56,21 @@ const RegisterCompany: React.FC = () => {
           baseURL: '',
         },
       )
-      .then(({ data }) => setAllStates(data));
+      .then(({ data }) => {
+        setAllStates(data);
+        setSelectedState(data[0]);
+      });
   }, []);
 
   useEffect(() => {
-    api
-      .get(
-        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedStateId}/municipios?orderBy=nome`,
-      )
-      .then(({ data }) => setStateCitys(data));
-  }, [selectedStateId]);
+    if (selectedState.id) {
+      api
+        .get(
+          `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState.id}/municipios?orderBy=nome`,
+        )
+        .then(({ data }) => setStateCitys(data));
+    }
+  }, [selectedState.id]);
 
   const handleSubmit = useCallback(
     async (data: RegisterCompanyData) => {
@@ -109,39 +119,31 @@ const RegisterCompany: React.FC = () => {
           />
         </InputLine>
 
-        {/* <InputLine>
-          <Select
-            placeHolder="Estado"
-            Icon={MdPlace}
-            onChange={event => setSelectedStateId(Number(event.target.value))}
-          >
-            {allStates.map(state => (
-              <option value={state.id} key={state.id}>
-                {state.nome}
-              </option>
-            ))}
-          </Select>
-
-          <Select Icon={MdPlace} placeHolder="Cidade">
-            {stateCitys.map(city => (
-              <option value={city.nome} key={city.id}>
-                {city.nome}
-              </option>
-            ))}
-          </Select>
-        </InputLine> */}
         <InputLine>
           <Select
             data={allStates}
             optionValueReference="nome"
             placeHolder="Estado"
             Icon={MdPlace}
+            setFunction={optionId =>
+              setSelectedState(
+                allStates.find(({ id }) => id === optionId) ||
+                  ({} as IBrazilianState),
+              )
+            }
           />
+
           <Select
             data={stateCitys}
             optionValueReference="nome"
-            placeHolder="Estado"
+            placeHolder="Cidade"
             Icon={MdPlace}
+            setFunction={optionId =>
+              setSelectedCity(
+                stateCitys.find(({ id }) => id === optionId) ||
+                  ({} as IBrazilianCity),
+              )
+            }
           />
         </InputLine>
       </FormContainer>
