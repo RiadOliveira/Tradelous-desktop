@@ -76,6 +76,8 @@ export const SelectContainer = styled.div<OptionProps>`
   flex-direction: column;
   -ms-overflow-style: none;
 
+  outline: 0;
+
   &::-webkit-scrollbar {
     display: none;
   }

@@ -3,6 +3,7 @@ import { Form } from '@unform/web';
 
 export const Container = styled.div`
   font-family: Poppins;
+  font-weight: bolder;
   font-size: 24px;
   color: #fff;
   background: #49b454;
@@ -41,7 +42,7 @@ export const FormContainer = styled(Form)`
 export const InputLine = styled.div`
   display: flex;
 
-  width: 80%;
+  width: 75%;
   justify-content: space-between;
 
   & ~ & {

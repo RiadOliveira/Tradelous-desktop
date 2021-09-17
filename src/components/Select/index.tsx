@@ -50,6 +50,19 @@ const Select: React.FC<SelectProps> = ({
     }
   }, [data, selectedOption, setFunction]);
 
+  const handleKeyPress = (key: string) =>
+    setSelectedOption(() => {
+      const findedIndex = data.findIndex(
+        value => value[optionValueReference][0] === key.toUpperCase(),
+      );
+
+      if (findedIndex === -1) {
+        return 0;
+      }
+
+      return findedIndex;
+    });
+
   return (
     <Container>
       <PlaceHolder>
@@ -60,13 +73,20 @@ const Select: React.FC<SelectProps> = ({
       </PlaceHolder>
 
       <SelectContainer
+        tabIndex={0}
+        onKeyUp={({ key }) => handleKeyPress(key)}
         onMouseLeave={() => setIsShowingOptions(false)}
         isShowingOptions={isShowingOptions}
         ref={selectRef}
         style={{ overflowY: isShowingOptions ? 'scroll' : 'hidden' }}
       >
         {!isShowingOptions ? (
-          <Option onClick={() => setIsShowingOptions(true)}>
+          <Option
+            onClick={() => {
+              setIsShowingOptions(true);
+              selectRef.current?.focus();
+            }}
+          >
             <ArrowIcon size={40} />
             {data.length > 0 && data[selectedOption][optionValueReference]}
           </Option>

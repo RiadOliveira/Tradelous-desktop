@@ -16,8 +16,8 @@ export const Container = styled.div`
 `;
 
 export const InputContainer = styled.input`
-  width: 90%;
-  height: 70%;
+  width: 94%;
+  height: 75%;
 
   outline: 0;
   border: 0;

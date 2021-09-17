@@ -24,7 +24,7 @@ export const FormContainer = styled(Form)`
 export const InputLine = styled.div`
   display: flex;
 
-  width: 80%;
+  width: 75%;
   justify-content: space-between;
 
   & ~ & {
