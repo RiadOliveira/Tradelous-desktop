@@ -4,7 +4,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 560px;
   height: 80px;
-  cursor: pointer;
 
   position: relative;
 `;
@@ -12,12 +11,13 @@ export const Container = styled.div`
 export const PlaceHolder = styled.div`
   position: absolute;
   color: #fff;
-  cursor: default;
 
   font-size: 32px;
+  height: 50%;
+
   font-weight: bold;
   left: 50%;
-  top: -105%;
+  top: -56%;
 
   display: flex;
   user-select: none;
@@ -35,34 +35,40 @@ export const PlaceHolder = styled.div`
 export const ArrowIcon = styled(MdArrowDropDown)`
   position: absolute;
   color: #000;
+  cursor: pointer;
 
   right: 10px;
   top: 30%;
 `;
 
-export const SelectContainer = styled.button`
+export const SelectContainer = styled.div`
   width: 100%;
-  height: 100%;
-  border: 0;
-  outline: 0;
+  min-height: 100%;
+  max-height: 25vh;
 
   background-color: #fff;
   border-radius: 5px;
 
-  font-family: Poppins;
-  font-weight: bold;
-  font-size: 28px;
+  display: flex;
+  flex-direction: column;
+  -ms-overflow-style: none;
 
-  text-align-last: center;
-  text-align: center;
-
-  appearance: none;
-  -moz-appearance: none;
-  cursor: pointer;
-
-  option {
-    font-size: 14px;
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 
-export const Option = styled.div``;
+export const Option = styled.button`
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+
+  width: 100%;
+  min-height: 80px;
+
+  cursor: pointer;
+
+  font-family: Poppins;
+  font-weight: bold;
+  font-size: 28px;
+`;

@@ -26,6 +26,14 @@ const Select: React.FC<SelectProps> = ({
   data,
   optionValueReference,
 }) => {
+  const [selectedOption, setSelectedOption] = useState<number>(0);
+  const [isShowingOptions, setIsShowingOptions] = useState(false);
+
+  const handleSelectOption = (index: number) => {
+    setIsShowingOptions(false);
+    setSelectedOption(index);
+  };
+
   return (
     <Container>
       <PlaceHolder>
@@ -35,12 +43,22 @@ const Select: React.FC<SelectProps> = ({
         </div>
       </PlaceHolder>
 
-      <ArrowIcon size={40} />
+      <ArrowIcon size={40} display={isShowingOptions ? 'none' : 'flex'} />
 
-      <SelectContainer>
-        {data?.map(value => (
-          <Option key={value.id}>{value[optionValueReference]}</Option>
-        ))}
+      <SelectContainer
+        style={{ overflowY: isShowingOptions ? 'scroll' : 'hidden' }}
+      >
+        {!isShowingOptions ? (
+          <Option onClick={() => setIsShowingOptions(true)}>
+            {data.length > 0 && data[selectedOption][optionValueReference]}
+          </Option>
+        ) : (
+          data?.map((value, index) => (
+            <Option onClick={() => handleSelectOption(index)} key={value.id}>
+              {value[optionValueReference]}
+            </Option>
+          ))
+        )}
       </SelectContainer>
     </Container>
   );
