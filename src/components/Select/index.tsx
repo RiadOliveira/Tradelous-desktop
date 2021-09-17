@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { IconType } from 'react-icons';
 import {
   Container,
@@ -26,6 +26,8 @@ const Select: React.FC<SelectProps> = ({
   data,
   optionValueReference,
 }) => {
+  const selectRef = useRef<HTMLDivElement>(null);
+
   const [selectedOption, setSelectedOption] = useState<number>(0);
   const [isShowingOptions, setIsShowingOptions] = useState(false);
 
@@ -33,6 +35,12 @@ const Select: React.FC<SelectProps> = ({
     setIsShowingOptions(false);
     setSelectedOption(index);
   };
+
+  useEffect(() => {
+    if (isShowingOptions && selectRef.current) {
+      selectRef.current.scrollTo({ top: selectedOption * 80 });
+    }
+  }, [selectedOption, isShowingOptions]);
 
   return (
     <Container>
@@ -46,6 +54,7 @@ const Select: React.FC<SelectProps> = ({
       <ArrowIcon size={40} display={isShowingOptions ? 'none' : 'flex'} />
 
       <SelectContainer
+        ref={selectRef}
         style={{ overflowY: isShowingOptions ? 'scroll' : 'hidden' }}
       >
         {!isShowingOptions ? (
