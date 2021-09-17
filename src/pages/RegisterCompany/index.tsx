@@ -43,7 +43,7 @@ const RegisterCompany: React.FC = () => {
     {} as IBrazilianState,
   ); // Id of first state on API
 
-  const [stateCitys, setStateCitys] = useState<IBrazilianCity[]>([]);
+  const [stateCities, setStateCities] = useState<IBrazilianCity[]>([]);
   const [selectedCity, setSelectedCity] = useState<IBrazilianCity>(
     {} as IBrazilianCity,
   );
@@ -68,7 +68,7 @@ const RegisterCompany: React.FC = () => {
         .get(
           `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState.id}/municipios?orderBy=nome`,
         )
-        .then(({ data }) => setStateCitys(data));
+        .then(({ data }) => setStateCities(data));
     }
   }, [selectedState.id]);
 
@@ -134,13 +134,13 @@ const RegisterCompany: React.FC = () => {
           />
 
           <Select
-            data={stateCitys}
+            data={stateCities}
             optionValueReference="nome"
             placeHolder="Cidade"
             Icon={MdPlace}
             setFunction={optionId =>
               setSelectedCity(
-                stateCitys.find(({ id }) => id === optionId) ||
+                stateCities.find(({ id }) => id === optionId) ||
                   ({} as IBrazilianCity),
               )
             }
