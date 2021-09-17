@@ -39,7 +39,6 @@ export const PlaceHolder = styled.div`
 
 export const ArrowIcon = styled(MdArrowDropDown)`
   position: absolute;
-  color: #000;
   cursor: pointer;
 
   right: 10px;

@@ -51,8 +51,6 @@ const Select: React.FC<SelectProps> = ({
         </div>
       </PlaceHolder>
 
-      <ArrowIcon size={40} display={isShowingOptions ? 'none' : 'flex'} />
-
       <SelectContainer
         onMouseLeave={() => setIsShowingOptions(false)}
         isShowingOptions={isShowingOptions}
@@ -61,6 +59,7 @@ const Select: React.FC<SelectProps> = ({
       >
         {!isShowingOptions ? (
           <Option onClick={() => setIsShowingOptions(true)}>
+            <ArrowIcon size={40} />
             {data.length > 0 && data[selectedOption][optionValueReference]}
           </Option>
         ) : (
