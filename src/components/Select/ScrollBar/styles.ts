@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { shade, lighten } from 'polished';
 import { animated } from 'react-spring';
 
-export const Container = styled.aside`
+export const Container = styled(animated.aside)`
   position: absolute;
   right: 6px;
   top: 4px;
@@ -11,8 +11,6 @@ export const Container = styled.aside`
 
   border-radius: 8px;
   width: 18px;
-
-  min-height: 24vh;
 
   display: flex;
   justify-content: center;
