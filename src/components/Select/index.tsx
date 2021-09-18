@@ -41,8 +41,10 @@ const Select: React.FC<SelectProps> = ({
   const [searchedTextProps, setSearchedTextProps] =
     useState<ISearchedTextProps>({} as ISearchedTextProps);
 
-  const [selectedOption, setSelectedOption] = useState<number>(0);
+  const [selectedOption, setSelectedOption] = useState(0);
   const [isShowingOptions, setIsShowingOptions] = useState(false);
+
+  const [scrollTopDistance, setScrollTopDistance] = useState(0);
 
   const handleSelectOption = (index: number) => {
     setIsShowingOptions(false);
@@ -73,15 +75,22 @@ const Select: React.FC<SelectProps> = ({
 
   const handleKeyPress = (key: string) =>
     setSelectedOption(() => {
-      let searchText = removeAccentuation(key.toLowerCase());
+      let searchText: string;
 
-      if (
-        searchedTextProps.time &&
-        differenceInSeconds(new Date(Date.now()), searchedTextProps.time) < 1
-      ) {
-        searchText = removeAccentuation(
-          (searchedTextProps.text + key).toLowerCase(),
-        );
+      if (key === 'Enter') {
+        setIsShowingOptions(false);
+        searchText = searchedTextProps.text;
+      } else {
+        searchText = removeAccentuation(key.toLowerCase());
+
+        if (
+          searchedTextProps.time &&
+          differenceInSeconds(new Date(Date.now()), searchedTextProps.time) < 1
+        ) {
+          searchText = removeAccentuation(
+            (searchedTextProps.text + key).toLowerCase(),
+          );
+        }
       }
 
       const findedIndex = data.findIndex(value =>
@@ -113,6 +122,9 @@ const Select: React.FC<SelectProps> = ({
       <SelectContainer
         tabIndex={0}
         onKeyUp={({ key }) => handleKeyPress(key)}
+        onScroll={({ currentTarget: { scrollTop } }) =>
+          setScrollTopDistance(scrollTop)
+        }
         // onMouseLeave={() => setIsShowingOptions(false)}
         isShowingOptions={isShowingOptions}
         ref={selectRef}
@@ -130,7 +142,12 @@ const Select: React.FC<SelectProps> = ({
           </Option>
         ) : (
           <>
-            <ScrollBar />
+            {data.length > 4 && (
+              <ScrollBar
+                dataLength={data.length}
+                scrollTop={scrollTopDistance}
+              />
+            )}
 
             {data?.map((value, index) => (
               <Option onClick={() => handleSelectOption(index)} key={value.id}>

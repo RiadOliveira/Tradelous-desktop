@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { shade, lighten } from 'polished';
+import { animated } from 'react-spring';
 
 export const Container = styled.aside`
   position: absolute;
@@ -17,13 +18,12 @@ export const Container = styled.aside`
   justify-content: center;
 `;
 
-export const ScrollIndicator = styled.canvas`
+export const ScrollIndicator = styled(animated.canvas)`
   position: relative;
-  background-color: ${lighten(0.3, '#1c274e')};
+  background-color: ${lighten(0.25, '#1c274e')};
 
   width: 10px;
   height: 30px;
-  margin-top: 4px;
 
   border-radius: 8px;
 `;
