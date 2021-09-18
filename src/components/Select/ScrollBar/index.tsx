@@ -11,7 +11,9 @@ interface ScrollBarProps {
 const ScrollBar: React.FC<ScrollBarProps> = ({ scrollTop, dataLength }) => {
   const maxDistance = useMemo(() => GetScreenVhInPixels(20.5), []);
   const margin =
-    4 + (4 * scrollTop) / (dataLength * (dataLength < 50 ? 1 : 1.158));
+    4 +
+    (scrollTop * (dataLength > 25 ? 4 : 4.2)) /
+      (dataLength * (dataLength < 50 ? 1 : 1.158));
 
   const scrollAnimation = useSpring({
     to: {
