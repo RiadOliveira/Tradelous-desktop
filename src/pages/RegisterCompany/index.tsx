@@ -68,7 +68,10 @@ const RegisterCompany: React.FC = () => {
         .get(
           `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState.id}/municipios?orderBy=nome`,
         )
-        .then(({ data }) => setStateCities(data));
+        .then(({ data }) => {
+          setStateCities(data);
+          setSelectedCity(data[0]);
+        });
     }
   }, [selectedState.id]);
 
