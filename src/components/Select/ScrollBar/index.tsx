@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useSpring } from 'react-spring';
 import GetScreenVhInPixels from 'utils/GetScreenVhInPixels';
 import { Container, ScrollIndicator } from './styles';
