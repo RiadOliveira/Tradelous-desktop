@@ -70,8 +70,7 @@ export const Option = styled.button`
 
 export const SelectContainer = styled.div<OptionProps>`
   width: 100%;
-  min-height: 100%;
-  max-height: 25vh;
+  height: ${props => (props.isShowingOptions ? '25vh' : '100%')};
 
   background-color: #fff;
   border-radius: 5px;
@@ -81,6 +80,8 @@ export const SelectContainer = styled.div<OptionProps>`
   -ms-overflow-style: none;
 
   outline: 0;
+
+  transition: height 0.3s;
 
   &::-webkit-scrollbar {
     display: none;
