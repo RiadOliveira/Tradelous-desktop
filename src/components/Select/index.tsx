@@ -9,6 +9,7 @@ import {
   Option,
   ArrowIcon,
 } from './styles';
+import ScrollBar from './ScrollBar';
 
 interface OptionProps {
   id: string;
@@ -112,7 +113,7 @@ const Select: React.FC<SelectProps> = ({
       <SelectContainer
         tabIndex={0}
         onKeyUp={({ key }) => handleKeyPress(key)}
-        onMouseLeave={() => setIsShowingOptions(false)}
+        // onMouseLeave={() => setIsShowingOptions(false)}
         isShowingOptions={isShowingOptions}
         ref={selectRef}
         style={{ overflowY: isShowingOptions ? 'scroll' : 'hidden' }}
@@ -128,11 +129,15 @@ const Select: React.FC<SelectProps> = ({
             {data.length > 0 && data[selectedOption][optionValueReference]}
           </Option>
         ) : (
-          data?.map((value, index) => (
-            <Option onClick={() => handleSelectOption(index)} key={value.id}>
-              {value[optionValueReference]}
-            </Option>
-          ))
+          <>
+            <ScrollBar />
+
+            {data?.map((value, index) => (
+              <Option onClick={() => handleSelectOption(index)} key={value.id}>
+                {value[optionValueReference]}
+              </Option>
+            ))}
+          </>
         )}
       </SelectContainer>
     </Container>
