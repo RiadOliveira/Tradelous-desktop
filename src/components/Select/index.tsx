@@ -125,7 +125,7 @@ const Select: React.FC<SelectProps> = ({
         onScroll={({ currentTarget: { scrollTop } }) =>
           setScrollTopDistance(scrollTop)
         }
-        // onMouseLeave={() => setIsShowingOptions(false)}
+        onMouseLeave={() => setIsShowingOptions(false)}
         isShowingOptions={isShowingOptions}
         ref={selectRef}
         style={{ overflowY: isShowingOptions ? 'scroll' : 'hidden' }}
@@ -151,7 +151,7 @@ const Select: React.FC<SelectProps> = ({
 
             {data?.map((value, index) => (
               <Option onClick={() => handleSelectOption(index)} key={value.id}>
-                {value[optionValueReference]}
+                <p>{value[optionValueReference]}</p>
               </Option>
             ))}
           </>

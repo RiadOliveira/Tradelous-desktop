@@ -57,6 +57,10 @@ export const Option = styled.button`
   font-weight: bold;
   font-size: 28px;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   transition: background-color 0.3s;
 
   &:hover {
@@ -87,10 +91,16 @@ export const SelectContainer = styled.div<OptionProps>`
       ? css`
           & button:first-of-type {
             margin-top: 10px;
+            border: none;
           }
 
           ${Option} {
             min-height: 60px;
+            width: 96%;
+
+            p {
+              margin-left: 4.2%;
+            }
           }
         `
       : css`
