@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext } from 'react';
+import Toast from 'components/Toast';
 
 interface IToastProps {
   isVisible: boolean;
@@ -29,6 +30,7 @@ const ToastContext: React.FC = ({ children }) => {
       }}
     >
       {children}
+      <Toast />
     </toastContext.Provider>
   );
 };

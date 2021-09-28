@@ -2,25 +2,29 @@ import styled from 'styled-components';
 import { animated } from 'react-spring';
 import { shade } from 'polished';
 
-export const Container = styled(animated.button)`
-  border: 0;
-  outline: 0;
-  color: #fff;
-  cursor: pointer;
-
+export const Container = styled.aside`
   position: absolute;
   top: 16px;
   right: 4%;
 
-  width: 310px;
-  padding: 10px 0;
+  z-index: 1;
+`;
+
+export const ToastContainer = styled(animated.button)`
+  border: 0;
+  outline: 0;
+  color: #fff;
 
   background-color: #1c274e;
+  cursor: pointer;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  width: 310px;
+  padding: 10px 0;
 
   border-radius: 10px;
 
