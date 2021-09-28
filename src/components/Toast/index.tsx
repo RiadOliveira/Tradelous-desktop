@@ -1,5 +1,6 @@
-import { useToast } from 'hooks/toast';
 import React, { useEffect, useState } from 'react';
+import { MdInfo, MdCheck, MdCancel } from 'react-icons/md';
+import { useToast } from 'hooks/toast';
 import { useTransition } from 'react-spring';
 import { Container, ToastContainer, MainText, SubText } from './styles';
 
@@ -8,10 +9,13 @@ const Toast: React.FC = () => {
 
   const [isRunningTimer, setIsRunningTimer] = useState(false);
 
-  const toastColors = {
-    info: '#1c274e',
-    success: '#1b6b1b',
-    error: '#cf2b2b',
+  const toastTypesProps = {
+    info: {
+      color: '#1c274e',
+      icon: <MdInfo />,
+    },
+    success: { color: '#1b6b1b', icon: <MdCheck /> },
+    error: { color: '#cf2b2b', icon: <MdCancel /> },
   };
 
   const toastTransition = useTransition(isRunningTimer, {
@@ -59,10 +63,12 @@ const Toast: React.FC = () => {
               onClick={handleToastClick}
               style={{
                 ...style,
-                background: toastProps.type && toastColors[toastProps.type],
+                background:
+                  toastProps.type && toastTypesProps[toastProps.type].color,
               }}
             >
               <MainText>
+                {toastProps.type && toastTypesProps[toastProps.type].icon}
                 <p>{toastProps.text?.main}</p>
               </MainText>
 

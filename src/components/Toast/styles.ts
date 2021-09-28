@@ -59,7 +59,16 @@ export const ToastContainer = styled(animated.button)`
 export const MainText = styled.section`
   font-size: 22px;
 
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
   border-bottom: 1px solid ${shade(0.2, '#fff')};
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 export const SubText = styled.section`
