@@ -32,7 +32,7 @@ const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useHistory();
 
-  const { setToastProps } = useToast();
+  const { showToast } = useToast();
   const { signIn } = useAuth();
 
   const [isAdmin, setIsAdmin] = useState(false);
@@ -78,9 +78,8 @@ const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
         //   });
         // }
       } catch (err) {
-        setToastProps({
+        showToast({
           type: 'error',
-          isVisible: true,
           text: {
             main: 'Erro ao criar conta!',
             sub: 'Conta já existente',
@@ -89,7 +88,7 @@ const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
         // ErrorCatcher(err as Error | yup.ValidationError, formRef); Will be made with toast.
       }
     },
-    [isAdmin, navigation, signIn, setToastProps],
+    [isAdmin, navigation, signIn, showToast],
   );
 
   return (

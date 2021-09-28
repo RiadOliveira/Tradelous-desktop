@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useCallback } from 'react';
 import Toast from 'components/Toast';
 
 interface IToastProps {
@@ -12,21 +12,32 @@ interface IToastProps {
 
 interface IToastContextData {
   toastProps: IToastProps;
-  setToastProps: (toastProps: IToastProps) => void;
+  showToast: (toastProps: Omit<IToastProps, 'isVisible'>) => void;
+  hideToast: () => void;
 }
 
 const toastContext = createContext<IToastContextData>({} as IToastContextData);
 
 const ToastContext: React.FC = ({ children }) => {
-  const [toastProps, setToastProps] = useState({
+  const [toastProps, setToastProps] = useState<IToastProps>({
     isVisible: false,
   });
+
+  const showToast = useCallback((props: Omit<IToastProps, 'isVisible'>) => {
+    setToastProps({ ...props, isVisible: true });
+  }, []);
+
+  const hideToast = useCallback(
+    () => setToastProps(props => ({ ...props, isVisible: false })),
+    [],
+  );
 
   return (
     <toastContext.Provider
       value={{
         toastProps,
-        setToastProps,
+        showToast,
+        hideToast,
       }}
     >
       {children}

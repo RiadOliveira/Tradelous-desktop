@@ -1,10 +1,12 @@
 import { useToast } from 'hooks/toast';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTransition } from 'react-spring';
 import { Container, ToastContainer, MainText, SubText } from './styles';
 
 const Toast: React.FC = () => {
-  const { toastProps, setToastProps } = useToast();
+  const { toastProps, hideToast } = useToast();
+
+  const [isRunningTimer, setIsRunningTimer] = useState(false);
 
   const toastColors = {
     info: '#1c274e',
@@ -12,7 +14,7 @@ const Toast: React.FC = () => {
     error: '#cf2b2b',
   };
 
-  const toastTransition = useTransition(toastProps, {
+  const toastTransition = useTransition(isRunningTimer, {
     from: {
       marginTop: -80,
       opacity: 0,
@@ -31,28 +33,28 @@ const Toast: React.FC = () => {
   });
 
   useEffect(() => {
-    if (toastProps.isVisible) {
-      setTimeout(
-        () => setToastProps({ ...toastProps, isVisible: false }),
-        4000,
-      );
+    if (!isRunningTimer && toastProps.isVisible) {
+      setTimeout(() => {
+        hideToast();
+        setIsRunningTimer(false);
+      }, 4000);
+
+      setIsRunningTimer(true);
     }
-  }, [setToastProps, toastProps]);
+  }, [hideToast, toastProps, isRunningTimer]);
 
   const handleToastClick = () => {
     clearTimeout();
 
-    setToastProps({
-      ...toastProps,
-      isVisible: false,
-    });
+    setIsRunningTimer(false);
+    hideToast();
   };
 
   return (
     <Container>
       {toastTransition((style, item) => (
         <>
-          {item.isVisible && (
+          {item && (
             <ToastContainer
               onClick={handleToastClick}
               style={{
