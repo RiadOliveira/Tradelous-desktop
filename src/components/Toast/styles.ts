@@ -55,7 +55,7 @@ export const Container = styled(animated.button)`
 export const MainText = styled.section`
   font-size: 22px;
 
-  border-bottom: 1px solid ${shade(0.3, '#fff')};
+  border-bottom: 1px solid ${shade(0.2, '#fff')};
 `;
 
 export const SubText = styled.section`

@@ -2,7 +2,11 @@ import React, { createContext, useState, useContext } from 'react';
 
 interface IToastProps {
   isVisible: boolean;
-  color: string;
+  type?: 'info' | 'success' | 'error';
+  text?: {
+    main: string;
+    sub: string;
+  };
 }
 
 interface IToastContextData {
@@ -13,7 +17,9 @@ interface IToastContextData {
 const toastContext = createContext<IToastContextData>({} as IToastContextData);
 
 const ToastContext: React.FC = ({ children }) => {
-  const [toastProps, setToastProps] = useState({ isVisible: false, color: '' });
+  const [toastProps, setToastProps] = useState({
+    isVisible: false,
+  });
 
   return (
     <toastContext.Provider

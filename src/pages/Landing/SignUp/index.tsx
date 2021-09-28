@@ -10,6 +10,7 @@ import api from 'services/api';
 
 import { MdLock, MdMail, MdPerson } from 'react-icons/md';
 import { useAuth } from 'hooks/auth';
+import { useToast } from 'hooks/toast';
 import Toast from 'components/Toast';
 import { Container, InputLine, CheckBoxInput, FormContainer } from './styles';
 
@@ -31,6 +32,8 @@ interface SignUpData {
 const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useHistory();
+
+  const { setToastProps } = useToast();
   const { signIn } = useAuth();
 
   const [isAdmin, setIsAdmin] = useState(false);
@@ -76,10 +79,18 @@ const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
         //   });
         // }
       } catch (err) {
+        setToastProps({
+          type: 'error',
+          isVisible: true,
+          text: {
+            main: 'Erro ao criar conta!',
+            sub: 'Conta já existente',
+          },
+        });
         // ErrorCatcher(err as Error | yup.ValidationError, formRef); Will be made with toast.
       }
     },
-    [isAdmin, navigation, signIn],
+    [isAdmin, navigation, signIn, setToastProps],
   );
 
   return (
