@@ -10,6 +10,7 @@ import api from 'services/api';
 
 import { MdLock, MdMail, MdPerson } from 'react-icons/md';
 import { useAuth } from 'hooks/auth';
+import Toast from 'components/Toast';
 import { Container, InputLine, CheckBoxInput, FormContainer } from './styles';
 
 interface ScreenProps {
@@ -83,6 +84,8 @@ const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
 
   return (
     <Container style={animatedStyle}>
+      <Toast />
+
       <FormContainer ref={formRef} onSubmit={handleSubmit}>
         <InputLine>
           <Input name="name" placeholder="Nome" Icon={MdPerson} />
