@@ -68,8 +68,8 @@ const Toast: React.FC = () => {
               }}
             >
               <MainText>
-                {toastProps.type && toastTypesProps[toastProps.type].icon}
                 <p>{toastProps.text?.main}</p>
+                {toastProps.type && toastTypesProps[toastProps.type].icon}
               </MainText>
 
               <SubText>

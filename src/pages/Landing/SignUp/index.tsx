@@ -69,20 +69,21 @@ const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
 
         if (isAdmin) {
           navigation.push('/register-company');
+        } else {
+          showToast({
+            type: 'success',
+            text: {
+              main: 'Cadastro efetuado',
+              sub: 'Agora só falta entrar em uma empresa',
+            },
+          });
         }
-        // else {
-        //   Toast.show({
-        //     type: 'success',
-        //     text1: 'Cadastro realizado com sucesso!',
-        //     text2: 'Entre em uma empresa para gerenciar seu estoque.',
-        //   });
-        // }
       } catch (err) {
         showToast({
           type: 'error',
           text: {
-            main: 'Erro ao criar conta!',
-            sub: 'Conta já existente',
+            main: 'Erro ao criar conta',
+            sub: 'Conta com esse e-mail já existente',
           },
         });
         // ErrorCatcher(err as Error | yup.ValidationError, formRef); Will be made with toast.

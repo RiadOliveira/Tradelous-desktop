@@ -23,7 +23,7 @@ export const ToastContainer = styled(animated.button)`
   justify-content: center;
   align-items: center;
 
-  width: 310px;
+  width: 400px;
   padding: 10px 0;
 
   border-radius: 10px;
@@ -63,8 +63,6 @@ export const MainText = styled.section`
   align-items: center;
   gap: 8px;
 
-  border-bottom: 1px solid ${shade(0.2, '#fff')};
-
   svg {
     width: 24px;
     height: 24px;
@@ -73,4 +71,6 @@ export const MainText = styled.section`
 
 export const SubText = styled.section`
   font-size: 18px;
+
+  border-top: 1px solid ${shade(0.2, '#fff')};
 `;
