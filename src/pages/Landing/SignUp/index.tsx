@@ -37,32 +37,32 @@ const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
   const handleSubmit = useCallback(
     async (data: SignUpData) => {
       try {
-        // const schema = yup.object().shape({
-        //   name: yup.string().required('Nome obrigatório'),
-        //   email: yup
-        //     .string()
-        //     .required('E-mail obrigatório')
-        //     .email('Formato de e-mail incorreto'),
-        //   password: yup
-        //     .string()
-        //     .required('Senha obrigatória')
-        //     .min(6, 'Senha de no mínimo 6 caracteres'),
-        //   confirmPassword: yup
-        //     .string()
-        //     .required('Confirmação de senha obrigatória')
-        //     .oneOf([yup.ref('password')], 'As senhas inseridas não são iguais'),
-        // });
+        const schema = yup.object().shape({
+          name: yup.string().required('Nome obrigatório'),
+          email: yup
+            .string()
+            .required('E-mail obrigatório')
+            .email('Formato de e-mail incorreto'),
+          password: yup
+            .string()
+            .required('Senha obrigatória')
+            .min(6, 'Senha de no mínimo 6 caracteres'),
+          confirmPassword: yup
+            .string()
+            .required('Confirmação de senha obrigatória')
+            .oneOf([yup.ref('password')], 'As senhas inseridas não são iguais'),
+        });
 
-        // await schema.validate(data, {
-        //   abortEarly: false,
-        // });
+        await schema.validate(data, {
+          abortEarly: false,
+        });
 
-        // await api.post('/user/sign-up', {
-        //   ...data,
-        //   isAdmin,
-        // });
+        await api.post('/user/sign-up', {
+          ...data,
+          isAdmin,
+        });
 
-        // await signIn({ email: data.email, password: data.password });
+        await signIn({ email: data.email, password: data.password });
 
         if (isAdmin) {
           navigation.push('/register-company');
