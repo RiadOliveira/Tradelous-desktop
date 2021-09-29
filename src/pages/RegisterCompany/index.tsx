@@ -4,11 +4,13 @@ import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 import Button from 'components/Button';
 import Input from 'components/Input';
+import Select from 'components/Select';
 import api from 'services/api';
+import ErrorCatcher from 'errors/errorCatcher';
 
 import { useAuth } from 'hooks/auth';
 import { MdDomain, MdPlace } from 'react-icons/md';
-import Select from 'components/Select';
+import { useToast } from 'hooks/toast';
 import { Container, Header, InputLine, FormContainer } from './styles';
 
 interface OptionProps {
@@ -37,6 +39,7 @@ const RegisterCompany: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useHistory();
   const { user } = useAuth();
+  const { showToast } = useToast();
 
   const [allStates, setAllStates] = useState<IBrazilianState[]>([]);
   const [selectedState, setSelectedState] = useState<IBrazilianState>(
@@ -91,18 +94,20 @@ const RegisterCompany: React.FC = () => {
           abortEarly: false,
         });
 
-        // else {
-        //   Toast.show({
-        //     type: 'success',
-        //     text1: 'Cadastro realizado com sucesso!',
-        //     text2: 'Entre em uma empresa para gerenciar seu estoque.',
-        //   });
-        // }
+        navigation.push('Dashboard');
       } catch (err) {
-        // ErrorCatcher(err as Error | yup.ValidationError, formRef); Will be made with toast.
+        const toastText = ErrorCatcher(
+          err as Error | yup.ValidationError,
+          formRef,
+        );
+
+        showToast({
+          type: 'error',
+          text: toastText,
+        });
       }
     },
-    [navigation],
+    [navigation, showToast],
   );
 
   return (

@@ -1,12 +1,15 @@
 import React, { useCallback, useRef } from 'react';
-import { SpringValue } from 'react-spring';
-import { FormHandles } from '@unform/core';
-import * as yup from 'yup';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import SideBar from 'components/SideBar';
+import ErrorCatcher from 'errors/errorCatcher';
+import * as yup from 'yup';
+
+import { SpringValue } from 'react-spring';
+import { FormHandles } from '@unform/core';
 import { useAuth } from 'hooks/auth';
 import { MdLock, MdMail } from 'react-icons/md';
+import { useToast } from 'hooks/toast';
 import { Container, FormContainer } from './styles';
 
 interface ScreenProps {
@@ -24,6 +27,7 @@ interface SignInData {
 const SignIn: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
   const formRef = useRef<FormHandles>(null);
   const { signIn } = useAuth();
+  const { showToast } = useToast();
 
   const handleSubmit = useCallback(
     async (data: SignInData) => {
@@ -45,10 +49,18 @@ const SignIn: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
 
         await signIn(data);
       } catch (err) {
-        // ErrorCatcher(err as Error | yup.ValidationError, formRef); Will be made with toasts.
+        const toastText = ErrorCatcher(
+          err as Error | yup.ValidationError,
+          formRef,
+        );
+
+        showToast({
+          type: 'error',
+          text: toastText,
+        });
       }
     },
-    [signIn],
+    [signIn, showToast],
   );
 
   return (

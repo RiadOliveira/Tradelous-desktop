@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import SideBar from 'components/SideBar';
+import ErrorCatcher from 'errors/errorCatcher';
 import api from 'services/api';
 
 import { MdLock, MdMail, MdPerson } from 'react-icons/md';
@@ -79,14 +80,15 @@ const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
           });
         }
       } catch (err) {
+        const toastText = ErrorCatcher(
+          err as Error | yup.ValidationError,
+          formRef,
+        );
+
         showToast({
           type: 'error',
-          text: {
-            main: 'Erro ao criar conta',
-            sub: 'Conta com esse e-mail já existente',
-          },
+          text: toastText,
         });
-        // ErrorCatcher(err as Error | yup.ValidationError, formRef); Will be made with toast.
       }
     },
     [isAdmin, navigation, signIn, showToast],
