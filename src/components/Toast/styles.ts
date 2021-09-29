@@ -63,14 +63,27 @@ export const MainText = styled.section`
   align-items: center;
   gap: 8px;
 
+  position: relative;
+
   svg {
     width: 24px;
     height: 24px;
+  }
+
+  &::after {
+    content: '';
+    width: 340px;
+    height: 1px;
+
+    right: -40px;
+    top: 100%;
+
+    position: absolute;
+
+    background-color: ${shade(0.2, '#fff')};
   }
 `;
 
 export const SubText = styled.section`
   font-size: 18px;
-
-  border-top: 1px solid ${shade(0.2, '#fff')};
 `;
