@@ -38,7 +38,7 @@ interface RegisterCompanyData {
 const RegisterCompany: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useHistory();
-  const { user, setUserCompany } = useAuth();
+  const { setUserCompany } = useAuth();
   const { showToast } = useToast();
 
   const [allStates, setAllStates] = useState<IBrazilianState[]>([]);
@@ -94,25 +94,10 @@ const RegisterCompany: React.FC = () => {
           abortEarly: false,
         });
 
-        const companyData = new FormData();
-
-        companyData.append('name', data.name);
-        companyData.append(
-          'address',
-          `${selectedCity.nome}/${selectedState.sigla}`,
-        );
-        companyData.append('cnpj', data.cnpj);
-        companyData.append('adminID', user.id);
-
-        // if (selectedImage.uri) {
-        //   companyData.append('logo', {
-        //     uri: selectedImage.uri,
-        //     name: `${data.name}-${user.id}`,
-        //     type: selectedImage.type,
-        //   });
-        // }
-
-        const response = await api.post('/company/', companyData);
+        const response = await api.post('/company/', {
+          ...data,
+          address: `${selectedCity.nome}/${selectedState.sigla}`,
+        });
 
         setUserCompany(true, response.data.id);
 
@@ -135,7 +120,6 @@ const RegisterCompany: React.FC = () => {
       selectedState.sigla,
       setUserCompany,
       showToast,
-      user.id,
     ],
   );
 
