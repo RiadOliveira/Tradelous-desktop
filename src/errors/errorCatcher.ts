@@ -28,7 +28,7 @@ const ErrorCatcher = (
 
   return {
     main: 'Problema inesperado',
-    sub: 'Ocorreu alguma falha, por favor, tente novamente',
+    sub: 'Por favor, tente executar novamente',
   };
 };
 

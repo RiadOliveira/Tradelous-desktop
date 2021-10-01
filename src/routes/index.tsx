@@ -10,11 +10,12 @@ const Routes: React.FC = () => {
   const location = useLocation();
 
   const transition = useTransition(location, {
-    from: { opacity: 0, width: '80vw', height: '80vh' },
+    from: { opacity: 0 },
     enter: {
       opacity: 1,
-      width: '100vw',
-      height: '100vh',
+      config: {
+        duration: 400,
+      },
     },
     leave: { opacity: 0, position: 'relative' },
 

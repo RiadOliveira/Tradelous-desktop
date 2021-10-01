@@ -8,10 +8,12 @@ import ErrorCatcher from 'errors/errorCatcher';
 
 import { MdEmail } from 'react-icons/md';
 import { useToast } from 'hooks/toast';
+import { useHistory } from 'react-router-dom';
 import { Container, Header, FormContainer } from './styles';
 
 const ForgotPassword: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const navigation = useHistory();
   const { showToast } = useToast();
 
   const handleSubmit = useCallback(
@@ -31,10 +33,10 @@ const ForgotPassword: React.FC = () => {
         await api.post('/user/forgot-password', data);
 
         showToast({
-          type: 'info',
+          type: 'success',
           text: {
-            main: 'Mensagem de recuperação enviada',
-            sub: 'O e-mail com o token de recuperação foi enviado.',
+            main: 'Token de recuperação enviado',
+            sub: 'Você pode visualizá-lo em seu e-mail.',
           },
         });
       } catch (err) {
@@ -66,7 +68,7 @@ const ForgotPassword: React.FC = () => {
 
       <Button
         onClick={() => formRef.current?.submitForm()}
-        color="#1c274e"
+        color="#49B454"
         text="Enviar"
         style={{ position: 'absolute', bottom: 80 }}
       />
