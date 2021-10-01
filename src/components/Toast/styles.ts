@@ -22,6 +22,7 @@ export const ToastContainer = styled(animated.button)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
 
   width: 400px;
   padding: 10px 0;
@@ -32,6 +33,19 @@ export const ToastContainer = styled(animated.button)`
 
   &:hover {
     animation: shake 0.4s;
+  }
+
+  &::after {
+    content: '';
+    width: 340px;
+    height: 1px;
+
+    right: 30px;
+    top: 54%;
+
+    position: absolute;
+
+    background-color: ${shade(0.2, '#fff')};
   }
 
   @keyframes shake {
@@ -63,24 +77,9 @@ export const MainText = styled.section`
   align-items: center;
   gap: 8px;
 
-  position: relative;
-
   svg {
     width: 24px;
     height: 24px;
-  }
-
-  &::after {
-    content: '';
-    width: 340px;
-    height: 1px;
-
-    right: -40px;
-    top: 100%;
-
-    position: absolute;
-
-    background-color: ${shade(0.2, '#fff')};
   }
 `;
 
