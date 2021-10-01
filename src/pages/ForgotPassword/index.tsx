@@ -6,10 +6,10 @@ import Input from 'components/Input';
 import api from 'services/api';
 import ErrorCatcher from 'errors/errorCatcher';
 
-import { MdEmail } from 'react-icons/md';
+import { MdEmail, MdKeyboardArrowLeft } from 'react-icons/md';
 import { useToast } from 'hooks/toast';
 import { useHistory } from 'react-router-dom';
-import { Container, Header, FormContainer } from './styles';
+import { Container, GoBackButton, Header, FormContainer } from './styles';
 
 const ForgotPassword: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
@@ -56,6 +56,10 @@ const ForgotPassword: React.FC = () => {
 
   return (
     <Container>
+      <GoBackButton onClick={navigation.goBack}>
+        <MdKeyboardArrowLeft color="#fff" size={48} />
+      </GoBackButton>
+
       <Header>Recuperar senha</Header>
 
       <FormContainer ref={formRef} onSubmit={handleSubmit}>
