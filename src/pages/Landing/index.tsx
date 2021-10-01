@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTransition } from 'react-spring';
 import { MdDomain, MdPersonAdd } from 'react-icons/md';
+import { useLocation } from 'react-router-dom';
 import { Container, Content } from './styles';
 
 import SignIn from './SignIn';
@@ -8,8 +9,10 @@ import SignUp from './SignUp';
 import HalfPage from './HalfPage';
 
 const Landing: React.FC = () => {
+  const { state } = useLocation() as { state: 'SignUp' | 'SignIn' | '' };
+
   const [selectedPage, setSelectedPage] = useState<'SignUp' | 'SignIn' | ''>(
-    '',
+    state || '',
   );
 
   const transition = useTransition(selectedPage, {

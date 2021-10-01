@@ -56,7 +56,7 @@ const ForgotPassword: React.FC = () => {
 
   return (
     <Container>
-      <GoBackButton onClick={navigation.goBack}>
+      <GoBackButton onClick={() => navigation.push('/', 'SignIn')}>
         <MdKeyboardArrowLeft color="#fff" size={48} />
       </GoBackButton>
 
