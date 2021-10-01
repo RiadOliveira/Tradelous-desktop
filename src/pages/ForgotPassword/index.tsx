@@ -57,7 +57,7 @@ const ForgotPassword: React.FC = () => {
 
   return (
     <Container>
-      <GoBackButton />
+      <GoBackButton onClick={() => navigation.push('/', 'SignIn')} />
 
       <Header>Recuperar senha</Header>
 
@@ -70,7 +70,7 @@ const ForgotPassword: React.FC = () => {
 
         <HasTokenButton
           type="button"
-          onClick={() => navigation.push('/forgot-password')}
+          onClick={() => navigation.push('/recover-password')}
         >
           Já possui um token?
         </HasTokenButton>

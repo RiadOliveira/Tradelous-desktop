@@ -10,12 +10,7 @@ import { FormHandles } from '@unform/core';
 import { useAuth } from 'hooks/auth';
 import { MdLock, MdMail } from 'react-icons/md';
 import { useToast } from 'hooks/toast';
-import {
-  Container,
-  Header,
-  ForgotPasswordButton,
-  FormContainer,
-} from './styles';
+import { Container, Header, FormContainer } from './styles';
 
 interface SignInData {
   email: string;
@@ -64,9 +59,9 @@ const RecoverPassword: React.FC = () => {
 
   return (
     <Container>
-      <GoBackButton />
+      <GoBackButton onClick={navigation.goBack} />
 
-      <Header>Recuperar senha</Header>
+      <Header>Finalizar recuperação</Header>
 
       <FormContainer ref={formRef} onSubmit={handleSubmit}>
         <Input
@@ -84,13 +79,6 @@ const RecoverPassword: React.FC = () => {
           style={{ marginBottom: 20 }}
           Icon={MdLock}
         />
-
-        <ForgotPasswordButton
-          type="button"
-          onClick={() => navigation.push('/forgot-password')}
-        >
-          Esqueci minha senha
-        </ForgotPasswordButton>
       </FormContainer>
 
       <Button

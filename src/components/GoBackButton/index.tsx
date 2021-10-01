@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import { MdKeyboardArrowLeft } from 'react-icons/md';
 import { Container } from './styles';
 
-const GoBackButton: React.FC = () => (
-  <Container>
+type GoBackButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
+
+const GoBackButton: React.FC<GoBackButtonProps> = props => (
+  <Container {...props}>
     <MdKeyboardArrowLeft color="#fff" size={48} />
   </Container>
 );
