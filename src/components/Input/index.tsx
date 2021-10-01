@@ -21,6 +21,7 @@ const Input: React.FC<InputProps> = ({
   placeholder,
   style,
   Icon,
+  disabled,
   ...props
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -39,6 +40,12 @@ const Input: React.FC<InputProps> = ({
     });
   }, [fieldName, registerField]);
 
+  useEffect(() => {
+    if (disabled) {
+      setPlaceHolderState('out');
+    }
+  }, [disabled]);
+
   // PlaceHolder animation
   const placeHolderStyles = {
     in: {
@@ -46,7 +53,7 @@ const Input: React.FC<InputProps> = ({
       color: '#000',
     },
     out: {
-      top: -78,
+      top: -80,
       color: '#fff',
     },
   };
@@ -98,6 +105,7 @@ const Input: React.FC<InputProps> = ({
         onBlur={() => !inputRef.current?.value && setPlaceHolderState('in')}
         onFocus={() => setPlaceHolderState('out')}
         onKeyPress={key => key.code === 'Enter' && inputRef.current?.blur()}
+        disabled={disabled}
         {...props}
       />
     </Container>

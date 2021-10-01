@@ -33,6 +33,8 @@ const ForgotPassword: React.FC = () => {
 
         await api.post('/user/forgot-password', data);
 
+        localStorage.setItem('@Tradelous-user', data.email);
+
         showToast({
           type: 'success',
           text: {
@@ -66,6 +68,7 @@ const ForgotPassword: React.FC = () => {
           name="email"
           placeholder="E-mail de recuperação"
           Icon={MdEmail}
+          type="email"
         />
 
         <HasTokenButton

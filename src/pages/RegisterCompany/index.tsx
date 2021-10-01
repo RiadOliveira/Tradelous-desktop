@@ -32,7 +32,6 @@ interface IBrazilianCity extends OptionProps {
 interface RegisterCompanyData {
   name: string;
   cnpj: string;
-  city: string;
 }
 
 const RegisterCompany: React.FC = () => {
@@ -84,10 +83,10 @@ const RegisterCompany: React.FC = () => {
         const schema = yup.object().shape({
           name: yup.string().required('Nome da empresa obrigatório'),
           cnpj: yup
-            .string()
+            .number()
+            .typeError('CNPJ deve conter somente números')
             .required('CNPJ obrigatório')
             .min(14, 'O tamanho mínimo do cnpj é de 14 dígitos'),
-          city: yup.string().required('Cidade da empresa obrigatório'),
         });
 
         await schema.validate(data, {

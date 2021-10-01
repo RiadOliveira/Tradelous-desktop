@@ -1,49 +1,86 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import GoBackButton from 'components/GoBackButton';
 import ErrorCatcher from 'errors/errorCatcher';
+import api from 'services/api';
 import * as yup from 'yup';
 
 import { useHistory } from 'react-router-dom';
 import { FormHandles } from '@unform/core';
-import { useAuth } from 'hooks/auth';
 import { MdLock, MdMail } from 'react-icons/md';
 import { FaHashtag } from 'react-icons/fa';
-
 import { useToast } from 'hooks/toast';
 import { Container, Header, FormContainer, InputLine } from './styles';
 
-interface SignInData {
-  email: string;
-  password: string;
+interface IRecoverPassword {
+  recoverToken: string;
+  confirmEmail: string;
+  newPassword: string;
+  confirmPassword: string;
 }
 
 const RecoverPassword: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useHistory();
-  const { signIn } = useAuth();
   const { showToast } = useToast();
 
+  const [userEmail, setUserEmail] = useState('');
+
+  useEffect(() => {
+    const response = localStorage.getItem('@Tradelous-user');
+
+    if (response) {
+      setUserEmail(response);
+    } else {
+      navigation.goBack();
+
+      showToast({
+        type: 'error',
+        text: {
+          main: 'Token necessário',
+          sub: 'Primeiro faça a requisição do token',
+        },
+      });
+    }
+  }, [navigation, showToast]);
+
   const handleSubmit = useCallback(
-    async (data: SignInData) => {
+    async (recoverData: IRecoverPassword) => {
       try {
         const schema = yup.object().shape({
-          email: yup
+          recoverToken: yup.string().required('Token obrigatório'),
+          confirmEmail: yup
             .string()
             .required('E-mail obrigatório')
             .email('Formato de e-mail incorreto'),
-          password: yup
+          newPassword: yup
             .string()
             .required('Senha obrigatória')
             .min(6, 'Senha de no mínimo 6 caracteres'),
+          confirmPassword: yup
+            .string()
+            .required('Confirmação de senha obrigatória')
+            .oneOf([yup.ref('password')], 'As senhas inseridas não são iguais'),
         });
 
-        await schema.validate(data, {
+        await schema.validate(recoverData, {
           abortEarly: false,
         });
 
-        await signIn(data);
+        await api.post('/user/recover-password', recoverData);
+
+        localStorage.removeItem('@Tradelous-user');
+
+        showToast({
+          type: 'success',
+          text: {
+            main: 'Senha atualizada com sucesso',
+            sub: 'Agora faça login com sua nova senha',
+          },
+        });
+
+        navigation.push('/', 'SignIn');
       } catch (err) {
         const toastText = ErrorCatcher(
           err as Error | yup.ValidationError,
@@ -56,7 +93,7 @@ const RecoverPassword: React.FC = () => {
         });
       }
     },
-    [signIn, showToast],
+    [showToast, navigation],
   );
 
   return (
@@ -72,6 +109,8 @@ const RecoverPassword: React.FC = () => {
             placeholder="E-mail"
             Icon={MdMail}
             type="email"
+            value={userEmail}
+            disabled
           />
 
           <Input
