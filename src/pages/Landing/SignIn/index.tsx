@@ -73,6 +73,7 @@ const SignIn: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
           placeholder="E-mail"
           style={{ marginBottom: 80 }}
           Icon={MdMail}
+          type="email"
         />
         <Input
           name="password"
@@ -82,6 +83,7 @@ const SignIn: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
           }
           style={{ marginBottom: 20 }}
           Icon={MdLock}
+          type="password"
         />
 
         <ForgotPasswordButton

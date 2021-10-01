@@ -7,7 +7,7 @@ export const Container = styled.button`
   width: 64px;
   height: 64px;
 
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 32px;
 
   display: flex;
@@ -22,6 +22,6 @@ export const Container = styled.button`
   transition: background 0.3s;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.35);
   }
 `;

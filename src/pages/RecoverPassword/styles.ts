@@ -33,4 +33,17 @@ export const FormContainer = styled(Form)`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  width: 100%;
+`;
+
+export const InputLine = styled.div`
+  display: flex;
+
+  width: 75%;
+  justify-content: space-between;
+
+  & ~ & {
+    margin-top: 80px;
+  }
 `;

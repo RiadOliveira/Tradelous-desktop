@@ -9,8 +9,10 @@ import { useHistory } from 'react-router-dom';
 import { FormHandles } from '@unform/core';
 import { useAuth } from 'hooks/auth';
 import { MdLock, MdMail } from 'react-icons/md';
+import { FaHashtag } from 'react-icons/fa';
+
 import { useToast } from 'hooks/toast';
-import { Container, Header, FormContainer } from './styles';
+import { Container, Header, FormContainer, InputLine } from './styles';
 
 interface SignInData {
   email: string;
@@ -64,25 +66,43 @@ const RecoverPassword: React.FC = () => {
       <Header>Finalizar recuperação</Header>
 
       <FormContainer ref={formRef} onSubmit={handleSubmit}>
-        <Input
-          name="email"
-          placeholder="E-mail"
-          style={{ marginBottom: 80 }}
-          Icon={MdMail}
-        />
-        <Input
-          name="password"
-          placeholder="Senha"
-          onKeyPress={key =>
-            key.code === 'Enter' && formRef.current?.submitForm()
-          }
-          style={{ marginBottom: 20 }}
-          Icon={MdLock}
-        />
+        <InputLine>
+          <Input
+            name="confirmEmail"
+            placeholder="E-mail"
+            Icon={MdMail}
+            type="email"
+          />
+
+          <Input
+            name="recoverToken"
+            placeholder="Token de recuperação"
+            Icon={FaHashtag}
+          />
+        </InputLine>
+
+        <InputLine>
+          <Input
+            name="newPassword"
+            placeholder="Nova senha"
+            Icon={MdLock}
+            type="password"
+          />
+
+          <Input
+            name="confirmPassword"
+            placeholder="Confirmar senha"
+            type="password"
+            onKeyPress={key =>
+              key.code === 'Enter' && formRef.current?.submitForm()
+            }
+            Icon={MdLock}
+          />
+        </InputLine>
       </FormContainer>
 
       <Button
-        text="Entrar"
+        text="Confirmar"
         onClick={() => formRef.current?.submitForm()}
         color="#49B454"
         style={{ position: 'absolute', bottom: 80 }}

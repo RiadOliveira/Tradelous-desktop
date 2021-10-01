@@ -15,13 +15,13 @@ const Routes: React.FC = () => {
     enter: {
       opacity: 1,
       config: {
-        duration: 400,
+        duration: 600,
       },
     },
     leave: { opacity: 0, position: 'relative' },
 
     config: {
-      duration: 800,
+      duration: 1000,
     },
   });
 

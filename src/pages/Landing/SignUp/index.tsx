@@ -99,15 +99,21 @@ const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
       <FormContainer ref={formRef} onSubmit={handleSubmit}>
         <InputLine>
           <Input name="name" placeholder="Nome" Icon={MdPerson} />
-          <Input name="email" placeholder="E-mail" Icon={MdMail} />
+          <Input name="email" placeholder="E-mail" Icon={MdMail} type="email" />
         </InputLine>
 
         <InputLine>
-          <Input name="password" placeholder="Senha" Icon={MdLock} />
+          <Input
+            name="password"
+            placeholder="Senha"
+            Icon={MdLock}
+            type="password"
+          />
           <Input
             name="confirmPassword"
             placeholder="Confirmar senha"
             Icon={MdLock}
+            type="password"
           />
         </InputLine>
 
