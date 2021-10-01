@@ -102,6 +102,7 @@ const HalfPage: React.FC<HalfPageProps> = ({
 
   useEffect(() => {
     if (
+      // When goes back to HalfPage style.
       (selectedAnimation === animationStates[0] && !$isFull) ||
       (selectedAnimation === animationStates[1] && !isHidden)
     ) {
@@ -133,7 +134,7 @@ const HalfPage: React.FC<HalfPageProps> = ({
   return (
     <Container
       style={{ ...style, ...animationProps }}
-      onMouseEnter={() => handleHoverState(0)}
+      onMouseOver={() => handleHoverState(0)}
       onMouseOut={() => handleHoverState(1)}
     >
       {!$isFull && <ButtonContainer {...props} />}
