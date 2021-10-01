@@ -1,21 +1,15 @@
 import styled from 'styled-components';
+import { animated } from 'react-spring';
 import { Form } from '@unform/web';
 import { shade } from 'polished';
 
-export const Container = styled.div`
+export const Container = styled(animated.div)`
   font-family: Poppins;
-  font-weight: bolder;
-
   font-size: 24px;
-  color: #fff;
-  background: #1c274e;
 
-  width: 100vw;
-  height: 100vh;
+  flex-direction: column;
 
-  display: flex;
   align-items: center;
-  justify-content: center;
 `;
 
 export const Header = styled.header`
@@ -29,20 +23,7 @@ export const Header = styled.header`
   font-family: Poppins;
 `;
 
-export const FormContainer = styled(Form)`
-  font-family: Poppins;
-  font-size: 24px;
-
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 20px;
-
-  margin-top: -60px;
-`;
-
-export const HasTokenButton = styled.button`
+export const ForgotPasswordButton = styled.button`
   outline: 0;
   border: 0;
 
@@ -61,4 +42,10 @@ export const HasTokenButton = styled.button`
   &:hover {
     color: ${shade(0.15, '#fff')};
   }
+`;
+
+export const FormContainer = styled(Form)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;

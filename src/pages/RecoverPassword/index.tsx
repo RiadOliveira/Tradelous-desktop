@@ -3,43 +3,50 @@ import Button from 'components/Button';
 import Input from 'components/Input';
 import GoBackButton from 'components/GoBackButton';
 import ErrorCatcher from 'errors/errorCatcher';
-import api from 'services/api';
 import * as yup from 'yup';
 
-import { FormHandles } from '@unform/core';
-import { MdEmail } from 'react-icons/md';
-import { useToast } from 'hooks/toast';
 import { useHistory } from 'react-router-dom';
-import { Container, Header, FormContainer, HasTokenButton } from './styles';
+import { FormHandles } from '@unform/core';
+import { useAuth } from 'hooks/auth';
+import { MdLock, MdMail } from 'react-icons/md';
+import { useToast } from 'hooks/toast';
+import {
+  Container,
+  Header,
+  ForgotPasswordButton,
+  FormContainer,
+} from './styles';
 
-const ForgotPassword: React.FC = () => {
+interface SignInData {
+  email: string;
+  password: string;
+}
+
+const RecoverPassword: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useHistory();
+  const { signIn } = useAuth();
   const { showToast } = useToast();
 
   const handleSubmit = useCallback(
-    async (data: { email: string }) => {
+    async (data: SignInData) => {
       try {
         const schema = yup.object().shape({
           email: yup
             .string()
             .required('E-mail obrigatório')
             .email('Formato de e-mail incorreto'),
+          password: yup
+            .string()
+            .required('Senha obrigatória')
+            .min(6, 'Senha de no mínimo 6 caracteres'),
         });
 
         await schema.validate(data, {
           abortEarly: false,
         });
 
-        await api.post('/user/forgot-password', data);
-
-        showToast({
-          type: 'success',
-          text: {
-            main: 'Token de recuperação enviado',
-            sub: 'Você pode visualizá-lo em seu e-mail.',
-          },
-        });
+        await signIn(data);
       } catch (err) {
         const toastText = ErrorCatcher(
           err as Error | yup.ValidationError,
@@ -52,7 +59,7 @@ const ForgotPassword: React.FC = () => {
         });
       }
     },
-    [showToast],
+    [signIn, showToast],
   );
 
   return (
@@ -64,26 +71,36 @@ const ForgotPassword: React.FC = () => {
       <FormContainer ref={formRef} onSubmit={handleSubmit}>
         <Input
           name="email"
-          placeholder="E-mail de recuperação"
-          Icon={MdEmail}
+          placeholder="E-mail"
+          style={{ marginBottom: 80 }}
+          Icon={MdMail}
+        />
+        <Input
+          name="password"
+          placeholder="Senha"
+          onKeyPress={key =>
+            key.code === 'Enter' && formRef.current?.submitForm()
+          }
+          style={{ marginBottom: 20 }}
+          Icon={MdLock}
         />
 
-        <HasTokenButton
+        <ForgotPasswordButton
           type="button"
           onClick={() => navigation.push('/forgot-password')}
         >
-          Já possui um token?
-        </HasTokenButton>
+          Esqueci minha senha
+        </ForgotPasswordButton>
       </FormContainer>
 
       <Button
+        text="Entrar"
         onClick={() => formRef.current?.submitForm()}
         color="#49B454"
-        text="Enviar"
         style={{ position: 'absolute', bottom: 80 }}
       />
     </Container>
   );
 };
 
-export default ForgotPassword;
+export default RecoverPassword;
