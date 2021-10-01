@@ -5,12 +5,13 @@ import SideBar from 'components/SideBar';
 import ErrorCatcher from 'errors/errorCatcher';
 import * as yup from 'yup';
 
+import { useHistory } from 'react-router-dom';
 import { SpringValue } from 'react-spring';
 import { FormHandles } from '@unform/core';
 import { useAuth } from 'hooks/auth';
 import { MdLock, MdMail } from 'react-icons/md';
 import { useToast } from 'hooks/toast';
-import { Container, FormContainer } from './styles';
+import { Container, ForgotPasswordButton, FormContainer } from './styles';
 
 interface ScreenProps {
   resetFunction: () => void;
@@ -26,6 +27,7 @@ interface SignInData {
 
 const SignIn: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
   const formRef = useRef<FormHandles>(null);
+  const navigation = useHistory();
   const { signIn } = useAuth();
   const { showToast } = useToast();
 
@@ -78,8 +80,16 @@ const SignIn: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
           onKeyPress={key =>
             key.code === 'Enter' && formRef.current?.submitForm()
           }
+          style={{ marginBottom: 20 }}
           Icon={MdLock}
         />
+
+        <ForgotPasswordButton
+          type="button"
+          onClick={() => navigation.push('/forgot-password')}
+        >
+          Esqueci minha senha
+        </ForgotPasswordButton>
       </FormContainer>
 
       <Button

@@ -1,5 +1,5 @@
-import { FormHandles } from '@unform/core';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { FormHandles } from '@unform/core';
 import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 import Button from 'components/Button';
