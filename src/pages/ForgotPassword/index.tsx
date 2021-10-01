@@ -10,7 +10,7 @@ import { MdEmail } from 'react-icons/md';
 import { useToast } from 'hooks/toast';
 import { Container, Header, FormContainer } from './styles';
 
-const RegisterCompany: React.FC = () => {
+const ForgotPassword: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const { showToast } = useToast();
 
@@ -74,4 +74,4 @@ const RegisterCompany: React.FC = () => {
   );
 };
 
-export default RegisterCompany;
+export default ForgotPassword;
