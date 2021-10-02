@@ -1,3 +1,4 @@
+import { shade } from 'polished';
 import styled from 'styled-components';
 
 interface SpinnerProps {
@@ -13,12 +14,27 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.55);
 
   z-index: 1;
 `;
 
-export const SpinnerContainer = styled.div``;
+export const SpinnerContainer = styled.div`
+  background-color: #fff;
+
+  border-radius: 10px;
+  padding: 20px 18px 4px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    color: ${shade(0.8, '#fff')};
+    font-weight: bold;
+  }
+`;
 
 export const Spinner = styled.div<SpinnerProps>`
   display: flex;
@@ -26,10 +42,10 @@ export const Spinner = styled.div<SpinnerProps>`
 
   &::after {
     content: '';
-    width: 50px;
-    height: 50px;
+    width: 46px;
+    height: 46px;
 
-    border: 10px solid #ddd;
+    border: 10px solid ${shade(0.3, '#fff')};
     border-radius: 50%;
 
     border-top-color: ${({ color }) => color};
