@@ -1,8 +1,9 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import GoBackButton from 'components/GoBackButton';
 import ErrorCatcher from 'errors/errorCatcher';
+import LoadingSpinner from 'components/LoadingSpinner';
 import api from 'services/api';
 import * as yup from 'yup';
 
@@ -16,6 +17,8 @@ const ForgotPassword: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useHistory();
   const { showToast } = useToast();
+
+  const [isSendingEmail, setIsSendingEmail] = useState(false);
 
   const handleSubmit = useCallback(
     async (data: { email: string }) => {
@@ -31,7 +34,9 @@ const ForgotPassword: React.FC = () => {
           abortEarly: false,
         });
 
+        setIsSendingEmail(true);
         await api.post('/user/forgot-password', data);
+        setIsSendingEmail(false);
 
         localStorage.setItem('@Tradelous-user', data.email);
 
@@ -78,6 +83,10 @@ const ForgotPassword: React.FC = () => {
           Já possui um token?
         </HasTokenButton>
       </FormContainer>
+
+      {isSendingEmail && (
+        <LoadingSpinner color="#49B454" loadingText="Enviando E-mail" />
+      )}
 
       <Button
         onClick={() => formRef.current?.submitForm()}
