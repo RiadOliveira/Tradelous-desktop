@@ -6,9 +6,13 @@ import { MdDomain, MdPerson, MdShoppingBasket } from 'react-icons/md';
 import { IconType } from 'react-icons';
 import {
   Container,
+  MainContent,
+  MainScreenContent,
+  SecondaryContent,
   UserBar,
   UserImage,
   UserName,
+  ListOfScreen,
   SelectScreenBar,
   SelectedScreenContent,
   SelectedScreen,
@@ -85,28 +89,36 @@ const Dashboard: React.FC = () => {
 
   return (
     <Container>
-      <UserBar>
-        {user.avatar ? (
-          <UserImage src={user.avatar} />
-        ) : (
-          <MdPerson size={90} color="#1c274e" />
-        )}
+      <MainContent>
+        <MainScreenContent>Teste</MainScreenContent>
 
-        <UserName>Ríad Oliveira de Morais</UserName>
-      </UserBar>
+        <SelectScreenBar onClick={handleScreenChange}>
+          {screenTransitions(
+            (style, item) =>
+              item && (
+                <SelectedScreenContent style={style}>
+                  <item.Icon size={110} color="#fff" />
 
-      <SelectScreenBar onClick={handleScreenChange}>
-        {screenTransitions(
-          (style, item) =>
-            item && (
-              <SelectedScreenContent style={style}>
-                <item.Icon size={110} color="#fff" />
+                  <SelectedScreen>{item.text}</SelectedScreen>
+                </SelectedScreenContent>
+              ),
+          )}
+        </SelectScreenBar>
+      </MainContent>
 
-                <SelectedScreen>{item.text}</SelectedScreen>
-              </SelectedScreenContent>
-            ),
-        )}
-      </SelectScreenBar>
+      <SecondaryContent>
+        <UserBar>
+          {user.avatar ? (
+            <UserImage src={user.avatar} />
+          ) : (
+            <MdPerson size={90} color="#1c274e" />
+          )}
+
+          <UserName>Ríad Oliveira de Morais</UserName>
+        </UserBar>
+
+        <ListOfScreen>Teste</ListOfScreen>
+      </SecondaryContent>
     </Container>
   );
 };
