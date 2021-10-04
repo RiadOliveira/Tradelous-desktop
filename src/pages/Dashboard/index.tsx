@@ -9,9 +9,9 @@ import {
   UserBar,
   UserImage,
   UserName,
-  SelectPageBar,
-  SelectedPageContent,
-  SelectedPage,
+  SelectScreenBar,
+  SelectedScreenContent,
+  SelectedScreen,
 } from './styles';
 
 import Company from './Company';
@@ -52,9 +52,9 @@ const keys = Object.keys(screens);
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
-  const [selectedPage, setSelectedPage] = useState<Screen>(screens.company);
+  const [selectedScreen, setSelectedScreen] = useState<Screen>(screens.company);
 
-  const pageTransitions = useTransition(selectedPage, {
+  const screenTransitions = useTransition(selectedScreen, {
     from: {
       marginLeft: '-1000px',
       opacity: 0,
@@ -75,7 +75,7 @@ const Dashboard: React.FC = () => {
   });
 
   const handleScreenChange = useCallback(() => {
-    setSelectedPage(
+    setSelectedScreen(
       value =>
         screens[
           keys[keys.indexOf(value.name) + (value.name === 'sales' ? -3 : 1)]
@@ -95,18 +95,18 @@ const Dashboard: React.FC = () => {
         <UserName>Ríad Oliveira de Morais</UserName>
       </UserBar>
 
-      <SelectPageBar onClick={handleScreenChange}>
-        {pageTransitions(
+      <SelectScreenBar onClick={handleScreenChange}>
+        {screenTransitions(
           (style, item) =>
             item && (
-              <SelectedPageContent style={style}>
+              <SelectedScreenContent style={style}>
                 <item.Icon size={110} color="#fff" />
 
-                <SelectedPage>{item.text}</SelectedPage>
-              </SelectedPageContent>
+                <SelectedScreen>{item.text}</SelectedScreen>
+              </SelectedScreenContent>
             ),
         )}
-      </SelectPageBar>
+      </SelectScreenBar>
     </Container>
   );
 };

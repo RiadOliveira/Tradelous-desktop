@@ -43,7 +43,7 @@ export const UserName = styled.h2`
   font-size: 36px;
 `;
 
-export const SelectPageBar = styled.button`
+export const SelectScreenBar = styled.button`
   position: absolute;
   left: 0;
   bottom: 0;
@@ -63,7 +63,7 @@ export const SelectPageBar = styled.button`
   justify-content: center;
 `;
 
-export const SelectedPageContent = styled(animated.div)`
+export const SelectedScreenContent = styled(animated.div)`
   position: relative;
   height: 100%;
 
@@ -73,7 +73,7 @@ export const SelectedPageContent = styled(animated.div)`
   gap: 30px;
 `;
 
-export const SelectedPage = styled.h2`
+export const SelectedScreen = styled.h2`
   font-family: Poppins;
   font-weight: bolder;
   color: #fff;
