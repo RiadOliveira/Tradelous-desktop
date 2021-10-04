@@ -1,11 +1,12 @@
 import React from 'react';
-import Landing from 'pages/Landing';
-import RegisterCompany from 'pages/RegisterCompany';
-import ForgotPassword from 'pages/ForgotPassword';
-import RecoverPassword from 'pages/RecoverPassword';
+import Landing from 'pages/Authentication/Landing';
+import RegisterCompany from 'pages/Authentication/RegisterCompany';
+import ForgotPassword from 'pages/Authentication/ForgotPassword';
+import RecoverPassword from 'pages/Authentication/RecoverPassword';
 
-import { Switch, Route, useLocation } from 'react-router-dom';
+import { Switch, useLocation } from 'react-router-dom';
 import { useTransition, animated } from 'react-spring';
+import Route from './Route';
 
 const Routes: React.FC = () => {
   const location = useLocation();
@@ -31,9 +32,20 @@ const Routes: React.FC = () => {
         <animated.div style={{ ...style, position: 'absolute' }}>
           <Switch location={item}>
             <Route exact path="/" component={Landing} />
-            <Route exact path="/register-company" component={RegisterCompany} />
             <Route exact path="/forgot-password" component={ForgotPassword} />
             <Route exact path="/recover-password" component={RecoverPassword} />
+            <Route
+              isPrivate
+              exact
+              path="/register-company"
+              component={RegisterCompany}
+            />
+            <Route
+              isPrivate
+              exact
+              path="/dashboard"
+              component={RecoverPassword}
+            />
           </Switch>
         </animated.div>
       ))}
