@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useTransition, animated } from 'react-spring';
+import React, { useCallback, useState } from 'react';
+import { useTransition } from 'react-spring';
 import { useAuth } from 'hooks/auth';
 import { RiArchiveFill } from 'react-icons/ri';
 import { MdDomain, MdPerson, MdShoppingBasket } from 'react-icons/md';
@@ -10,6 +10,7 @@ import {
   UserImage,
   UserName,
   SelectPageBar,
+  SelectedPageContent,
   SelectedPage,
 } from './styles';
 
@@ -26,30 +27,61 @@ interface Screen {
 
 const screens: Record<string, Screen> = {
   company: {
-    name: 'Company',
+    name: 'company',
     text: 'Empresa',
     Icon: MdDomain,
   },
   profile: {
-    name: 'Profile',
+    name: 'profile',
     text: 'Perfil',
     Icon: MdPerson,
   },
   products: {
-    name: 'Products',
+    name: 'products',
     text: 'Produtos',
     Icon: RiArchiveFill,
   },
   sales: {
-    name: 'Sales',
+    name: 'sales',
     text: 'Vendas',
     Icon: MdShoppingBasket,
   },
 };
 
+const keys = Object.keys(screens);
+
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
   const [selectedPage, setSelectedPage] = useState<Screen>(screens.company);
+
+  const pageTransitions = useTransition(selectedPage, {
+    from: {
+      marginLeft: '-1000px',
+      opacity: 0,
+    },
+    enter: {
+      marginLeft: '0px',
+      opacity: 1,
+      delay: 300,
+    },
+    leave: {
+      opacity: 0,
+      marginLeft: '1000px',
+      position: 'absolute',
+    },
+    config: {
+      duration: 800,
+    },
+  });
+
+  const handleScreenChange = useCallback(() => {
+    setSelectedPage(
+      value =>
+        screens[
+          keys[keys.indexOf(value.name) + (value.name === 'sales' ? -3 : 1)]
+        ],
+    );
+  }, []);
 
   return (
     <Container>
@@ -63,10 +95,17 @@ const Dashboard: React.FC = () => {
         <UserName>Ríad Oliveira de Morais</UserName>
       </UserBar>
 
-      <SelectPageBar>
-        <selectedPage.Icon size={106} color="#fff" />
+      <SelectPageBar onClick={handleScreenChange}>
+        {pageTransitions(
+          (style, item) =>
+            item && (
+              <SelectedPageContent style={style}>
+                <item.Icon size={110} color="#fff" />
 
-        <SelectedPage>{selectedPage.text}</SelectedPage>
+                <SelectedPage>{item.text}</SelectedPage>
+              </SelectedPageContent>
+            ),
+        )}
       </SelectPageBar>
     </Container>
   );

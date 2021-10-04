@@ -1,3 +1,4 @@
+import { animated } from 'react-spring';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -60,7 +61,16 @@ export const SelectPageBar = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 40px;
+`;
+
+export const SelectedPageContent = styled(animated.div)`
+  position: relative;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
 `;
 
 export const SelectedPage = styled.h2`
@@ -68,7 +78,7 @@ export const SelectedPage = styled.h2`
   font-weight: bolder;
   color: #fff;
 
-  font-size: 52px;
+  font-size: 56px;
 
   margin-top: 60px;
 `;
