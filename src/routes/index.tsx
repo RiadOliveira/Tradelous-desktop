@@ -6,6 +6,7 @@ import RecoverPassword from 'pages/Authentication/RecoverPassword';
 
 import { Switch, useLocation } from 'react-router-dom';
 import { useTransition, animated } from 'react-spring';
+import Dashboard from 'pages/Dashboard';
 import Route from './Route';
 
 const Routes: React.FC = () => {
@@ -40,12 +41,7 @@ const Routes: React.FC = () => {
               path="/register-company"
               component={RegisterCompany}
             />
-            <Route
-              isPrivate
-              exact
-              path="/dashboard"
-              component={RecoverPassword}
-            />
+            <Route exact isPrivate path="/dashboard" component={Dashboard} />
           </Switch>
         </animated.div>
       ))}

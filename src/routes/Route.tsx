@@ -22,7 +22,7 @@ const Route: React.FC<RouteProps> = ({
     <ReactRoute
       {...props}
       render={({ location }) =>
-        !!user === isPrivate ? (
+        !!user?.id === isPrivate ? (
           <Component />
         ) : (
           <Redirect
