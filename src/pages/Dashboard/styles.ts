@@ -8,15 +8,14 @@ export const Container = styled.div`
 
 export const UserBar = styled.button`
   position: absolute;
+  right: 0;
+  top: 0;
 
   border: 0;
   outline: 0;
   cursor: pointer;
 
-  right: 0;
-  top: 0;
-
-  width: 630px;
+  width: 640px;
   height: 130px;
   border-bottom-left-radius: 20px;
 
@@ -43,4 +42,33 @@ export const UserName = styled.h2`
   font-size: 36px;
 `;
 
-export const SelectPageBar = styled.button``;
+export const SelectPageBar = styled.button`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+
+  width: 1210px;
+  height: 165px;
+
+  background-color: #1c274e;
+  border-top-right-radius: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+`;
+
+export const SelectedPage = styled.h2`
+  font-family: Poppins;
+  font-weight: bolder;
+  color: #fff;
+
+  font-size: 52px;
+
+  margin-top: 60px;
+`;
