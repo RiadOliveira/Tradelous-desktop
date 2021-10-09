@@ -46,7 +46,6 @@ const CompanyData: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const [company, setCompany] = useState<ICompany>({} as ICompany);
-  const [hasLoadedData, setHasLoadedData] = useState(false);
 
   const [allStates, setAllStates] = useState<IBrazilianState[]>([]);
   const [selectedState, setSelectedState] = useState<IBrazilianState>(
@@ -100,7 +99,6 @@ const CompanyData: React.FC = () => {
               data.find(({ nome }) => nome === company.address.split('/')[0]) ||
               data[0],
           );
-          setHasLoadedData(true);
         });
     }
   }, [selectedState.id, company.address]);
@@ -140,9 +138,9 @@ const CompanyData: React.FC = () => {
   );
 
   return (
-    <>
-      {hasLoadedData && (
-        <Container>
+    <Container>
+      {selectedCity.id && (
+        <>
           <CompanyIcon>
             {company.logo ? (
               <CompanyImage src={`${apiStaticUrl}/logo/${company.logo}`} />
@@ -206,9 +204,9 @@ const CompanyData: React.FC = () => {
               />
             </InputLine>
           </Form>
-        </Container>
+        </>
       )}
-    </>
+    </Container>
   );
 };
 
