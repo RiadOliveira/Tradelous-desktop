@@ -21,8 +21,9 @@ interface SelectProps {
   Icon: IconType;
   data: OptionProps[];
   optionValueReference: string;
-  initialOptionPosition?: number;
   isOfDashboard?: boolean;
+  initialOptionPosition?: number;
+  disabled?: boolean;
   setFunction: (optionId: string) => void;
 }
 
@@ -39,6 +40,7 @@ const Select: React.FC<SelectProps> = ({
   setFunction,
   isOfDashboard = false,
   initialOptionPosition = 0,
+  disabled = false,
 }) => {
   const selectRef = useRef<HTMLDivElement>(null);
 
@@ -115,7 +117,7 @@ const Select: React.FC<SelectProps> = ({
     });
 
   return (
-    <Container isOfDashboard={isOfDashboard}>
+    <Container isOfDashboard={isOfDashboard} disabled={disabled}>
       <PlaceHolder>
         <div>
           <Icon size={32} />
@@ -137,11 +139,13 @@ const Select: React.FC<SelectProps> = ({
         {!isShowingOptions ? (
           <Option
             onClick={() => {
-              setIsShowingOptions(true);
-              selectRef.current?.focus();
+              if (!disabled) {
+                setIsShowingOptions(true);
+                selectRef.current?.focus();
+              }
             }}
           >
-            <ArrowIcon size={40} />
+            {!disabled && <ArrowIcon size={40} />}
             {data.length > 0 && data[selectedOption][optionValueReference]}
           </Option>
         ) : (

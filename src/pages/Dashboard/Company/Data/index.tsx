@@ -123,14 +123,14 @@ const CompanyData: React.FC = () => {
                 name="name"
                 placeholder="Nome da empresa"
                 Icon={MdDomain}
-                disabled={user.isAdmin}
+                disabled={!user.isAdmin}
               />
 
               <DashboardInput
                 name="cnpj"
                 placeholder="CNPJ"
                 Icon={MdDomain}
-                disabled={user.isAdmin}
+                disabled={!user.isAdmin}
               />
             </InputLine>
 
@@ -150,6 +150,7 @@ const CompanyData: React.FC = () => {
                 initialOptionPosition={allStates.findIndex(
                   ({ id }) => selectedState.id === id,
                 )}
+                disabled={!user.isAdmin}
               />
 
               <Select
@@ -167,6 +168,7 @@ const CompanyData: React.FC = () => {
                 initialOptionPosition={stateCities.findIndex(
                   ({ id }) => selectedCity.id === id,
                 )}
+                disabled={!user.isAdmin}
               />
             </InputLine>
           </Form>

@@ -4,6 +4,7 @@ import { MdArrowDropDown } from 'react-icons/md';
 
 interface SelectProps {
   isOfDashboard?: boolean;
+  disabled?: boolean;
 }
 
 interface OptionProps {
@@ -101,6 +102,19 @@ export const Container = styled.div<SelectProps>`
   height: 80px;
 
   position: relative;
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      ${Option} {
+        color: ${shade(0.5, '#fff')};
+        cursor: auto;
+
+        &:hover {
+          background-color: #fff;
+        }
+      }
+    `}
 
   ${PlaceHolder} {
     ${({ isOfDashboard }) =>
