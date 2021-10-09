@@ -18,15 +18,19 @@ import {
   SelectedScreen,
 } from './styles';
 
-import { CompanyData, CompanyList } from './Company';
-import { ProductsData, ProductsList } from './Products';
-import { ProfileData, ProfileList } from './Profile';
-import { SalesData, SalesList } from './Sales';
+import Company from './Company';
+import Products from './Products';
+import Profile from './Profile';
+import Sales from './Sales';
 
 interface Screen {
   name: string;
   text: string;
   Icon: IconType;
+  Component: {
+    data: React.FC;
+    list: React.FC;
+  };
 }
 
 const screens: Record<string, Screen> = {
@@ -34,21 +38,25 @@ const screens: Record<string, Screen> = {
     name: 'company',
     text: 'Empresa',
     Icon: MdDomain,
+    Component: Company,
   },
   profile: {
     name: 'profile',
     text: 'Perfil',
     Icon: MdPerson,
+    Component: Profile,
   },
   products: {
     name: 'products',
     text: 'Produtos',
     Icon: RiArchiveFill,
+    Component: Products,
   },
   sales: {
     name: 'sales',
     text: 'Vendas',
     Icon: MdShoppingBasket,
+    Component: Sales,
   },
 };
 
@@ -90,7 +98,7 @@ const Dashboard: React.FC = () => {
   return (
     <Container>
       <MainContent>
-        <MainScreenContent>Teste</MainScreenContent>
+        <MainScreenContent>{selectedScreen.Component.data}</MainScreenContent>
 
         <SelectScreenBar onClick={handleScreenChange}>
           {screenTransitions(
@@ -117,7 +125,7 @@ const Dashboard: React.FC = () => {
           <UserName>Ríad Oliveira de Morais</UserName>
         </UserBar>
 
-        <ListOfScreen>Teste</ListOfScreen>
+        <ListOfScreen>{selectedScreen.Component.list}</ListOfScreen>
       </SecondaryContent>
     </Container>
   );

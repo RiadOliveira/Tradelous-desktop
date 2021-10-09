@@ -1,4 +1,6 @@
 import SalesData from './Data';
 import SalesList from './List';
 
-export { SalesData, SalesList };
+const Sales = { data: SalesData, list: SalesList };
+
+export default Sales;

@@ -1,4 +1,6 @@
 import ProductsData from './Data';
 import ProductsList from './List';
 
-export { ProductsData, ProductsList };
+const Products = { data: ProductsData, list: ProductsList };
+
+export default Products;

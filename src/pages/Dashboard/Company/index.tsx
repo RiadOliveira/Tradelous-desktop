@@ -1,4 +1,6 @@
 import CompanyData from './Data';
 import CompanyList from './List';
 
-export { CompanyData, CompanyList };
+const Company = { data: CompanyData, list: CompanyList };
+
+export default Company;
