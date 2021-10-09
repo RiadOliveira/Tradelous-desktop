@@ -143,6 +143,7 @@ export const Container = styled.div<SelectProps>`
 
   ${Option} {
     font-size: ${props => (props.isOfDashboard ? '26' : '28')}px;
+    font-weight: ${props => (props.isOfDashboard ? 'normal' : 'bold')};
   }
 `;
 
