@@ -5,7 +5,6 @@ import { animated } from 'react-spring';
 export const Container = styled(animated.aside)`
   position: absolute;
   right: 6px;
-  top: 4px;
 
   background-color: ${shade(0.1, '#fff')};
 

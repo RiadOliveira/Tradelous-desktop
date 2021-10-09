@@ -1,5 +1,6 @@
-import { shade } from 'polished';
 import styled from 'styled-components';
+import { shade } from 'polished';
+import { Form as Unform } from '@unform/web';
 
 export const Container = styled.div`
   display: flex;
@@ -11,8 +12,7 @@ export const CompanyIcon = styled.div`
   max-width: 250px;
   max-height: 250px;
 
-  margin-top: 5%;
-  margin-bottom: 7%;
+  margin-top: 4%;
 
   display: flex;
   justify-content: center;
@@ -27,4 +27,24 @@ export const CompanyImage = styled.img`
   height: 250px;
 
   border-radius: 50%;
+`;
+
+export const Form = styled(Unform)`
+  width: 100%;
+  margin-top: 8%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const InputLine = styled.div`
+  width: 80%;
+
+  display: flex;
+  justify-content: space-between;
+
+  & ~ & {
+    margin-top: 100px;
+  }
 `;

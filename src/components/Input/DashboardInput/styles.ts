@@ -16,7 +16,7 @@ export const Container = styled.div`
 `;
 
 export const InputContainer = styled.input`
-  width: 94%;
+  width: 92%;
   height: 75%;
 
   outline: 0;
@@ -37,9 +37,8 @@ export const InputContainer = styled.input`
 export const PlaceHolder = styled.div`
   position: absolute;
   color: #515151;
-  border: 0;
 
-  top: -84%;
+  top: -90%;
 
   font-size: 22px;
   font-weight: bold;
@@ -50,10 +49,9 @@ export const PlaceHolder = styled.div`
   align-items: center;
   gap: 8px;
 
-  cursor: text;
   user-select: none;
 
-  p {
-    margin-top: 6%;
+  svg {
+    margin-bottom: 4%;
   }
 `;

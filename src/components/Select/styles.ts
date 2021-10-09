@@ -2,22 +2,18 @@ import styled, { css } from 'styled-components';
 import { shade } from 'polished';
 import { MdArrowDropDown } from 'react-icons/md';
 
+interface SelectProps {
+  isOfDashboard?: boolean;
+}
+
 interface OptionProps {
   isShowingOptions?: boolean;
 }
 
-export const Container = styled.div`
-  width: 560px;
-  height: 80px;
-
-  position: relative;
-`;
-
 export const PlaceHolder = styled.div`
   position: absolute;
-  color: #fff;
+  font-family: Poppins;
 
-  font-size: 32px;
   height: 50%;
 
   font-weight: bold;
@@ -37,14 +33,6 @@ export const PlaceHolder = styled.div`
   }
 `;
 
-export const ArrowIcon = styled(MdArrowDropDown)`
-  position: absolute;
-  cursor: pointer;
-
-  right: 10px;
-  top: 30%;
-`;
-
 export const Option = styled.button`
   border: 0;
   outline: 0;
@@ -54,8 +42,6 @@ export const Option = styled.button`
   cursor: pointer;
 
   font-family: Poppins;
-  font-weight: bold;
-  font-size: 28px;
 
   display: flex;
   justify-content: center;
@@ -73,7 +59,6 @@ export const SelectContainer = styled.div<OptionProps>`
   height: ${props => (props.isShowingOptions ? '25vh' : '100%')};
 
   background-color: #fff;
-  border-radius: 5px;
 
   display: flex;
   flex-direction: column;
@@ -109,4 +94,48 @@ export const SelectContainer = styled.div<OptionProps>`
             min-height: 80px;
           }
         `}
+`;
+
+export const Container = styled.div<SelectProps>`
+  width: ${({ isOfDashboard }) => (!isOfDashboard ? '560' : '420')}px;
+  height: 80px;
+
+  position: relative;
+
+  ${PlaceHolder} {
+    ${({ isOfDashboard }) =>
+      isOfDashboard
+        ? css`
+            color: #515151;
+            font-size: 24px;
+          `
+        : css`
+            color: #fff;
+            font-size: 32px;
+          `};
+  }
+
+  ${SelectContainer} {
+    ${({ isOfDashboard }) =>
+      isOfDashboard
+        ? css`
+            border: 2px solid #c4c4c4;
+            border-radius: 20px;
+          `
+        : css`
+            border-radius: 5px;
+          `};
+  }
+
+  ${Option} {
+    font-size: ${props => (props.isOfDashboard ? '26' : '28')}px;
+  }
+`;
+
+export const ArrowIcon = styled(MdArrowDropDown)`
+  position: absolute;
+  cursor: pointer;
+
+  right: 10px;
+  top: 30%;
 `;
