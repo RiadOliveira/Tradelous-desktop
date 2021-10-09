@@ -30,7 +30,8 @@ const Input: React.FC<InputProps> = ({
     'in' | 'out' | 'none'
   >('none');
 
-  const { fieldName, registerField } = useField(name);
+  const { fieldName, registerField, defaultValue } = useField(name);
+  const inputValueRef = useRef({ value: defaultValue });
 
   useEffect(() => {
     registerField({
@@ -106,6 +107,10 @@ const Input: React.FC<InputProps> = ({
         onFocus={() => setPlaceHolderState('out')}
         onKeyPress={key => key.code === 'Enter' && inputRef.current?.blur()}
         disabled={disabled}
+        defaultValue={defaultValue}
+        onChange={value => {
+          inputValueRef.current.value = value;
+        }}
         {...props}
       />
     </Container>

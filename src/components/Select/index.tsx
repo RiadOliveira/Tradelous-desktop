@@ -21,6 +21,7 @@ interface SelectProps {
   Icon: IconType;
   data: OptionProps[];
   optionValueReference: string;
+  initialOptionPosition?: number;
   isOfDashboard?: boolean;
   setFunction: (optionId: string) => void;
 }
@@ -37,13 +38,14 @@ const Select: React.FC<SelectProps> = ({
   optionValueReference,
   setFunction,
   isOfDashboard = false,
+  initialOptionPosition = 0,
 }) => {
   const selectRef = useRef<HTMLDivElement>(null);
 
   const [searchedTextProps, setSearchedTextProps] =
     useState<ISearchedTextProps>({} as ISearchedTextProps);
 
-  const [selectedOption, setSelectedOption] = useState(0);
+  const [selectedOption, setSelectedOption] = useState(initialOptionPosition);
   const [isShowingOptions, setIsShowingOptions] = useState(false);
 
   const [scrollTopDistance, setScrollTopDistance] = useState(0);

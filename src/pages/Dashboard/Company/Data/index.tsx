@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAuth } from 'hooks/auth';
 import { MdDomain, MdPlace } from 'react-icons/md';
 import api from 'services/api';
 import DashboardInput from 'components/Input/DashboardInput';
 import Select from 'components/Select';
+import { FormHandles } from '@unform/core';
 import {
   Container,
   CompanyIcon,
@@ -18,14 +19,6 @@ interface ICompany {
   cnpj: number;
   address: string;
   logo?: string;
-}
-
-interface IEmployee {
-  id: string;
-  name: string;
-  email: string;
-  avatar: string;
-  isAdmin: boolean;
 }
 
 interface OptionProps {
@@ -46,11 +39,10 @@ interface IBrazilianCity extends OptionProps {
 
 const CompanyData: React.FC = () => {
   const { user } = useAuth();
+  const formRef = useRef<FormHandles>(null);
 
   const [company, setCompany] = useState<ICompany>({} as ICompany);
-  const [hasLoadedCompany, setHasLoadedCompany] = useState(false);
-
-  const [employees, setEmployees] = useState<IEmployee[]>([]);
+  const [hasLoadedData, setHasLoadedData] = useState(false);
 
   const [allStates, setAllStates] = useState<IBrazilianState[]>([]);
   const [selectedState, setSelectedState] = useState<IBrazilianState>(
@@ -65,100 +57,122 @@ const CompanyData: React.FC = () => {
   const apiStaticUrl = `${api.defaults.baseURL}/files`;
 
   useEffect(() => {
-    api
-      .get<IBrazilianState[]>(
-        'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome',
-        {
-          baseURL: '',
-        },
-      )
-      .then(({ data }) => {
-        setAllStates(data);
-        setSelectedState(data[0]);
-      });
+    api.get('/company').then(response => {
+      setCompany(response.data);
+    });
   }, []);
 
   useEffect(() => {
-    if (selectedState.id) {
+    if (company.address) {
       api
-        .get(
+        .get<IBrazilianState[]>(
+          'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome',
+          {
+            baseURL: '',
+          },
+        )
+        .then(({ data }) => {
+          setAllStates(data);
+          setSelectedState(
+            () =>
+              data.find(
+                ({ sigla }) => sigla === company.address.split('/')[1],
+              ) || data[0],
+          );
+        });
+    }
+  }, [company.address]);
+
+  useEffect(() => {
+    if (selectedState.id && company.address) {
+      api
+        .get<IBrazilianCity[]>(
           `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState.id}/municipios?orderBy=nome`,
         )
         .then(({ data }) => {
           setStateCities(data);
-          setSelectedCity(data[0]);
+          setSelectedCity(
+            () =>
+              data.find(({ nome }) => nome === company.address.split('/')[0]) ||
+              data[0],
+          );
+          setHasLoadedData(true);
         });
     }
-  }, [selectedState.id]);
-
-  useEffect(() => {
-    api.get('/company').then(response => setCompany(response.data));
-  }, []);
-
-  useEffect(() => {
-    api.get('/company/list-employees').then(response => {
-      setEmployees(response.data);
-    });
-  }, [user]);
-
-  useEffect(() => {
-    if (company.id && !!employees.length) {
-      setHasLoadedCompany(true);
-    }
-  }, [company, employees]);
+  }, [selectedState.id, company.address]);
 
   return (
-    <Container>
-      <CompanyIcon>
-        {company.logo ? (
-          <CompanyImage src={`${apiStaticUrl}/logo/${company.logo}`} />
-        ) : (
-          <MdDomain size={180} color="#1c274e" />
-        )}
-      </CompanyIcon>
+    <>
+      {hasLoadedData && (
+        <Container>
+          <CompanyIcon>
+            {company.logo ? (
+              <CompanyImage src={`${apiStaticUrl}/logo/${company.logo}`} />
+            ) : (
+              <MdDomain size={180} color="#1c274e" />
+            )}
+          </CompanyIcon>
 
-      <Form onSubmit={() => console.log('test')}>
-        <InputLine>
-          <DashboardInput
-            name="name"
-            placeholder="Nome da empresa"
-            Icon={MdDomain}
-          />
+          <Form
+            ref={formRef}
+            initialData={company}
+            onSubmit={() => console.log('test')}
+          >
+            <InputLine>
+              <DashboardInput
+                name="name"
+                placeholder="Nome da empresa"
+                Icon={MdDomain}
+                disabled={user.isAdmin}
+              />
 
-          <DashboardInput name="CNPJ" placeholder="CNPJ" Icon={MdDomain} />
-        </InputLine>
+              <DashboardInput
+                name="cnpj"
+                placeholder="CNPJ"
+                Icon={MdDomain}
+                disabled={user.isAdmin}
+              />
+            </InputLine>
 
-        <InputLine>
-          <Select
-            data={allStates}
-            optionValueReference="nome"
-            placeHolder="Estado"
-            Icon={MdPlace}
-            setFunction={optionId =>
-              setSelectedState(
-                allStates.find(({ id }) => id === optionId) ||
-                  ({} as IBrazilianState),
-              )
-            }
-            isOfDashboard
-          />
+            <InputLine>
+              <Select
+                data={allStates}
+                optionValueReference="nome"
+                placeHolder="Estado"
+                Icon={MdPlace}
+                setFunction={optionId =>
+                  setSelectedState(
+                    allStates.find(({ id }) => id === optionId) ||
+                      ({} as IBrazilianState),
+                  )
+                }
+                isOfDashboard
+                initialOptionPosition={allStates.findIndex(
+                  ({ id }) => selectedState.id === id,
+                )}
+              />
 
-          <Select
-            data={stateCities}
-            optionValueReference="nome"
-            placeHolder="Cidade"
-            Icon={MdPlace}
-            setFunction={optionId =>
-              setSelectedCity(
-                stateCities.find(({ id }) => id === optionId) ||
-                  ({} as IBrazilianCity),
-              )
-            }
-            isOfDashboard
-          />
-        </InputLine>
-      </Form>
-    </Container>
+              <Select
+                data={stateCities}
+                optionValueReference="nome"
+                placeHolder="Cidade"
+                Icon={MdPlace}
+                setFunction={optionId =>
+                  setSelectedCity(
+                    stateCities.find(({ id }) => id === optionId) ||
+                      ({} as IBrazilianCity),
+                  )
+                }
+                isOfDashboard
+                initialOptionPosition={stateCities.findIndex(
+                  ({ id }) => selectedCity.id === id,
+                )}
+              />
+            </InputLine>
+          </Form>
+        </Container>
+      )}
+    </>
   );
 };
 

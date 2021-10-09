@@ -19,7 +19,8 @@ const DashboardInput: React.FC<InputProps> = ({
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { fieldName, registerField } = useField(name);
+  const { fieldName, registerField, defaultValue } = useField(name);
+  const inputValueRef = useRef({ value: defaultValue });
 
   useEffect(() => {
     registerField({
@@ -40,6 +41,10 @@ const DashboardInput: React.FC<InputProps> = ({
         ref={inputRef}
         onKeyPress={key => key.code === 'Enter' && inputRef.current?.blur()}
         disabled={disabled}
+        defaultValue={defaultValue}
+        onChange={value => {
+          inputValueRef.current.value = value;
+        }}
         {...props}
       />
     </Container>

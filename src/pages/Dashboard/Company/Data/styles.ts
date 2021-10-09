@@ -9,8 +9,8 @@ export const Container = styled.div`
 `;
 
 export const CompanyIcon = styled.div`
-  max-width: 250px;
-  max-height: 250px;
+  width: 250px;
+  height: 250px;
 
   margin-top: 4%;
 

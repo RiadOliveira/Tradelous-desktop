@@ -1,3 +1,4 @@
+import { shade } from 'polished';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -25,6 +26,11 @@ export const InputContainer = styled.input`
   font-size: 26px;
 
   text-align: center;
+
+  &:disabled {
+    background-color: transparent;
+    color: ${shade(0.5, '#fff')};
+  }
 
   &[type='number'] {
     &::-webkit-inner-spin-button {
