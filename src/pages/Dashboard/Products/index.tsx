@@ -1,6 +1,4 @@
-import React from 'react';
-import { Container } from './styles';
+import ProductsData from './Data';
+import ProductsList from './List';
 
-const Products: React.FC = () => <Container />;
-
-export default Products;
+export { ProductsData, ProductsList };

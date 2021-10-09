@@ -1,6 +1,4 @@
-import React from 'react';
-import { Container } from './styles';
+import CompanyData from './Data';
+import CompanyList from './List';
 
-const Company: React.FC = () => <Container />;
-
-export default Company;
+export { CompanyData, CompanyList };

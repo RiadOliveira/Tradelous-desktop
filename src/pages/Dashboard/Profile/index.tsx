@@ -1,8 +1,4 @@
-import React from 'react';
-import { Container } from './styles';
+import ProfileData from './Data';
+import ProfileList from './List';
 
-const Profile: React.FC = () => {
-  return <Container />;
-};
-
-export default Profile;
+export { ProfileData, ProfileList };

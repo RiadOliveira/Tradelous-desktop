@@ -18,10 +18,10 @@ import {
   SelectedScreen,
 } from './styles';
 
-import Company from './Company';
-import Products from './Products';
-import Profile from './Profile';
-import Sales from './Sales';
+import { CompanyData, CompanyList } from './Company';
+import { ProductsData, ProductsList } from './Products';
+import { ProfileData, ProfileList } from './Profile';
+import { SalesData, SalesList } from './Sales';
 
 interface Screen {
   name: string;
