@@ -1,10 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useAuth } from 'hooks/auth';
 import { MdDomain, MdPlace } from 'react-icons/md';
 import api from 'services/api';
 import DashboardInput from 'components/Input/DashboardInput';
 import Select from 'components/Select';
 import { FormHandles } from '@unform/core';
+import * as yup from 'yup';
+import ErrorCatcher from 'errors/errorCatcher';
+import { useToast } from 'hooks/toast';
 import {
   Container,
   CompanyIcon,
@@ -39,6 +42,7 @@ interface IBrazilianCity extends OptionProps {
 
 const CompanyData: React.FC = () => {
   const { user } = useAuth();
+  const { showToast } = useToast();
   const formRef = useRef<FormHandles>(null);
 
   const [company, setCompany] = useState<ICompany>({} as ICompany);
@@ -101,6 +105,40 @@ const CompanyData: React.FC = () => {
     }
   }, [selectedState.id, company.address]);
 
+  const handleSubmit = useCallback(
+    async (companyData: ICompany) => {
+      try {
+        const schema = yup.object().shape({
+          name: yup.string().required('Nome da empresa obrigatório'),
+          cnpj: yup
+            .string()
+            .required('CNPJ obrigatório')
+            .min(14, 'O tamanho mínimo do cnpj é de 14 dígitos'),
+        });
+
+        await schema.validate(companyData, {
+          abortEarly: false,
+        });
+
+        await api.put('/company/', {
+          ...companyData,
+          address: `${selectedCity.nome}/${selectedState.sigla}`,
+        });
+
+        showToast({
+          type: 'success',
+          text: {
+            main: 'Atualização bem sucedida',
+            sub: 'Empresa atualizada com sucesso',
+          },
+        });
+      } catch (err) {
+        ErrorCatcher(err as Error | yup.ValidationError, formRef);
+      }
+    },
+    [selectedState.sigla, selectedCity.nome, showToast],
+  );
+
   return (
     <>
       {hasLoadedData && (
@@ -113,11 +151,7 @@ const CompanyData: React.FC = () => {
             )}
           </CompanyIcon>
 
-          <Form
-            ref={formRef}
-            initialData={company}
-            onSubmit={() => console.log('test')}
-          >
+          <Form ref={formRef} initialData={company} onSubmit={handleSubmit}>
             <InputLine>
               <DashboardInput
                 name="name"
