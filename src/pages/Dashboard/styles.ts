@@ -20,6 +20,11 @@ export const MainContent = styled.main`
 
 export const MainScreenContent = styled.div`
   flex: 1;
+
+  & div {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export const SelectScreenBar = styled.button`
@@ -134,4 +139,9 @@ export const UserName = styled.h2`
 
 export const ListOfScreen = styled.div`
   flex: 1;
+
+  & div {
+    width: 100%;
+    height: 100%;
+  }
 `;

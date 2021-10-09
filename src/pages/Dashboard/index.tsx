@@ -98,7 +98,9 @@ const Dashboard: React.FC = () => {
   return (
     <Container>
       <MainContent>
-        <MainScreenContent>{selectedScreen.Component.data}</MainScreenContent>
+        <MainScreenContent>
+          <selectedScreen.Component.data />
+        </MainScreenContent>
 
         <SelectScreenBar onClick={handleScreenChange}>
           {screenTransitions(
@@ -125,7 +127,9 @@ const Dashboard: React.FC = () => {
           <UserName>Ríad Oliveira de Morais</UserName>
         </UserBar>
 
-        <ListOfScreen>{selectedScreen.Component.list}</ListOfScreen>
+        <ListOfScreen>
+          <selectedScreen.Component.list />
+        </ListOfScreen>
       </SecondaryContent>
     </Container>
   );
