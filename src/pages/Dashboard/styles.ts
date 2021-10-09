@@ -123,8 +123,8 @@ export const UserBar = styled.button`
 `;
 
 export const UserImage = styled.img`
-  width: 90px;
-  height: 90px;
+  width: 96px;
+  height: 96px;
 
   border-radius: 50%;
 `;

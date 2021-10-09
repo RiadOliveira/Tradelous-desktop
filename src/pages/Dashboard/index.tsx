@@ -4,6 +4,7 @@ import { useAuth } from 'hooks/auth';
 import { RiArchiveFill } from 'react-icons/ri';
 import { MdDomain, MdPerson, MdShoppingBasket } from 'react-icons/md';
 import { IconType } from 'react-icons';
+import api from 'services/api';
 import {
   Container,
   MainContent,
@@ -66,6 +67,8 @@ const Dashboard: React.FC = () => {
   const { user } = useAuth();
   const [selectedScreen, setSelectedScreen] = useState<Screen>(screens.company);
 
+  const apiStaticUrl = `${api.defaults.baseURL}/files`;
+
   const screenTransitions = useTransition(selectedScreen, {
     from: {
       marginLeft: '-1000px',
@@ -119,9 +122,9 @@ const Dashboard: React.FC = () => {
       <SecondaryContent>
         <UserBar>
           {user.avatar ? (
-            <UserImage src={user.avatar} />
+            <UserImage src={`${apiStaticUrl}/avatar/${user.avatar}`} />
           ) : (
-            <MdPerson size={90} color="#1c274e" />
+            <MdPerson size={96} color="#1c274e" />
           )}
 
           <UserName>Ríad Oliveira de Morais</UserName>

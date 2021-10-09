@@ -28,17 +28,17 @@ interface OptionProps {
   [key: string]: string;
 }
 
-interface IBrazilianState extends OptionProps {
+interface IBrazilianLocation extends OptionProps {
   id: string;
   nome: string;
+  index: string;
+}
+
+interface IBrazilianState extends IBrazilianLocation {
   sigla: string;
 }
 
-interface IBrazilianCity extends OptionProps {
-  id: string;
-  nome: string;
-  [key: string]: string;
-}
+type IBrazilianCity = IBrazilianLocation;
 
 const CompanyData: React.FC = () => {
   const { user } = useAuth();
@@ -76,12 +76,14 @@ const CompanyData: React.FC = () => {
         )
         .then(({ data }) => {
           setAllStates(data);
-          setSelectedState(
-            () =>
-              data.find(
-                ({ sigla }) => sigla === company.address.split('/')[1],
-              ) || data[0],
-          );
+
+          setSelectedState(() => {
+            const index = data.findIndex(
+              ({ sigla }) => sigla === company.address.split('/')[1],
+            );
+
+            return { ...data[index], index: index.toString() };
+          });
         });
     }
   }, [company.address]);
@@ -94,11 +96,14 @@ const CompanyData: React.FC = () => {
         )
         .then(({ data }) => {
           setStateCities(data);
-          setSelectedCity(
-            () =>
-              data.find(({ nome }) => nome === company.address.split('/')[0]) ||
-              data[0],
-          );
+
+          setSelectedCity(() => {
+            const index = data.findIndex(
+              ({ nome }) => nome === company.address.split('/')[0],
+            );
+
+            return { ...data[index], index: index.toString() };
+          });
         });
     }
   }, [selectedState.id, company.address]);
@@ -179,9 +184,7 @@ const CompanyData: React.FC = () => {
                   )
                 }
                 isOfDashboard
-                initialOptionPosition={allStates.findIndex(
-                  ({ id }) => selectedState.id === id,
-                )}
+                initialOptionPosition={Number(selectedState.index)}
                 disabled={!user.isAdmin}
               />
 
@@ -197,9 +200,7 @@ const CompanyData: React.FC = () => {
                   )
                 }
                 isOfDashboard
-                initialOptionPosition={stateCities.findIndex(
-                  ({ id }) => selectedCity.id === id,
-                )}
+                initialOptionPosition={Number(selectedCity.index)}
                 disabled={!user.isAdmin}
               />
             </InputLine>
