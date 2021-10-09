@@ -111,6 +111,7 @@ const Input: React.FC<InputProps> = ({
         onChange={value => {
           inputValueRef.current.value = value;
         }}
+        spellCheck={false}
         {...props}
       />
     </Container>
