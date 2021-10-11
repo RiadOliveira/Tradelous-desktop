@@ -1,3 +1,4 @@
+import LoadingSpinner from 'components/LoadingSpinner';
 import React, { useEffect, useMemo, useState } from 'react';
 import { MdPerson } from 'react-icons/md';
 import api from 'services/api';
@@ -40,25 +41,29 @@ const CompanyList: React.FC = () => {
 
   return (
     <Container>
-      {orderedEmployees.map(employee => (
-        <Employee key={`${employee.id}`}>
-          <EmployeeIcon>
-            {employee.avatar ? (
-              <EmployeeImage
-                src={`${apiStaticUrl}/avatar/${employee.avatar}`}
-              />
-            ) : (
-              <MdPerson color="#fff" size={60} />
-            )}
-          </EmployeeIcon>
+      {orderedEmployees.length === 0 ? (
+        <LoadingSpinner color="#1c274e" />
+      ) : (
+        orderedEmployees.map(employee => (
+          <Employee key={`${employee.id}`}>
+            <EmployeeIcon>
+              {employee.avatar ? (
+                <EmployeeImage
+                  src={`${apiStaticUrl}/avatar/${employee.avatar}`}
+                />
+              ) : (
+                <MdPerson color="#fff" size={60} />
+              )}
+            </EmployeeIcon>
 
-          <EmployeeData>
-            <EmployeeText>{employee.name}</EmployeeText>
+            <EmployeeData>
+              <EmployeeText>{employee.name}</EmployeeText>
 
-            <EmployeeText>{employee.email}</EmployeeText>
-          </EmployeeData>
-        </Employee>
-      ))}
+              <EmployeeText>{employee.email}</EmployeeText>
+            </EmployeeData>
+          </Employee>
+        ))
+      )}
     </Container>
   );
 };

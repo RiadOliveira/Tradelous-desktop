@@ -1,13 +1,15 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useAuth } from 'hooks/auth';
-import { MdDomain, MdPlace } from 'react-icons/md';
 import api from 'services/api';
 import DashboardInput from 'components/Input/DashboardInput';
 import Select from 'components/Select';
-import { FormHandles } from '@unform/core';
-import * as yup from 'yup';
 import ErrorCatcher from 'errors/errorCatcher';
+import * as yup from 'yup';
+
+import { useAuth } from 'hooks/auth';
+import { MdDomain, MdPlace } from 'react-icons/md';
+import { FormHandles } from '@unform/core';
 import { useToast } from 'hooks/toast';
+import LoadingSpinner from 'components/LoadingSpinner';
 import {
   Container,
   CompanyIcon,
@@ -89,23 +91,31 @@ const CompanyData: React.FC = () => {
   }, [company.address]);
 
   useEffect(() => {
-    if (selectedState.id && company.address) {
+    let unmounted = false;
+
+    if (selectedState.id) {
       api
         .get<IBrazilianCity[]>(
           `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState.id}/municipios?orderBy=nome`,
         )
         .then(({ data }) => {
-          setStateCities(data);
+          if (!unmounted) {
+            setStateCities(data);
 
-          setSelectedCity(() => {
-            const index = data.findIndex(
-              ({ nome }) => nome === company.address.split('/')[0],
-            );
+            setSelectedCity(() => {
+              const index = data.findIndex(
+                ({ nome }) => nome === company.address.split('/')[0],
+              );
 
-            return { ...data[index], index: index.toString() };
-          });
+              return { ...data[index], index: index.toString() };
+            });
+          }
         });
     }
+
+    return () => {
+      unmounted = true;
+    };
   }, [selectedState.id, company.address]);
 
   const handleSubmit = useCallback(
@@ -144,7 +154,9 @@ const CompanyData: React.FC = () => {
 
   return (
     <Container>
-      {selectedCity.id && (
+      {!selectedCity.id ? (
+        <LoadingSpinner color="#1c274e" />
+      ) : (
         <>
           <CompanyIcon>
             {company.logo ? (

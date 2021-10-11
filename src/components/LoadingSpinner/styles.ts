@@ -1,12 +1,17 @@
+import styled, { css } from 'styled-components';
 import { shade } from 'polished';
-import styled from 'styled-components';
+
+interface SpinnerContainerProps {
+  hasBackground?: boolean;
+}
 
 interface SpinnerProps {
   color: string;
+  bigSpinner?: boolean;
 }
 
-export const Container = styled.div`
-  position: absolute;
+export const Container = styled.div<SpinnerContainerProps>`
+  position: ${({ hasBackground }) => (hasBackground ? 'absolute' : 'relative')};
   width: 100%;
   height: 100%;
 
@@ -14,14 +19,13 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-color: rgba(0, 0, 0, 0.55);
+  background-color: ${({ hasBackground }) =>
+    hasBackground ? 'rgba(0, 0, 0, 0.55)' : 'transparent'};
 
   z-index: 1;
 `;
 
 export const SpinnerContainer = styled.div`
-  background-color: #fff;
-
   border-radius: 10px;
   padding: 20px 18px 4px;
 
@@ -42,15 +46,29 @@ export const Spinner = styled.div<SpinnerProps>`
 
   &::after {
     content: '';
-    width: 46px;
-    height: 46px;
 
-    border: 10px solid ${shade(0.3, '#fff')};
+    border: solid ${shade(0.3, '#fff')};
+
+    ${({ bigSpinner }) =>
+      bigSpinner
+        ? css`
+            width: 64px;
+            height: 64px;
+
+            border-width: 12px;
+          `
+        : css`
+            width: 46px;
+            height: 46px;
+
+            border-width: 10px;
+          `}
+
     border-radius: 50%;
 
     border-top-color: ${({ color }) => color};
 
-    animation: loading 0.8s linear infinite;
+    animation: loading 1s linear infinite;
   }
 
   @keyframes loading {

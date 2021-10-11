@@ -85,7 +85,11 @@ const ForgotPassword: React.FC = () => {
       </FormContainer>
 
       {isSendingEmail && (
-        <LoadingSpinner color="#49B454" loadingText="Enviando E-mail" />
+        <LoadingSpinner
+          hasBackground
+          color="#49B454"
+          loadingText="Enviando E-mail"
+        />
       )}
 
       <Button
