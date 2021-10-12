@@ -24,13 +24,14 @@ export const Container = styled.aside`
     background-color: #dddddd;
 
     font-family: Poppins;
+    font-weight: bold;
     font-size: 14px;
     border-radius: 5px;
 
     width: 140px;
     height: 40px;
-
     margin-top: 10px;
+
     cursor: pointer;
 
     transition: 0.3s;
@@ -41,7 +42,20 @@ export const Container = styled.aside`
     }
   }
 
+  svg {
+    transition: transform 0.5s;
+  }
+
   &:hover {
     top: 0;
+
+    button {
+      margin-top: 12px;
+    }
+
+    svg {
+      margin-top: 2px;
+      transform: rotate(-180deg);
+    }
   }
 `;
