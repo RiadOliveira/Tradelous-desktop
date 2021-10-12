@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useCallback } from 'react';
 import Modal from 'components/Modal';
+import ModalInput from 'components/Modal/ModalInput';
 
 interface IModalProps {
   isVisible: boolean;
@@ -7,9 +8,10 @@ interface IModalProps {
     first: {
       text: string;
       color: string;
-      actionFunction: () => Promise<void>;
+      actionFunction: (inputText?: string) => Promise<void>; // In case Modal is with input
     };
-    second: {
+    second?: {
+      // In case Modal is with input
       text: string;
       color: string;
       actionFunction: () => Promise<void>;
@@ -35,10 +37,7 @@ const ModalContext: React.FC = ({ children }) => {
     setModalProps({ ...props, isVisible: true });
   }, []);
 
-  const hideModal = useCallback(
-    () => setModalProps(props => ({ ...props, isVisible: false })),
-    [],
-  );
+  const hideModal = useCallback(() => setModalProps({ isVisible: false }), []);
 
   return (
     <modalContext.Provider
@@ -50,6 +49,7 @@ const ModalContext: React.FC = ({ children }) => {
     >
       {children}
       <Modal />
+      <ModalInput />
     </modalContext.Provider>
   );
 };

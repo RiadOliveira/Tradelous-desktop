@@ -13,7 +13,7 @@ const Modal: React.FC = () => {
   const { modalProps, hideModal } = useModal();
   const { buttonsProps } = modalProps;
 
-  const modalTransition = useTransition(modalProps.isVisible, {
+  const modalTransition = useTransition(modalProps, {
     from: {
       opacity: 0,
     },
@@ -33,7 +33,8 @@ const Modal: React.FC = () => {
     <>
       {modalTransition(
         (style, item) =>
-          item && (
+          item.isVisible &&
+          item.buttonsProps?.second && (
             <Container style={style}>
               <ModalContainer>
                 <ModalText>{modalProps.text}</ModalText>
@@ -53,14 +54,14 @@ const Modal: React.FC = () => {
 
                   <ModalButton
                     onClick={() => {
-                      if (buttonsProps) {
+                      if (buttonsProps?.second) {
                         buttonsProps.second.actionFunction();
                         hideModal();
                       }
                     }}
-                    color={buttonsProps?.second.color}
+                    color={buttonsProps?.second?.color}
                   >
-                    {buttonsProps?.second.text}
+                    {buttonsProps?.second?.text}
                   </ModalButton>
                 </ButtonsContainer>
               </ModalContainer>
