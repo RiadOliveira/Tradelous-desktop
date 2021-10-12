@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useModal } from 'hooks/modal';
 import { useTransition } from 'react-spring';
-import { Container, ModalContainer, ModalText, ModalButton } from './styles';
+import {
+  Container,
+  ModalContainer,
+  ModalText,
+  InputContainer,
+  ModalButton,
+} from './styles';
 
 const ModalInput: React.FC = () => {
   const { modalProps, hideModal } = useModal();
   const { buttonsProps } = modalProps;
+
+  const [inputValue, setInputValue] = useState('');
 
   const modalTransition = useTransition(modalProps, {
     from: {
@@ -33,10 +41,16 @@ const ModalInput: React.FC = () => {
               <ModalContainer>
                 <ModalText>{modalProps.text}</ModalText>
 
+                <InputContainer
+                  type="password"
+                  value={inputValue}
+                  onChange={event => setInputValue(event.target.value)}
+                />
+
                 <ModalButton
                   onClick={() => {
                     if (buttonsProps) {
-                      buttonsProps.first.actionFunction();
+                      buttonsProps.first.actionFunction(inputValue);
                       hideModal();
                     }
                   }}

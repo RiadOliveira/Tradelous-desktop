@@ -21,7 +21,7 @@ export const Container = styled(animated.div)`
 
 export const ModalContainer = styled.div`
   width: 600px;
-  height: 340px;
+  height: 380px;
 
   border-radius: 10px;
   background-color: #fff;
@@ -29,16 +29,36 @@ export const ModalContainer = styled.div`
   position: relative;
 
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+  align-items: center;
+
+  flex-direction: column;
 `;
 
-export const ModalText = styled.h1`
+export const ModalText = styled.p`
   font-family: Poppins;
+  font-weight: bold;
+  font-size: 30px;
 
   text-align: center;
-  width: 85%;
+  width: 80%;
 
-  margin-top: 50px;
+  margin: 0;
+`;
+
+export const InputContainer = styled.input`
+  outline: 0;
+  border: 0;
+
+  width: 60%;
+  height: 18%;
+
+  border: 2px solid #c4c4c4;
+  border-radius: 20px;
+
+  font-family: Poppins;
+  font-size: 26px;
+  text-align: center;
 `;
 
 export const ModalButton = styled.button<ButtonProps>`
