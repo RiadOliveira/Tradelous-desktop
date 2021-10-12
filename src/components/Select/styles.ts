@@ -65,8 +65,6 @@ export const SelectContainer = styled.div<OptionProps>`
   flex-direction: column;
   -ms-overflow-style: none;
 
-  outline: 0;
-
   transition: height 0.3s;
 
   &::-webkit-scrollbar {

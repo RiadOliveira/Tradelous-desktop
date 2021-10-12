@@ -7,14 +7,13 @@ export const Container = styled.div`
   align-items: center;
 
   margin-top: 6%;
-  max-height: 95%;
+  height: 95%;
 `;
 
 export const Employee = styled.button`
   border: 0;
   outline: 0;
 
-  background-color: #d6874e;
   width: 60%;
   height: 80px;
 
@@ -28,7 +27,16 @@ export const Employee = styled.button`
   gap: 16px;
 
   &:first-child {
-    background-color: ${shade(0.2, '#d6874e')};
+    background-color: ${shade(0.3, '#d6874e')};
+  }
+
+  &:not(&:first-child) {
+    background-color: #d6874e;
+    transition: background 0.3s;
+  }
+
+  &:not(&:first-child):hover {
+    background-color: ${shade(0.1, '#d6874e')};
   }
 
   & + & {

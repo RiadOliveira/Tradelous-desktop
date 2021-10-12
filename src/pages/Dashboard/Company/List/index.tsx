@@ -1,7 +1,8 @@
-import LoadingSpinner from 'components/LoadingSpinner';
 import React, { useEffect, useMemo, useState } from 'react';
-import { MdPerson } from 'react-icons/md';
+import LoadingSpinner from 'components/LoadingSpinner';
 import api from 'services/api';
+import { useAuth } from 'hooks/auth';
+import { MdPerson } from 'react-icons/md';
 import {
   Container,
   Employee,
@@ -20,6 +21,7 @@ interface IEmployee {
 }
 
 const CompanyList: React.FC = () => {
+  const { user } = useAuth();
   const [employees, setEmployees] = useState<IEmployee[]>([]);
 
   const apiStaticUrl = useMemo(() => `${api.defaults.baseURL}/files`, []);
@@ -44,8 +46,12 @@ const CompanyList: React.FC = () => {
       {orderedEmployees.length === 0 ? (
         <LoadingSpinner color="#1c274e" />
       ) : (
-        orderedEmployees.map(employee => (
-          <Employee key={`${employee.id}`}>
+        orderedEmployees.map((employee, index) => (
+          <Employee
+            key={`${employee.id}`}
+            disabled={!user.isAdmin}
+            style={{ cursor: user.isAdmin && !!index ? 'pointer' : 'auto' }}
+          >
             <EmployeeIcon>
               {employee.avatar ? (
                 <EmployeeImage
