@@ -6,13 +6,14 @@ import ErrorCatcher from 'errors/errorCatcher';
 import * as yup from 'yup';
 
 import { useAuth } from 'hooks/auth';
-import { MdDomain, MdPlace } from 'react-icons/md';
+import { MdDomain, MdModeEdit, MdPlace } from 'react-icons/md';
 import { FormHandles } from '@unform/core';
 import { useToast } from 'hooks/toast';
 import LoadingSpinner from 'components/LoadingSpinner';
 import {
   Container,
   CompanyIcon,
+  EditIcon,
   CompanyImage,
   Form,
   InputLine,
@@ -164,6 +165,10 @@ const CompanyData: React.FC = () => {
             ) : (
               <MdDomain size={180} color="#1c274e" />
             )}
+
+            <EditIcon>
+              <MdModeEdit size={140} color="#fff" />
+            </EditIcon>
           </CompanyIcon>
 
           <Form ref={formRef} initialData={company} onSubmit={handleSubmit}>

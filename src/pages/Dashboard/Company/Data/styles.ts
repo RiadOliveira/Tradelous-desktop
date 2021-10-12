@@ -8,9 +8,26 @@ export const Container = styled.div`
   align-items: center;
 `;
 
+export const EditIcon = styled.button`
+  position: absolute;
+  width: 250px;
+  height: 250px;
+
+  border: 0;
+  outline: 0;
+
+  background-color: rgba(0, 0, 0, 0.4);
+
+  border-radius: 50%;
+
+  transition: 0.4s;
+  cursor: pointer;
+`;
+
 export const CompanyIcon = styled.div`
   width: 250px;
   height: 250px;
+  background-color: #349beb;
 
   margin-top: 4%;
 
@@ -20,6 +37,16 @@ export const CompanyIcon = styled.div`
 
   border: 2px solid ${shade(0.1, '#c4c4c4')};
   border-radius: 50%;
+
+  ${EditIcon} {
+    opacity: 0;
+  }
+
+  &:hover {
+    ${EditIcon} {
+      opacity: 1;
+    }
+  }
 `;
 
 export const CompanyImage = styled.img`
