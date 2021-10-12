@@ -28,7 +28,7 @@ const modalContext = createContext<IModalContextData>({} as IModalContextData);
 
 const ModalContext: React.FC = ({ children }) => {
   const [modalProps, setModalProps] = useState<IModalProps>({
-    isVisible: true,
+    isVisible: false,
   });
 
   const showModal = useCallback((props: Omit<IModalProps, 'isVisible'>) => {

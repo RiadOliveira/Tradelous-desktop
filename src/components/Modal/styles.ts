@@ -1,11 +1,11 @@
-import { shade } from 'polished';
 import styled from 'styled-components';
+import { animated } from 'react-spring';
 
 interface ButtonProps {
   color?: string;
 }
 
-export const Container = styled.div`
+export const Container = styled(animated.div)`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -21,7 +21,7 @@ export const Container = styled.div`
 
 export const ModalContainer = styled.div`
   width: 600px;
-  height: 350px;
+  height: 340px;
 
   border-radius: 10px;
   background-color: #fff;
@@ -67,7 +67,9 @@ export const ModalButton = styled.button<ButtonProps>`
 
   background-color: ${({ color }) => color};
 
+  transition: font-size 0.4s;
+
   &:hover {
-    background-color: ${({ color }) => color && shade(0.1, color)};
+    font-size: 26px;
   }
 `;

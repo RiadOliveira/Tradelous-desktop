@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import api from 'services/api';
 import DashboardInput from 'components/Input/DashboardInput';
 import Select from 'components/Select';
@@ -10,6 +16,7 @@ import { MdDomain, MdModeEdit, MdPlace } from 'react-icons/md';
 import { FormHandles } from '@unform/core';
 import { useToast } from 'hooks/toast';
 import LoadingSpinner from 'components/LoadingSpinner';
+import { useModal } from 'hooks/modal';
 import {
   Container,
   CompanyIcon,
@@ -45,8 +52,11 @@ type IBrazilianCity = IBrazilianLocation;
 
 const CompanyData: React.FC = () => {
   const { user } = useAuth();
+  const { showModal } = useModal();
   const { showToast } = useToast();
+
   const formRef = useRef<FormHandles>(null);
+  const imageInputRef = useRef<HTMLInputElement>(null);
 
   const [company, setCompany] = useState<ICompany>({} as ICompany);
 
@@ -119,6 +129,68 @@ const CompanyData: React.FC = () => {
     };
   }, [selectedState.id, company.address]);
 
+  const handleUpdateLogo = useCallback(
+    async (event: ChangeEvent<HTMLInputElement>) => {
+      const data = new FormData();
+
+      if (event.target.files) {
+        const [file] = event.target.files;
+
+        data.append('logo', file);
+
+        const {
+          data: { logo },
+        } = await api.patch<ICompany>('/company/updateLogo', data);
+
+        setCompany(value => ({ ...value, logo }));
+      }
+    },
+    [],
+  );
+
+  const handleDeleteLogo = useCallback(async () => {
+    if (!company.logo) {
+      showToast({
+        text: {
+          main: 'Erro na exclusão',
+          sub: 'A empresa não possui nenhuma logo',
+        },
+        type: 'error',
+      });
+
+      return;
+    }
+    await api.patch<ICompany>('/company/updateLogo');
+
+    setCompany(value => ({ ...value, logo: undefined }));
+
+    showToast({
+      text: {
+        main: 'Exclusão concluída',
+        sub: 'Logo da empresa excluída com sucesso',
+      },
+      type: 'success',
+    });
+  }, [company.logo, showToast]);
+
+  const handleEditIcon = useCallback(() => {
+    showModal({
+      text: 'O que deseja fazer com a logo da empresa?',
+      buttonsProps: {
+        first: {
+          text: 'Atualizar',
+          color: '#49b454',
+          actionFunction: async () => imageInputRef.current?.click(),
+        },
+        second: {
+          text: 'Deletar',
+          color: '#db3b3b',
+          actionFunction: handleDeleteLogo,
+        },
+      },
+    });
+  }, [showModal, handleDeleteLogo]);
+
   const handleSubmit = useCallback(
     async (companyData: ICompany) => {
       try {
@@ -166,9 +238,16 @@ const CompanyData: React.FC = () => {
               <MdDomain size={180} color="#1c274e" />
             )}
 
-            <EditIcon>
+            <EditIcon onClick={handleEditIcon}>
               <MdModeEdit size={140} color="#fff" />
             </EditIcon>
+
+            <input
+              ref={imageInputRef}
+              onChange={event => handleUpdateLogo(event)}
+              type="file"
+              style={{ display: 'none' }}
+            />
           </CompanyIcon>
 
           <Form ref={formRef} initialData={company} onSubmit={handleSubmit}>
