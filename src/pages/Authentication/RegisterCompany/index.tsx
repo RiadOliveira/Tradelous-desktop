@@ -43,7 +43,7 @@ const RegisterCompany: React.FC = () => {
   const [allStates, setAllStates] = useState<IBrazilianState[]>([]);
   const [selectedState, setSelectedState] = useState<IBrazilianState>(
     {} as IBrazilianState,
-  ); // Id of first state on API
+  );
 
   const [stateCities, setStateCities] = useState<IBrazilianCity[]>([]);
   const [selectedCity, setSelectedCity] = useState<IBrazilianCity>(
@@ -100,7 +100,7 @@ const RegisterCompany: React.FC = () => {
 
         setUserCompany(true, response.data.id);
 
-        navigation.push('Dashboard');
+        navigation.push('/dashboard');
       } catch (err) {
         const toastText = ErrorCatcher(
           err as Error | yup.ValidationError,

@@ -127,7 +127,7 @@ const Dashboard: React.FC = () => {
             <MdPerson size={96} color="#1c274e" />
           )}
 
-          <UserName>Ríad Oliveira de Morais</UserName>
+          <UserName>{user.name}</UserName>
         </UserBar>
 
         <ListOfScreen>

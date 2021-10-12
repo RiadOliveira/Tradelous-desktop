@@ -64,7 +64,7 @@ const CompanyData: React.FC = () => {
   const [allStates, setAllStates] = useState<IBrazilianState[]>([]);
   const [selectedState, setSelectedState] = useState<IBrazilianState>(
     {} as IBrazilianState,
-  ); // Id of first state on API
+  );
 
   const [stateCities, setStateCities] = useState<IBrazilianCity[]>([]);
   const [selectedCity, setSelectedCity] = useState<IBrazilianCity>(

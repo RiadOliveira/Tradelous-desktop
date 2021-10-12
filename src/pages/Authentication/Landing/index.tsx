@@ -12,7 +12,7 @@ const Landing: React.FC = () => {
   const { state } = useLocation() as { state: 'SignUp' | 'SignIn' | '' };
 
   const [selectedPage, setSelectedPage] = useState<'SignUp' | 'SignIn' | ''>(
-    state || '',
+    typeof state === 'string' ? state : '',
   );
 
   const transition = useTransition(selectedPage, {
