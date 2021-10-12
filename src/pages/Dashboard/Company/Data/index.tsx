@@ -52,7 +52,7 @@ interface IBrazilianState extends IBrazilianLocation {
 type IBrazilianCity = IBrazilianLocation;
 
 const CompanyData: React.FC = () => {
-  const { user } = useAuth();
+  const { user, setUserCompany } = useAuth();
   const { showModal } = useModal();
   const { showToast } = useToast();
 
@@ -192,6 +192,38 @@ const CompanyData: React.FC = () => {
     });
   }, [showModal, handleDeleteLogo]);
 
+  const handleDeleteCompany = useCallback(
+    async (verifyPassword: string) => {
+      try {
+        await api.post('/user/sessions', {
+          email: user.email,
+          password: verifyPassword,
+        }); // In order to verify user's password to delete company.
+
+        await api.delete('/company');
+
+        showToast({
+          type: 'success',
+          text: {
+            main: 'Empresa excluída com sucesso',
+            sub: 'Empresa excluída com sucesso',
+          },
+        });
+
+        setUserCompany(false);
+      } catch {
+        showToast({
+          type: 'error',
+          text: {
+            main: 'Problema inesperado',
+            sub: 'Erro ao excluir a empresa',
+          },
+        });
+      }
+    },
+    [setUserCompany, showToast, user.email],
+  );
+
   const handleSubmit = useCallback(
     async (companyData: ICompany) => {
       try {
@@ -233,7 +265,9 @@ const CompanyData: React.FC = () => {
       ) : (
         <>
           <TopOptions>
-            <button type="button">Atualizar Dados</button>
+            <button type="button" onClick={() => formRef.current?.submitForm()}>
+              Atualizar Dados
+            </button>
             <button type="button">Excluir Empresa</button>
           </TopOptions>
 
