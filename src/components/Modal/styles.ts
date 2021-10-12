@@ -67,7 +67,7 @@ export const ModalButton = styled.button<ButtonProps>`
 
   background-color: ${({ color }) => color};
 
-  transition: font-size 0.4s;
+  transition: font-size 0.3s;
 
   &:hover {
     font-size: 26px;

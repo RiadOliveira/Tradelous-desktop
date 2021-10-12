@@ -17,6 +17,7 @@ import { FormHandles } from '@unform/core';
 import { useToast } from 'hooks/toast';
 import LoadingSpinner from 'components/LoadingSpinner';
 import { useModal } from 'hooks/modal';
+import TopOptions from 'components/TopOptions';
 import {
   Container,
   CompanyIcon,
@@ -231,6 +232,11 @@ const CompanyData: React.FC = () => {
         <LoadingSpinner color="#1c274e" />
       ) : (
         <>
+          <TopOptions>
+            <button type="button">Atualizar Dados</button>
+            <button type="button">Excluir Empresa</button>
+          </TopOptions>
+
           <CompanyIcon>
             {company.logo ? (
               <CompanyImage src={`${apiStaticUrl}/logo/${company.logo}`} />
