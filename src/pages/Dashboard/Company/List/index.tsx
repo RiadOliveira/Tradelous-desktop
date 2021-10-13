@@ -46,142 +46,29 @@ const CompanyList: React.FC = () => {
       {orderedEmployees.length === 0 ? (
         <LoadingSpinner color="#1c274e" />
       ) : (
-        // orderedEmployees.map((employee, index) => (
-        //   <Employee
-        //     key={`${employee.id}`}
-        //     disabled={!user.isAdmin}
-        //     style={{ cursor: user.isAdmin && !!index ? 'pointer' : 'auto' }}
-        //   >
-        //     <EmployeeIcon>
-        //       {employee.avatar ? (
-        //         <EmployeeImage
-        //           src={`${apiStaticUrl}/avatar/${employee.avatar}`}
-        //         />
-        //       ) : (
-        //         <MdPerson color="#fff" size={60} />
-        //       )}
-        //     </EmployeeIcon>
-
-        //     <EmployeeData>
-        //       <EmployeeText>{employee.name}</EmployeeText>
-
-        //       <EmployeeText>{employee.email}</EmployeeText>
-        //     </EmployeeData>
-        //   </Employee>
-        // ))
-
-        <>
-          <Employee>
+        orderedEmployees.map((employee, index) => (
+          <Employee
+            key={`${employee.id}`}
+            disabled={!user.isAdmin}
+            style={{ cursor: user.isAdmin && !!index ? 'pointer' : 'auto' }}
+          >
             <EmployeeIcon>
-              <MdPerson color="#fff" size={60} />
+              {employee.avatar ? (
+                <EmployeeImage
+                  src={`${apiStaticUrl}/avatar/${employee.avatar}`}
+                />
+              ) : (
+                <MdPerson color="#fff" size={60} />
+              )}
             </EmployeeIcon>
 
             <EmployeeData>
-              <EmployeeText>Name</EmployeeText>
+              <EmployeeText>{employee.name}</EmployeeText>
 
-              <EmployeeText>Email</EmployeeText>
+              <EmployeeText>{employee.email}</EmployeeText>
             </EmployeeData>
           </Employee>
-          <Employee>
-            <EmployeeIcon>
-              <MdPerson color="#fff" size={60} />
-            </EmployeeIcon>
-
-            <EmployeeData>
-              <EmployeeText>Name</EmployeeText>
-
-              <EmployeeText>Email</EmployeeText>
-            </EmployeeData>
-          </Employee>
-          <Employee>
-            <EmployeeIcon>
-              <MdPerson color="#fff" size={60} />
-            </EmployeeIcon>
-
-            <EmployeeData>
-              <EmployeeText>Name</EmployeeText>
-
-              <EmployeeText>Email</EmployeeText>
-            </EmployeeData>
-          </Employee>
-          <Employee>
-            <EmployeeIcon>
-              <MdPerson color="#fff" size={60} />
-            </EmployeeIcon>
-
-            <EmployeeData>
-              <EmployeeText>Name</EmployeeText>
-
-              <EmployeeText>Email</EmployeeText>
-            </EmployeeData>
-          </Employee>
-          <Employee>
-            <EmployeeIcon>
-              <MdPerson color="#fff" size={60} />
-            </EmployeeIcon>
-
-            <EmployeeData>
-              <EmployeeText>Name</EmployeeText>
-
-              <EmployeeText>Email</EmployeeText>
-            </EmployeeData>
-          </Employee>
-          <Employee>
-            <EmployeeIcon>
-              <MdPerson color="#fff" size={60} />
-            </EmployeeIcon>
-
-            <EmployeeData>
-              <EmployeeText>Name</EmployeeText>
-
-              <EmployeeText>Email</EmployeeText>
-            </EmployeeData>
-          </Employee>
-          <Employee>
-            <EmployeeIcon>
-              <MdPerson color="#fff" size={60} />
-            </EmployeeIcon>
-
-            <EmployeeData>
-              <EmployeeText>Name</EmployeeText>
-
-              <EmployeeText>Email</EmployeeText>
-            </EmployeeData>
-          </Employee>
-          <Employee>
-            <EmployeeIcon>
-              <MdPerson color="#fff" size={60} />
-            </EmployeeIcon>
-
-            <EmployeeData>
-              <EmployeeText>Name</EmployeeText>
-
-              <EmployeeText>Email</EmployeeText>
-            </EmployeeData>
-          </Employee>
-          <Employee>
-            <EmployeeIcon>
-              <MdPerson color="#fff" size={60} />
-            </EmployeeIcon>
-
-            <EmployeeData>
-              <EmployeeText>Name</EmployeeText>
-
-              <EmployeeText>Email</EmployeeText>
-            </EmployeeData>
-          </Employee>
-          <Employee>
-            <EmployeeIcon>
-              <MdPerson color="#fff" size={60} />
-            </EmployeeIcon>
-
-            <EmployeeData>
-              <EmployeeText>Name</EmployeeText>
-
-              <EmployeeText>Email</EmployeeText>
-            </EmployeeData>
-          </Employee>
-        </>
+        ))
       )}
     </Container>
   );

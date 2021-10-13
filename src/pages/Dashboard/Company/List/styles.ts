@@ -10,6 +10,30 @@ export const Container = styled.div`
 
   margin-top: 6%;
   height: 84vh;
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #c4c4c4;
+
+    border-radius: 5px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: ${shade(0.2, '#c4c4c4')};
+
+    border-radius: 5px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${shade(0.3, '#c4c4c4')};
+  }
 `;
 
 export const Employee = styled.button`
