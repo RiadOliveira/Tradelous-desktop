@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useModal } from 'hooks/modal';
 import { useTransition } from 'react-spring';
 import {
@@ -10,6 +10,8 @@ import {
 } from './styles';
 
 const Modal: React.FC = () => {
+  const modalRef = useRef<HTMLDivElement>(null);
+
   const { modalProps, hideModal } = useModal();
   const { buttonsProps } = modalProps;
 
@@ -29,13 +31,24 @@ const Modal: React.FC = () => {
     },
   });
 
+  useEffect(() => {
+    if (modalProps.isVisible) {
+      modalRef.current?.focus();
+    }
+  }, [modalProps.isVisible]);
+
   return (
     <>
       {modalTransition(
         (style, item) =>
           item.isVisible &&
           item.buttonsProps?.second && (
-            <Container style={style}>
+            <Container
+              ref={modalRef}
+              tabIndex={0}
+              onKeyUp={event => event.key === 'Escape' && hideModal()}
+              style={style}
+            >
               <ModalContainer onMouseLeave={hideModal}>
                 <ModalText>{modalProps.text}</ModalText>
 

@@ -10,6 +10,8 @@ export const Container = styled(animated.div)`
   width: 100%;
   height: 100%;
 
+  outline: 0;
+
   display: flex;
   justify-content: center;
   align-items: center;
