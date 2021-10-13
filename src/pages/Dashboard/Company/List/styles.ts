@@ -6,8 +6,10 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
+  overflow-y: scroll;
+
   margin-top: 6%;
-  height: 95%;
+  height: 84vh;
 `;
 
 export const Employee = styled.button`
@@ -24,7 +26,7 @@ export const Employee = styled.button`
 
   text-align: start;
 
-  gap: 16px;
+  margin-bottom: 30px;
 
   &:first-child {
     background-color: ${shade(0.3, '#d6874e')};
@@ -37,10 +39,6 @@ export const Employee = styled.button`
 
   &:not(&:first-child):hover {
     background-color: ${shade(0.1, '#d6874e')};
-  }
-
-  & + & {
-    margin-top: 30px;
   }
 `;
 
