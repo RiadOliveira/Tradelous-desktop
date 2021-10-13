@@ -40,7 +40,7 @@ export const Employee = styled.button`
   border: 0;
   outline: 0;
 
-  width: 60%;
+  width: 65%;
   height: 80px;
 
   border-radius: 16px;
@@ -50,7 +50,9 @@ export const Employee = styled.button`
 
   text-align: start;
 
+  margin-left: 10px;
   margin-bottom: 30px;
+  gap: 16px;
 
   &:first-child {
     background-color: ${shade(0.3, '#d6874e')};

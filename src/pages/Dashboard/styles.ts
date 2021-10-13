@@ -27,6 +27,16 @@ export const MainScreenContent = styled.div`
   }
 `;
 
+export const SelectedScreenContent = styled(animated.div)`
+  position: relative;
+  max-height: 165px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+`;
+
 export const SelectScreenBar = styled.button`
   border: 0;
   outline: 0;
@@ -41,30 +51,24 @@ export const SelectScreenBar = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
 
-export const SelectedScreenContent = styled(animated.div)`
-  position: relative;
-  max-height: 165px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
-
-  h2,
-  svg {
-    transition: 0.3s;
+  ${SelectedScreenContent} {
+    h2,
+    svg {
+      transition: 0.3s;
+    }
   }
 
   &:hover {
-    h2 {
-      font-size: 60px;
-    }
+    ${SelectedScreenContent} {
+      h2 {
+        font-size: 60px;
+      }
 
-    svg {
-      width: 114px;
-      height: 114px;
+      svg {
+        width: 114px;
+        height: 114px;
+      }
     }
   }
 `;
