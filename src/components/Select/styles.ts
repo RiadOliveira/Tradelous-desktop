@@ -60,6 +60,7 @@ export const SelectContainer = styled.div<OptionProps>`
   height: ${props => (props.isShowingOptions ? '25vh' : '100%')};
 
   background-color: #fff;
+  outline: 0;
 
   display: flex;
   flex-direction: column;
