@@ -38,7 +38,7 @@ const ModalInput: React.FC = () => {
           item.isVisible &&
           !item.buttonsProps?.second && (
             <Container style={style}>
-              <ModalContainer>
+              <ModalContainer onMouseLeave={hideModal}>
                 <ModalText>{modalProps.text}</ModalText>
 
                 <InputContainer
