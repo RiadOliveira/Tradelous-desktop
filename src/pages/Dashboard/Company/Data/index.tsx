@@ -205,7 +205,7 @@ const CompanyData: React.FC = () => {
         showToast({
           type: 'success',
           text: {
-            main: 'Empresa excluída com sucesso',
+            main: 'Exclusão concluída',
             sub: 'Empresa excluída com sucesso',
           },
         });

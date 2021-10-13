@@ -58,6 +58,13 @@ const ModalInput: React.FC = () => {
                   type="password"
                   value={inputValue}
                   onChange={event => setInputValue(event.target.value)}
+                  onKeyPress={key => {
+                    if (key.code === 'Enter') {
+                      setInputValue('');
+                      hideModal();
+                      buttonsProps?.first.actionFunction(inputValue);
+                    }
+                  }}
                 />
 
                 <ModalButton
