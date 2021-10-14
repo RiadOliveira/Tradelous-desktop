@@ -264,29 +264,34 @@ const CompanyData: React.FC = () => {
         <LoadingSpinner color="#1c274e" />
       ) : (
         <>
-          <TopOptions>
-            <button type="button" onClick={() => formRef.current?.submitForm()}>
-              Atualizar Dados
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                showModal({
-                  text: 'Para confirmar a exclusão, insira sua senha:',
-                  buttonsProps: {
-                    first: {
-                      text: 'Excluir',
-                      color: '#db3b3b',
-                      actionFunction: verifyPassword =>
-                        handleDeleteCompany(verifyPassword || ''),
+          {user.isAdmin && (
+            <TopOptions>
+              <button
+                type="button"
+                onClick={() => formRef.current?.submitForm()}
+              >
+                Atualizar Dados
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  showModal({
+                    text: 'Para confirmar a exclusão, insira sua senha:',
+                    buttonsProps: {
+                      first: {
+                        text: 'Excluir',
+                        color: '#db3b3b',
+                        actionFunction: verifyPassword =>
+                          handleDeleteCompany(verifyPassword || ''),
+                      },
                     },
-                  },
-                });
-              }}
-            >
-              Excluir Empresa
-            </button>
-          </TopOptions>
+                  });
+                }}
+              >
+                Excluir Empresa
+              </button>
+            </TopOptions>
+          )}
 
           <CompanyIcon>
             {company.logo ? (
