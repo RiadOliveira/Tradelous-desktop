@@ -141,7 +141,7 @@ const CompanyData: React.FC = () => {
 
         const {
           data: { logo },
-        } = await api.patch<ICompany>('/company/updateLogo', data);
+        } = await api.patch<ICompany>('/company/update-logo', data);
 
         setCompany(value => ({ ...value, logo }));
       }
@@ -161,7 +161,8 @@ const CompanyData: React.FC = () => {
 
       return;
     }
-    await api.patch<ICompany>('/company/updateLogo');
+
+    await api.patch<ICompany>('/company/update-logo');
 
     setCompany(value => ({ ...value, logo: undefined }));
 
