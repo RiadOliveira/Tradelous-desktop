@@ -103,7 +103,7 @@ export const UserBar = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 40px;
+  gap: 20px;
 
   transition: background 0.3s;
 
@@ -126,11 +126,14 @@ export const UserBar = styled.button`
   }
 `;
 
-export const UserImage = styled.img`
+export const UserAvatar = styled.img`
   width: 96px;
   height: 96px;
 
   border-radius: 50%;
+
+  margin-right: 10px;
+  border: 2px solid #c4c4c4;
 `;
 
 export const UserName = styled.h2`

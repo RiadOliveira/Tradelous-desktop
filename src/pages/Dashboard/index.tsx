@@ -11,7 +11,7 @@ import {
   MainScreenContent,
   SecondaryContent,
   UserBar,
-  UserImage,
+  UserAvatar,
   UserName,
   ListOfScreen,
   SelectScreenBar,
@@ -122,7 +122,7 @@ const Dashboard: React.FC = () => {
       <SecondaryContent>
         <UserBar>
           {user.avatar ? (
-            <UserImage src={`${apiStaticUrl}/avatar/${user.avatar}`} />
+            <UserAvatar src={`${apiStaticUrl}/avatar/${user.avatar}`} />
           ) : (
             <MdPerson size={96} color="#1c274e" />
           )}
