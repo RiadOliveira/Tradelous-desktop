@@ -31,7 +31,7 @@ interface Screen {
   Icon: IconType;
   Component: {
     data: React.FC;
-    list: React.FC;
+    secondaryData: React.FC;
   };
 }
 
@@ -151,7 +151,7 @@ const Dashboard: React.FC = () => {
         </UserBar>
 
         <ListOfScreen>
-          <selectedScreen.Component.list />
+          <selectedScreen.Component.secondaryData />
         </ListOfScreen>
       </SecondaryContent>
     </Container>

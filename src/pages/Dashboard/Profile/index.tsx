@@ -1,6 +1,6 @@
 import ProfileData from './Data';
-import ProfileList from './List';
+import UserCompany from './UserCompanyData';
 
-const Profile = { data: ProfileData, list: ProfileList };
+const Profile = { data: ProfileData, secondaryData: UserCompany };
 
 export default Profile;
