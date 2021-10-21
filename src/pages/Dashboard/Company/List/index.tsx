@@ -175,24 +175,17 @@ const CompanyList: React.FC = () => {
         <LoadingSpinner color="#1c274e" />
       ) : (
         <>
-          <ActionButton
-            adminButton={user.isAdmin}
-            onClick={
-              user.isAdmin ? showHireEmployeeModal : showLeaveCompanyModal
-            }
-          >
-            {user.isAdmin ? (
-              <>
-                <MdPersonAdd color="#fff" size={60} />
-                <strong>Contratar funcionário</strong>
-              </>
-            ) : (
-              <>
-                <MdClose color="#fff" size={60} />
-                <strong>Sair da empresa</strong>
-              </>
-            )}
-          </ActionButton>
+          {user.isAdmin ? (
+            <ActionButton adminButton onClick={showHireEmployeeModal}>
+              <MdPersonAdd color="#fff" size={60} />
+              <strong>Contratar funcionário</strong>
+            </ActionButton>
+          ) : (
+            <ActionButton adminButton={false} onClick={showLeaveCompanyModal}>
+              <MdClose color="#fff" size={60} />
+              <strong>Sair da empresa</strong>
+            </ActionButton>
+          )}
 
           <EmployeesContainer>
             {orderedEmployees.map((employee, index) => (
