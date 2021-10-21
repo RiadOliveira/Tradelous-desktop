@@ -182,7 +182,7 @@ const CompanyData: React.FC = () => {
         first: {
           text: 'Atualizar',
           color: '#49b454',
-          actionFunction: async () => imageInputRef.current?.click(),
+          actionFunction: () => imageInputRef.current?.click(),
         },
         second: {
           text: 'Deletar',

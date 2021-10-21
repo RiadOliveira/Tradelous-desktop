@@ -8,14 +8,14 @@ interface IModalProps {
     first: {
       text: string;
       color: string;
-      actionFunction: (inputText?: string) => Promise<void>; // In case Modal is with input
+      actionFunction: (inputText?: string) => void; // In case Modal is with input
       isSecureEntry?: boolean;
     };
     second?: {
       // In case Modal is with input
       text: string;
       color: string;
-      actionFunction: () => Promise<void>;
+      actionFunction: () => void;
     };
   };
   text?: string;

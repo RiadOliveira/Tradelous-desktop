@@ -5,6 +5,7 @@ import { RiArchiveFill } from 'react-icons/ri';
 import { MdDomain, MdPerson, MdShoppingBasket } from 'react-icons/md';
 import { IconType } from 'react-icons';
 import api from 'services/api';
+import { useModal } from 'hooks/modal';
 import {
   Container,
   MainContent,
@@ -64,7 +65,8 @@ const screens: Record<string, Screen> = {
 const keys = Object.keys(screens);
 
 const Dashboard: React.FC = () => {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
+  const { showModal } = useModal();
   const [selectedScreen, setSelectedScreen] = useState<Screen>(screens.company);
 
   const apiStaticUrl = `${api.defaults.baseURL}/files`;
@@ -120,7 +122,25 @@ const Dashboard: React.FC = () => {
       </MainContent>
 
       <SecondaryContent>
-        <UserBar>
+        <UserBar
+          onClick={() =>
+            showModal({
+              text: 'Tem certeza que deseja sair de sua conta?',
+              buttonsProps: {
+                first: {
+                  actionFunction: signOut,
+                  color: '#49b454',
+                  text: 'Sim',
+                },
+                second: {
+                  actionFunction: () => undefined,
+                  color: '#db3b3b',
+                  text: 'Não',
+                },
+              },
+            })
+          }
+        >
           {user.avatar ? (
             <UserAvatar src={`${apiStaticUrl}/avatar/${user.avatar}`} />
           ) : (
