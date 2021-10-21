@@ -37,6 +37,8 @@ const ModalInput: React.FC = () => {
     if (modalProps.isVisible) {
       modalRef.current?.focus();
     }
+
+    return () => setInputValue('');
   }, [modalProps.isVisible]);
 
   return (
@@ -48,7 +50,12 @@ const ModalInput: React.FC = () => {
             <Container
               ref={modalRef}
               tabIndex={0}
-              onKeyUp={event => event.key === 'Escape' && hideModal()}
+              onKeyUp={event => {
+                if (event.key === 'Escape') {
+                  setInputValue('');
+                  hideModal();
+                }
+              }}
               style={style}
             >
               <ModalContainer onMouseLeave={hideModal}>
@@ -57,12 +64,13 @@ const ModalInput: React.FC = () => {
                 <InputContainer
                   type={buttonsProps?.first.isSecureEntry ? 'password' : 'text'}
                   value={inputValue}
+                  spellCheck={false}
                   onChange={event => setInputValue(event.target.value)}
                   onKeyPress={key => {
                     if (key.code === 'Enter') {
                       setInputValue('');
-                      hideModal();
                       buttonsProps?.first.actionFunction(inputValue);
+                      hideModal();
                     }
                   }}
                 />
@@ -70,6 +78,7 @@ const ModalInput: React.FC = () => {
                 <ModalButton
                   onClick={() => {
                     if (buttonsProps) {
+                      setInputValue('');
                       buttonsProps.first.actionFunction(inputValue);
                       hideModal();
                     }
