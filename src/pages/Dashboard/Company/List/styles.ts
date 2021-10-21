@@ -1,5 +1,9 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { shade } from 'polished';
+
+interface IActionButton {
+  adminButton: boolean;
+}
 
 export const Container = styled.div`
   display: flex;
@@ -34,6 +38,61 @@ export const Container = styled.div`
   ::-webkit-scrollbar-thumb:hover {
     background: ${shade(0.3, '#c4c4c4')};
   }
+`;
+
+export const ActionButton = styled.button<IActionButton>`
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+
+  width: 65%;
+  height: 80px;
+
+  margin-bottom: 50px;
+  margin-left: 10px;
+
+  border-radius: 16px;
+  gap: ${({ adminButton }) => (adminButton ? 16 : 8)}px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: ${({ adminButton }) =>
+    adminButton ? '#1c274e' : shade(0.1, '#db3b3b')};
+
+  strong {
+    color: #fff;
+    font-family: Poppins;
+    font-size: 22px;
+  }
+
+  svg {
+    transition: 0.4s;
+  }
+
+  &:hover {
+    svg {
+      ${({ adminButton }) =>
+        !adminButton
+          ? css`
+              transform: rotate(-90deg);
+            `
+          : css`
+              width: 64px;
+              height: 64px;
+            `}
+    }
+  }
+`;
+
+export const EmployeesContainer = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
 `;
 
 export const Employee = styled.button`

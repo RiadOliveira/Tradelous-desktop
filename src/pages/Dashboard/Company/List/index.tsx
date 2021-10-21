@@ -2,11 +2,13 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import LoadingSpinner from 'components/LoadingSpinner';
 import api from 'services/api';
 import { useAuth } from 'hooks/auth';
-import { MdPerson } from 'react-icons/md';
+import { MdClose, MdPerson, MdPersonAdd } from 'react-icons/md';
 import { useModal } from 'hooks/modal';
 import { useToast } from 'hooks/toast';
 import {
   Container,
+  ActionButton,
+  EmployeesContainer,
   Employee,
   EmployeeIcon,
   EmployeeImage,
@@ -85,42 +87,62 @@ const CompanyList: React.FC = () => {
       {orderedEmployees.length === 0 ? (
         <LoadingSpinner color="#1c274e" />
       ) : (
-        orderedEmployees.map((employee, index) => (
-          <Employee
-            key={`${employee.id}`}
-            disabled={!user.isAdmin}
-            style={{ cursor: user.isAdmin && !!index ? 'pointer' : 'auto' }}
-            onClick={() =>
-              showModal({
-                text: 'Para confirmar a demissão do funcionário, insira sua senha:',
-                buttonsProps: {
-                  first: {
-                    text: 'Demitir',
-                    color: '#db3b3b',
-                    actionFunction: verifyPassword =>
-                      handleFireEmployee(verifyPassword || '', employee.id),
-                  },
-                },
-              })
-            }
-          >
-            <EmployeeIcon>
-              {employee.avatar ? (
-                <EmployeeImage
-                  src={`${apiStaticUrl}/avatar/${employee.avatar}`}
-                />
-              ) : (
-                <MdPerson color="#fff" size={60} />
-              )}
-            </EmployeeIcon>
+        <>
+          <ActionButton adminButton={user.isAdmin}>
+            {user.isAdmin ? (
+              <>
+                <MdPersonAdd color="#fff" size={60} />
+                <strong>Contratar funcionário</strong>
+              </>
+            ) : (
+              <>
+                <MdClose color="#fff" size={60} />
+                <strong>Sair da empresa</strong>
+              </>
+            )}
+          </ActionButton>
 
-            <EmployeeData>
-              <EmployeeText>{employee.name}</EmployeeText>
+          <EmployeesContainer>
+            {orderedEmployees.map((employee, index) => (
+              <Employee
+                key={`${employee.id}`}
+                disabled={!user.isAdmin || employee.isAdmin}
+                style={{
+                  cursor: user.isAdmin && !!index ? 'pointer' : 'auto',
+                }}
+                onClick={() =>
+                  showModal({
+                    text: 'Para confirmar a demissão do funcionário, insira sua senha:',
+                    buttonsProps: {
+                      first: {
+                        text: 'Demitir',
+                        color: '#db3b3b',
+                        actionFunction: verifyPassword =>
+                          handleFireEmployee(verifyPassword || '', employee.id),
+                      },
+                    },
+                  })
+                }
+              >
+                <EmployeeIcon>
+                  {employee.avatar ? (
+                    <EmployeeImage
+                      src={`${apiStaticUrl}/avatar/${employee.avatar}`}
+                    />
+                  ) : (
+                    <MdPerson color="#fff" size={60} />
+                  )}
+                </EmployeeIcon>
 
-              <EmployeeText>{employee.email}</EmployeeText>
-            </EmployeeData>
-          </Employee>
-        ))
+                <EmployeeData>
+                  <EmployeeText>{employee.name}</EmployeeText>
+
+                  <EmployeeText>{employee.email}</EmployeeText>
+                </EmployeeData>
+              </Employee>
+            ))}
+          </EmployeesContainer>
+        </>
       )}
     </Container>
   );
