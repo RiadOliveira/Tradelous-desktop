@@ -168,7 +168,7 @@ const ProfileData: React.FC = () => {
                 'As senhas precisam ser iguais',
               )
               .min(6, 'Senha de, no mínimo, 6 caracteres'),
-            otherwise: yup.string(),
+            otherwise: yup.string().optional(),
           }),
         });
 

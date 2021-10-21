@@ -27,6 +27,7 @@ interface IUpdateUserData {
   email: string;
   oldPassword?: string;
   newPassword?: string;
+  confirmPassword?: string;
 }
 
 type SignInData = Pick<IUserData, 'email' | 'password'>;
@@ -71,7 +72,15 @@ const AuthContext: React.FC = ({ children }) => {
   }, []);
 
   const updateUser = useCallback(async (userData: IUpdateUserData) => {
-    const response = await api.put('/user', userData);
+    const response = await api.put(
+      '/user',
+      userData.newPassword
+        ? userData
+        : {
+            name: userData.name,
+            email: userData.email,
+          },
+    );
 
     localStorage.setItem('@Tradelous-user', JSON.stringify(response.data));
 

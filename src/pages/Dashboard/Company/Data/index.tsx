@@ -251,7 +251,8 @@ const CompanyData: React.FC = () => {
         const schema = yup.object().shape({
           name: yup.string().required('Nome da empresa obrigatório'),
           cnpj: yup
-            .string()
+            .number()
+            .typeError('O CNPJ deve conter somente números')
             .required('CNPJ obrigatório')
             .min(14, 'O tamanho mínimo do cnpj é de 14 dígitos'),
         });
@@ -356,6 +357,9 @@ const CompanyData: React.FC = () => {
                 placeholder="CNPJ"
                 Icon={MdDomain}
                 disabled={!user.isAdmin}
+                type="text"
+                pattern="\d*"
+                maxLength={14}
               />
             </InputLine>
 
