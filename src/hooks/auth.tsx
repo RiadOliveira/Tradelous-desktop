@@ -35,7 +35,7 @@ interface IAuthContextData extends IAuthProps {
   signIn(data: SignInData): Promise<void>;
   updateUser(userData: IUpdateUserData): Promise<void>;
   setUserCompany(isAdmin: boolean, companyId?: string): void;
-  updateUsersAvatar(avatar: File): Promise<void>;
+  updateUsersAvatar(avatar?: File): Promise<void>;
   signOut(): void;
 }
 
@@ -71,7 +71,7 @@ const AuthContext: React.FC = ({ children }) => {
   }, []);
 
   const updateUser = useCallback(async (userData: IUpdateUserData) => {
-    const response = await api.put('/user/', userData);
+    const response = await api.put('/user', userData);
 
     localStorage.setItem('@Tradelous-user', JSON.stringify(response.data));
 
@@ -82,22 +82,24 @@ const AuthContext: React.FC = ({ children }) => {
   }, []);
 
   const updateUsersAvatar = useCallback(
-    async (avatar: File) => {
+    async (file?: File) => {
       let data;
 
-      if (avatar) {
+      if (file) {
         data = new FormData();
 
-        data.append('avatar', avatar);
+        data.append('avatar', file);
       }
 
-      const response = await api.patch('/user/update-avatar', data);
+      const {
+        data: { avatar },
+      } = await api.patch('/user/update-avatar', data);
 
       localStorage.setItem(
         '@Tradelous-user',
         JSON.stringify({
           ...authData.user,
-          avatar: response.data.avatar,
+          avatar,
         }),
       );
 
@@ -106,7 +108,7 @@ const AuthContext: React.FC = ({ children }) => {
           ...value,
           user: {
             ...value.user,
-            avatar: avatar.name,
+            avatar,
           },
         };
       });

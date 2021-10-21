@@ -134,19 +134,29 @@ const CompanyData: React.FC = () => {
     async (event: ChangeEvent<HTMLInputElement>) => {
       const data = new FormData();
 
-      if (event.target.files) {
-        const [file] = event.target.files;
+      try {
+        if (event.target.files) {
+          const [file] = event.target.files;
 
-        data.append('logo', file);
+          data.append('logo', file);
 
-        const {
-          data: { logo },
-        } = await api.patch<ICompany>('/company/update-logo', data);
+          const {
+            data: { logo },
+          } = await api.patch<ICompany>('/company/update-logo', data);
 
-        setCompany(value => ({ ...value, logo }));
+          setCompany(value => ({ ...value, logo }));
+        }
+      } catch {
+        showToast({
+          type: 'error',
+          text: {
+            main: 'Problema inesperado',
+            sub: 'Ocorreu um erro ao atualizar a logo',
+          },
+        });
       }
     },
-    [],
+    [showToast],
   );
 
   const handleDeleteLogo = useCallback(async () => {
@@ -162,17 +172,27 @@ const CompanyData: React.FC = () => {
       return;
     }
 
-    await api.patch<ICompany>('/company/update-logo');
+    try {
+      await api.patch<ICompany>('/company/update-logo');
 
-    setCompany(value => ({ ...value, logo: undefined }));
+      setCompany(value => ({ ...value, logo: undefined }));
 
-    showToast({
-      text: {
-        main: 'Exclusão concluída',
-        sub: 'Logo da empresa excluída com sucesso',
-      },
-      type: 'success',
-    });
+      showToast({
+        text: {
+          main: 'Exclusão concluída',
+          sub: 'Logo da empresa excluída com sucesso',
+        },
+        type: 'success',
+      });
+    } catch {
+      showToast({
+        type: 'error',
+        text: {
+          main: 'Problema inesperado',
+          sub: 'Ocorreu um erro ao excluir a logo',
+        },
+      });
+    }
   }, [company.logo, showToast]);
 
   const handleEditIcon = useCallback(() => {
@@ -217,7 +237,7 @@ const CompanyData: React.FC = () => {
           type: 'error',
           text: {
             main: 'Problema inesperado',
-            sub: 'Erro ao excluir a empresa',
+            sub: 'Ocorreu um erro ao excluir a empresa',
           },
         });
       }
@@ -253,7 +273,15 @@ const CompanyData: React.FC = () => {
           },
         });
       } catch (err) {
-        ErrorCatcher(err as Error | yup.ValidationError, formRef);
+        const toastText = ErrorCatcher(
+          err as Error | yup.ValidationError,
+          formRef,
+        );
+
+        showToast({
+          type: 'error',
+          text: toastText,
+        });
       }
     },
     [selectedState.sigla, selectedCity.nome, showToast],

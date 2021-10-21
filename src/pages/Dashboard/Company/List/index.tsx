@@ -69,7 +69,7 @@ const CompanyList: React.FC = () => {
           type: 'error',
           text: {
             main: 'Erro ao contratar funcionário',
-            sub: 'Verifique se você inseriu o ID corretamente.',
+            sub: 'Verifique se você inseriu o ID corretamente',
           },
         });
       }

@@ -44,7 +44,7 @@ const ForgotPassword: React.FC = () => {
           type: 'success',
           text: {
             main: 'Token de recuperação enviado',
-            sub: 'Você pode visualizá-lo em seu e-mail.',
+            sub: 'Você pode visualizá-lo em seu e-mail',
           },
           isOfAuth: true,
         });
