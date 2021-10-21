@@ -3,6 +3,7 @@ import Toast from 'components/Toast';
 
 interface IToastProps {
   isVisible: boolean;
+  isOfAuth?: boolean;
   type?: 'info' | 'success' | 'error';
   text?: {
     main: string;

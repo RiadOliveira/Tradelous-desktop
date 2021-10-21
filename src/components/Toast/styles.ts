@@ -2,10 +2,14 @@ import styled from 'styled-components';
 import { animated } from 'react-spring';
 import { shade } from 'polished';
 
-export const Container = styled.aside`
+interface ToastProps {
+  isOfAuth?: boolean;
+}
+
+export const Container = styled.aside<ToastProps>`
   position: absolute;
   top: 16px;
-  right: 4%;
+  right: ${({ isOfAuth }) => (isOfAuth ? '4%' : '36%')};
 
   z-index: 1;
 `;

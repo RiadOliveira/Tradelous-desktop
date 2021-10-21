@@ -41,6 +41,7 @@ const RecoverPassword: React.FC = () => {
           main: 'Token necessário',
           sub: 'Primeiro faça a requisição do token',
         },
+        isOfAuth: true,
       });
     }
   }, [navigation, showToast]);
@@ -78,6 +79,7 @@ const RecoverPassword: React.FC = () => {
             main: 'Senha atualizada com sucesso',
             sub: 'Agora faça login com sua nova senha',
           },
+          isOfAuth: true,
         });
 
         navigation.push('/', 'SignIn');
@@ -90,6 +92,7 @@ const RecoverPassword: React.FC = () => {
         showToast({
           type: 'error',
           text: toastText,
+          isOfAuth: true,
         });
       }
     },

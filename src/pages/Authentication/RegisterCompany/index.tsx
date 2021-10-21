@@ -110,6 +110,7 @@ const RegisterCompany: React.FC = () => {
         showToast({
           type: 'error',
           text: toastText,
+          isOfAuth: true,
         });
       }
     },

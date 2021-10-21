@@ -15,7 +15,7 @@ const Toast: React.FC = () => {
       icon: <MdInfo />,
     },
     success: { color: '#1b6b1b', icon: <MdCheck /> },
-    error: { color: '#cf2b2b', icon: <MdCancel /> },
+    error: { color: '#c43535', icon: <MdCancel /> },
   };
 
   const toastTransition = useTransition(isRunningTimer, {
@@ -55,7 +55,7 @@ const Toast: React.FC = () => {
   };
 
   return (
-    <Container>
+    <Container isOfAuth={toastProps.isOfAuth}>
       {toastTransition((style, item) => (
         <>
           {item && (

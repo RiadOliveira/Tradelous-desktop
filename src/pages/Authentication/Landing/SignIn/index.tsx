@@ -59,6 +59,7 @@ const SignIn: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
         showToast({
           type: 'error',
           text: toastText,
+          isOfAuth: true,
         });
       }
     },

@@ -46,6 +46,7 @@ const ForgotPassword: React.FC = () => {
             main: 'Token de recuperação enviado',
             sub: 'Você pode visualizá-lo em seu e-mail.',
           },
+          isOfAuth: true,
         });
       } catch (err) {
         const toastText = ErrorCatcher(
@@ -56,6 +57,7 @@ const ForgotPassword: React.FC = () => {
         showToast({
           type: 'error',
           text: toastText,
+          isOfAuth: true,
         });
       }
     },

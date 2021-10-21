@@ -77,6 +77,7 @@ const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
               main: 'Cadastro efetuado',
               sub: 'Agora só falta entrar em uma empresa',
             },
+            isOfAuth: true,
           });
         }
       } catch (err) {
@@ -88,6 +89,7 @@ const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
         showToast({
           type: 'error',
           text: toastText,
+          isOfAuth: true,
         });
       }
     },
