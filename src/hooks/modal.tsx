@@ -9,6 +9,7 @@ interface IModalProps {
       text: string;
       color: string;
       actionFunction: (inputText?: string) => Promise<void>; // In case Modal is with input
+      isSecureEntry?: boolean;
     };
     second?: {
       // In case Modal is with input

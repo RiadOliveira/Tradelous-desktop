@@ -164,6 +164,7 @@ const CompanyList: React.FC = () => {
             handleLeaveCompany(verifyPassword || ''),
           color: '#1c274e',
           text: 'Confirmar',
+          isSecureEntry: true,
         },
       },
     });
@@ -210,6 +211,7 @@ const CompanyList: React.FC = () => {
                         color: '#db3b3b',
                         actionFunction: verifyPassword =>
                           handleFireEmployee(verifyPassword || '', employee.id),
+                        isSecureEntry: true,
                       },
                     },
                   })

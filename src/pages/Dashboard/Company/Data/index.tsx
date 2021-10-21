@@ -284,6 +284,7 @@ const CompanyData: React.FC = () => {
                         color: '#db3b3b',
                         actionFunction: verifyPassword =>
                           handleDeleteCompany(verifyPassword || ''),
+                        isSecureEntry: true,
                       },
                     },
                   });
