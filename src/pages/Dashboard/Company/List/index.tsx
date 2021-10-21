@@ -25,7 +25,7 @@ interface IEmployee {
 }
 
 const CompanyList: React.FC = () => {
-  const { user } = useAuth();
+  const { user, setUserCompany } = useAuth();
   const { showModal } = useModal();
   const { showToast } = useToast();
 
@@ -47,6 +47,35 @@ const CompanyList: React.FC = () => {
 
     return [admin, ...allEmployees];
   }, [employees]);
+
+  const handleHireEmployee = useCallback(
+    async (employeeId: string): Promise<void> => {
+      try {
+        const response = await api.patch<IEmployee>(
+          `/company/hire-employee/${employeeId}`,
+        );
+
+        setEmployees(prevEmployees => [...prevEmployees, response.data]);
+
+        showToast({
+          type: 'success',
+          text: {
+            main: 'Contratação concluída',
+            sub: 'Funcionário contratado com sucesso',
+          },
+        });
+      } catch {
+        showToast({
+          type: 'error',
+          text: {
+            main: 'Erro ao contratar funcionário',
+            sub: 'Verifique se você inseriu o ID corretamente.',
+          },
+        });
+      }
+    },
+    [showToast],
+  );
 
   const handleFireEmployee = useCallback(
     async (verifyPassword: string, employeeId: string) => {
@@ -82,13 +111,75 @@ const CompanyList: React.FC = () => {
     [showToast, user.email],
   );
 
+  const handleLeaveCompany = useCallback(
+    async (verifyPassword: string) => {
+      try {
+        await api.post('/user/sessions', {
+          email: user.email,
+          password: verifyPassword,
+        }); // In order to verify user's password to leave company.
+
+        await api.patch('/user/leave-company');
+
+        showToast({
+          type: 'success',
+          text: {
+            main: 'Sucesso na saída',
+            sub: 'Você não pertence mais a nenhuma empresa',
+          },
+        });
+
+        setUserCompany(false, undefined);
+      } catch {
+        showToast({
+          type: 'error',
+          text: {
+            main: 'Problema inesperado',
+            sub: 'Ocorreu um erro ao abandonar a empresa',
+          },
+        });
+      }
+    },
+    [setUserCompany, showToast, user.email],
+  );
+
+  const showHireEmployeeModal = () =>
+    showModal({
+      text: 'Insira o ID do funcionário que deseja contratar',
+      buttonsProps: {
+        first: {
+          actionFunction: employeeId => handleHireEmployee(employeeId || ''),
+          color: '#1c274e',
+          text: 'Confirmar',
+        },
+      },
+    });
+
+  const showLeaveCompanyModal = () =>
+    showModal({
+      text: 'Insira sua senha para confirmar a saída',
+      buttonsProps: {
+        first: {
+          actionFunction: verifyPassword =>
+            handleLeaveCompany(verifyPassword || ''),
+          color: '#1c274e',
+          text: 'Confirmar',
+        },
+      },
+    });
+
   return (
     <Container>
       {orderedEmployees.length === 0 ? (
         <LoadingSpinner color="#1c274e" />
       ) : (
         <>
-          <ActionButton adminButton={user.isAdmin}>
+          <ActionButton
+            adminButton={user.isAdmin}
+            onClick={
+              user.isAdmin ? showHireEmployeeModal : showLeaveCompanyModal
+            }
+          >
             {user.isAdmin ? (
               <>
                 <MdPersonAdd color="#fff" size={60} />
