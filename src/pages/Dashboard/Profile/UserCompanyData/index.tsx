@@ -3,6 +3,7 @@ import api from 'services/api';
 
 import { MdDomain } from 'react-icons/md';
 import { useAuth } from 'hooks/auth';
+import LoadingSpinner from 'components/LoadingSpinner';
 import { Container, CompanyIcon, CompanyImage, NoCompanyText } from './styles';
 
 interface ICompany {
@@ -28,18 +29,24 @@ const UserCompany: React.FC = () => {
 
   return (
     <Container>
-      {company.name ? (
+      {user.companyId ? (
         <>
-          <CompanyIcon>
-            {company.logo ? (
-              <CompanyImage src={`${apiStaticUrl}/logo/${company.logo}`} />
-            ) : (
-              <MdDomain size={220} color="#1c274e" />
-            )}
-          </CompanyIcon>
+          {!company.name ? (
+            <LoadingSpinner color="#1c274e" />
+          ) : (
+            <>
+              <CompanyIcon>
+                {company.logo ? (
+                  <CompanyImage src={`${apiStaticUrl}/logo/${company.logo}`} />
+                ) : (
+                  <MdDomain size={220} color="#1c274e" />
+                )}
+              </CompanyIcon>
 
-          <strong>{company.name}</strong>
-          <small>{company.address}</small>
+              <strong>{company.name}</strong>
+              <small>{company.address}</small>
+            </>
+          )}
         </>
       ) : (
         <NoCompanyText>
