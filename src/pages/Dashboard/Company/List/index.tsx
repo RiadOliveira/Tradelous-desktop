@@ -38,7 +38,7 @@ const CompanyList: React.FC = () => {
     api.get('/company/list-employees').then(response => {
       setEmployees(response.data);
     });
-  }, []);
+  }, [user.companyId]);
 
   const orderedEmployees = useMemo(() => {
     const admin =
