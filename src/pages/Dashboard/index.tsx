@@ -92,13 +92,18 @@ const Dashboard: React.FC = () => {
   });
 
   const handleScreenChange = useCallback(() => {
-    setSelectedScreen(
-      value =>
-        screens[
+    setSelectedScreen(value => {
+      if (user.companyId) {
+        return screens[
           keys[keys.indexOf(value.name) + (value.name === 'sales' ? -3 : 1)]
-        ],
-    );
-  }, []);
+        ];
+      }
+
+      return screens[
+        keys[keys.indexOf(value.name) + (value.name === 'profile' ? -1 : 1)]
+      ];
+    });
+  }, [user.companyId]);
 
   return (
     <Container>

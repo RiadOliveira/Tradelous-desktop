@@ -45,7 +45,21 @@ export const CompanyImage = styled.img`
   border-radius: 50%;
 `;
 
-export const NoCompanyText = styled.h2`
-  width: 80%;
-  text-align: center;
+export const NoCompanyDiv = styled.div`
+  width: 100%;
+  height: 80%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h2 {
+    font-family: Poppins;
+    text-align: center;
+    font-size: 22px;
+    color: #1c274e;
+
+    width: 70%;
+  }
 `;

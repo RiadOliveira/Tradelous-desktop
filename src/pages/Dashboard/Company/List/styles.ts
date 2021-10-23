@@ -156,3 +156,22 @@ export const EmployeeText = styled.div`
   font-size: 18px;
   color: #fff;
 `;
+
+export const NoCompanyDiv = styled.div`
+  width: 100%;
+  height: 80%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h2 {
+    font-family: Poppins;
+    text-align: center;
+    font-size: 22px;
+    color: #1c274e;
+
+    width: 70%;
+  }
+`;

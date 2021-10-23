@@ -15,7 +15,7 @@ export const RegisterCompanyButton = styled.button`
   position: absolute;
   left: 40px;
 
-  background-color: #49b454;
+  background-color: #1c274e;
 
   width: 16%;
   height: 8%;

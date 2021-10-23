@@ -362,7 +362,11 @@ const CompanyData: React.FC = () => {
           )}
 
           {!user.companyId && (
-            <RegisterCompanyButton>Concluir criação</RegisterCompanyButton>
+            <RegisterCompanyButton
+              onClick={() => formRef.current?.submitForm()}
+            >
+              Concluir criação
+            </RegisterCompanyButton>
           )}
 
           <CompanyIcon>

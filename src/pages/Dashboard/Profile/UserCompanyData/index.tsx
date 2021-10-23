@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import api from 'services/api';
 
-import { MdDomain } from 'react-icons/md';
+import { MdDomain, MdInfo } from 'react-icons/md';
 import { useAuth } from 'hooks/auth';
 import LoadingSpinner from 'components/LoadingSpinner';
-import { Container, CompanyIcon, CompanyImage, NoCompanyText } from './styles';
+import { Container, CompanyIcon, CompanyImage, NoCompanyDiv } from './styles';
 
 interface ICompany {
   name: string;
@@ -49,9 +49,15 @@ const UserCompany: React.FC = () => {
           )}
         </>
       ) : (
-        <NoCompanyText>
-          Sua conta ainda não está associada a nenhuma empresa.
-        </NoCompanyText>
+        <NoCompanyDiv>
+          <MdInfo size={80} color="#1c274e" />
+
+          <h2>
+            Sua conta ainda não está associada a nenhuma empresa, envie seu id
+            para seu chefe lhe adicionar a ela, ou crie a sua própria na aba
+            Empresa.
+          </h2>
+        </NoCompanyDiv>
       )}
     </Container>
   );
