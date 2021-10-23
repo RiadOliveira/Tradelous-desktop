@@ -147,6 +147,18 @@ const ProfileData: React.FC = () => {
     [user.email, showToast, signOut],
   );
 
+  const handleCopyId = useCallback(() => {
+    navigator.clipboard.writeText(user.id);
+
+    showToast({
+      type: 'success',
+      text: {
+        main: 'Cópia efetuada com sucesso',
+        sub: 'ID copiado para área de transferência',
+      },
+    });
+  }, [showToast, user.id]);
+
   const handleSubmit = useCallback(
     async (userData: IUpdateProfileData) => {
       try {
@@ -209,9 +221,14 @@ const ProfileData: React.FC = () => {
   return (
     <Container>
       <TopOptions>
+        <button type="button" onClick={handleCopyId}>
+          Copiar ID
+        </button>
+
         <button type="button" onClick={() => formRef.current?.submitForm()}>
           Atualizar Dados
         </button>
+
         <button
           type="button"
           onClick={() => {

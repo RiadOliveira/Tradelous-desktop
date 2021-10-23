@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
 
-export const Container = styled.aside`
+interface ITopOptions {
+  childrenQuantity: number;
+}
+
+export const Container = styled.aside<ITopOptions>`
   position: absolute;
-  top: -100px;
+  top: ${({ childrenQuantity }) => -childrenQuantity * 50}px;
   left: 40px;
 
   width: 160px;
