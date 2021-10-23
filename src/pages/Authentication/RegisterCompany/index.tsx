@@ -100,6 +100,14 @@ const RegisterCompany: React.FC = () => {
 
         setUserCompany(true, response.data.id);
 
+        showToast({
+          type: 'success',
+          text: {
+            main: 'Empresa criada com sucesso',
+            sub: 'Agora você pode gerir sua empresa',
+          },
+        });
+
         navigation.push('/dashboard');
       } catch (err) {
         const toastText = ErrorCatcher(

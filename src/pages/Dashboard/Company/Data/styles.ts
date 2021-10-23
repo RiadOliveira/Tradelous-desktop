@@ -8,6 +8,36 @@ export const Container = styled.div`
   align-items: center;
 `;
 
+export const RegisterCompanyButton = styled.button`
+  border: 0;
+  outline: 0;
+
+  position: absolute;
+  left: 40px;
+
+  background-color: #49b454;
+
+  width: 16%;
+  height: 8%;
+
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+
+  font-family: Poppins;
+  font-weight: bolder;
+  font-size: 24px;
+  color: ${shade(0.05, '#fff')};
+
+  cursor: pointer;
+
+  transition: 0.4s;
+
+  &:hover {
+    height: 10%;
+    font-size: 28px;
+  }
+`;
+
 export const EditIcon = styled.button`
   position: absolute;
   width: 250px;

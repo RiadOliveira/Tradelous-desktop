@@ -20,6 +20,7 @@ import { useModal } from 'hooks/modal';
 import TopOptions from 'components/TopOptions';
 import {
   Container,
+  RegisterCompanyButton,
   CompanyIcon,
   EditIcon,
   CompanyImage,
@@ -74,13 +75,15 @@ const CompanyData: React.FC = () => {
   const apiStaticUrl = `${api.defaults.baseURL}/files`;
 
   useEffect(() => {
-    api.get('/company').then(response => {
-      setCompany(response.data);
-    });
-  }, []);
+    if (user.companyId) {
+      api.get('/company').then(response => {
+        setCompany(response.data);
+      });
+    }
+  }, [user.companyId]);
 
   useEffect(() => {
-    if (company.address) {
+    if (!user.companyId || company.address) {
       api
         .get<IBrazilianState[]>(
           'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome',
@@ -92,15 +95,19 @@ const CompanyData: React.FC = () => {
           setAllStates(data);
 
           setSelectedState(() => {
-            const index = data.findIndex(
-              ({ sigla }) => sigla === company.address.split('/')[1],
-            );
+            let index = 0;
+
+            if (user.companyId) {
+              index = data.findIndex(
+                ({ sigla }) => sigla === company.address.split('/')[1],
+              );
+            }
 
             return { ...data[index], index: index.toString() };
           });
         });
     }
-  }, [company.address]);
+  }, [company.address, user.companyId]);
 
   useEffect(() => {
     let unmounted = false;
@@ -115,9 +122,13 @@ const CompanyData: React.FC = () => {
             setStateCities(data);
 
             setSelectedCity(() => {
-              const index = data.findIndex(
-                ({ nome }) => nome === company.address.split('/')[0],
-              );
+              let index = 0;
+
+              if (user.companyId) {
+                index = data.findIndex(
+                  ({ nome }) => nome === company.address.split('/')[0],
+                );
+              }
 
               return { ...data[index], index: index.toString() };
             });
@@ -128,7 +139,7 @@ const CompanyData: React.FC = () => {
     return () => {
       unmounted = true;
     };
-  }, [selectedState.id, company.address]);
+  }, [selectedState.id, company.address, user.companyId]);
 
   const handleUpdateLogo = useCallback(
     async (event: ChangeEvent<HTMLInputElement>) => {
@@ -261,16 +272,36 @@ const CompanyData: React.FC = () => {
           abortEarly: false,
         });
 
-        await api.put('/company/', {
-          ...companyData,
-          address: `${selectedCity.nome}/${selectedState.sigla}`,
-        });
+        const toastText = {
+          main: '',
+          sub: '',
+        };
+
+        if (user.companyId) {
+          await api.put('/company/', {
+            ...companyData,
+            address: `${selectedCity.nome}/${selectedState.sigla}`,
+          });
+
+          toastText.main = 'Atualização bem sucedida';
+          toastText.sub = 'Empresa atualizada com sucesso';
+        } else {
+          const response = await api.post('/company/', {
+            ...companyData,
+            address: `${selectedCity.nome}/${selectedState.sigla}`,
+          });
+
+          setUserCompany(true, response.data.id);
+
+          toastText.main = 'Empresa criada com sucesso';
+          toastText.sub = 'Agora você pode gerir sua empresa';
+        }
 
         showToast({
           type: 'success',
           text: {
-            main: 'Atualização bem sucedida',
-            sub: 'Empresa atualizada com sucesso',
+            main: toastText.main,
+            sub: toastText.sub,
           },
         });
       } catch (err) {
@@ -285,7 +316,13 @@ const CompanyData: React.FC = () => {
         });
       }
     },
-    [selectedState.sigla, selectedCity.nome, showToast],
+    [
+      user.companyId,
+      showToast,
+      selectedCity.nome,
+      selectedState.sigla,
+      setUserCompany,
+    ],
   );
 
   return (
@@ -294,7 +331,7 @@ const CompanyData: React.FC = () => {
         <LoadingSpinner color="#1c274e" />
       ) : (
         <>
-          {user.isAdmin && (
+          {user.isAdmin && user.companyId && (
             <TopOptions>
               <button
                 type="button"
@@ -324,6 +361,10 @@ const CompanyData: React.FC = () => {
             </TopOptions>
           )}
 
+          {!user.companyId && (
+            <RegisterCompanyButton>Concluir criação</RegisterCompanyButton>
+          )}
+
           <CompanyIcon>
             {company.logo ? (
               <CompanyImage src={`${apiStaticUrl}/logo/${company.logo}`} />
@@ -331,16 +372,20 @@ const CompanyData: React.FC = () => {
               <MdDomain size={180} color="#1c274e" />
             )}
 
-            <EditIcon onClick={handleEditIcon}>
-              <MdModeEdit size={140} color="#fff" />
-            </EditIcon>
+            {user.companyId && (
+              <>
+                <EditIcon onClick={handleEditIcon}>
+                  <MdModeEdit size={140} color="#fff" />
+                </EditIcon>
 
-            <input
-              ref={imageInputRef}
-              onChange={event => handleUpdateLogo(event)}
-              type="file"
-              style={{ display: 'none' }}
-            />
+                <input
+                  ref={imageInputRef}
+                  onChange={event => handleUpdateLogo(event)}
+                  type="file"
+                  style={{ display: 'none' }}
+                />
+              </>
+            )}
           </CompanyIcon>
 
           <Form ref={formRef} initialData={company} onSubmit={handleSubmit}>
@@ -349,14 +394,14 @@ const CompanyData: React.FC = () => {
                 name="name"
                 placeholder="Nome da empresa"
                 Icon={MdDomain}
-                disabled={!user.isAdmin}
+                disabled={!user.isAdmin && !!user.companyId}
               />
 
               <DashboardInput
                 name="cnpj"
                 placeholder="CNPJ"
                 Icon={MdDomain}
-                disabled={!user.isAdmin}
+                disabled={!user.isAdmin && !!user.companyId}
                 type="text"
                 pattern="\d*"
                 maxLength={14}
@@ -377,7 +422,7 @@ const CompanyData: React.FC = () => {
                 }
                 isOfDashboard
                 initialOptionPosition={Number(selectedState.index)}
-                disabled={!user.isAdmin}
+                disabled={!user.isAdmin && !!user.companyId}
               />
 
               <Select
@@ -393,7 +438,7 @@ const CompanyData: React.FC = () => {
                 }
                 isOfDashboard
                 initialOptionPosition={Number(selectedCity.index)}
-                disabled={!user.isAdmin}
+                disabled={!user.isAdmin && !!user.companyId}
               />
             </InputLine>
           </Form>
