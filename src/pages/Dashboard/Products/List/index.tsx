@@ -63,8 +63,6 @@ const ProductsList: React.FC = () => {
         );
       }
     }
-
-    updateProductsStatus('noChanges');
   }, [companyId, productsStatus, products.length, updateProductsStatus]);
 
   return (
@@ -94,7 +92,9 @@ const ProductsList: React.FC = () => {
                     <ProductData>
                       <ProductText>{product.name}</ProductText>
 
-                      <ProductText>{product.price}</ProductText>
+                      <ProductText>
+                        {Number(product.price).toFixed(2).replace('.', ',')}
+                      </ProductText>
                     </ProductData>
                   </Product>
                 ))}

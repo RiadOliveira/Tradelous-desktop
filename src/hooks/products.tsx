@@ -11,19 +11,19 @@ interface IProduct {
 }
 
 interface IProductsContext {
-  productsStatus: IProduct | 'newProduct' | 'noChanges'; // IProduct when modified some product (contains the product).
-  updateProductsStatus(product: IProduct | 'newProduct' | 'noChanges'): void;
+  productsStatus: IProduct | 'newProduct'; // IProduct when modified some product (contains the product).
+  updateProductsStatus(product: IProduct | 'newProduct'): void;
 }
 
 const productsContext = createContext<IProductsContext>({} as IProductsContext);
 
 const ProductsContext: React.FC = ({ children }) => {
-  const [productsStatus, setProductsStatus] = useState<
-    IProduct | 'newProduct' | 'noChanges'
-  >('noChanges');
+  const [productsStatus, setProductsStatus] = useState<IProduct | 'newProduct'>(
+    'newProduct',
+  );
 
   const updateProductsStatus = useCallback(
-    (product: IProduct | 'newProduct' | 'noChanges') => {
+    (product: IProduct | 'newProduct') => {
       setProductsStatus(product);
     },
     [],

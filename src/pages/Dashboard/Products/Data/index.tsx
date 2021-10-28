@@ -55,13 +55,13 @@ const ProductsData: React.FC = () => {
       const data = new FormData();
 
       try {
-        if (event.target.files) {
+        if (event.target.files && productsStatus !== 'newProduct') {
           const [file] = event.target.files;
 
           data.append('image', file);
 
           const { data: updatedProduct } = await api.patch<IProduct>(
-            '/products/update-image',
+            `/products/update-image/${productsStatus.id}`,
             data,
           );
 
@@ -77,11 +77,11 @@ const ProductsData: React.FC = () => {
         });
       }
     },
-    [showToast, updateProductsStatus],
+    [productsStatus, showToast, updateProductsStatus],
   );
 
   const handleDeleteImage = useCallback(async () => {
-    if (typeof productsStatus !== 'string' && !productsStatus.image) {
+    if (productsStatus !== 'newProduct' && !productsStatus.image) {
       showToast({
         text: {
           main: 'Erro na exclusão',
@@ -94,17 +94,21 @@ const ProductsData: React.FC = () => {
     }
 
     try {
-      const { data } = await api.patch<IProduct>('/products/update-image');
+      if (productsStatus !== 'newProduct') {
+        const { data } = await api.patch<IProduct>(
+          `/products/update-image/${productsStatus.id}`,
+        );
 
-      updateProductsStatus({ ...data, image: undefined });
+        updateProductsStatus({ ...data, image: undefined });
 
-      showToast({
-        text: {
-          main: 'Exclusão concluída',
-          sub: 'Imagem do produto excluída com sucesso',
-        },
-        type: 'success',
-      });
+        showToast({
+          text: {
+            main: 'Exclusão concluída',
+            sub: 'Imagem do produto excluída com sucesso',
+          },
+          type: 'success',
+        });
+      }
     } catch {
       showToast({
         type: 'error',
@@ -134,13 +138,13 @@ const ProductsData: React.FC = () => {
     });
   }, [showModal, handleDeleteImage]);
 
-  const handleDeleteProduct = useCallback(
-    async (id: string) => {
-      try {
-        await api.delete(`/products/${id}`);
+  const handleDeleteProduct = useCallback(async () => {
+    try {
+      if (productsStatus !== 'newProduct') {
+        await api.delete(`/products/${productsStatus.id}`);
 
         updateProductsStatus({
-          id: `deleted ${id}`,
+          id: `deleted ${productsStatus.id}`,
         } as IProduct);
 
         showToast({
@@ -150,18 +154,17 @@ const ProductsData: React.FC = () => {
             sub: 'Produto excluído com sucesso',
           },
         });
-      } catch {
-        showToast({
-          type: 'error',
-          text: {
-            main: 'Problema inesperado',
-            sub: 'Ocorreu algum problema na exclusão do produto',
-          },
-        });
       }
-    },
-    [showToast, updateProductsStatus],
-  );
+    } catch {
+      showToast({
+        type: 'error',
+        text: {
+          main: 'Problema inesperado',
+          sub: 'Ocorreu algum problema na exclusão do produto',
+        },
+      });
+    }
+  }, [productsStatus, showToast, updateProductsStatus]);
 
   const handleSubmit = useCallback(
     async (productData: IProduct) => {
@@ -231,26 +234,7 @@ const ProductsData: React.FC = () => {
               >
                 Atualizar Dados
               </button>
-              <button
-                type="button"
-                onClick={() => {
-                  showModal({
-                    text: 'Para confirmar a exclusão, insira sua senha:',
-                    buttonsProps: {
-                      first: {
-                        text: 'Excluir',
-                        color: '#db3b3b',
-                        actionFunction: async () => handleDeleteProduct,
-                      },
-                      second: {
-                        text: 'Cancelar',
-                        color: '#1c274e',
-                        actionFunction: () => undefined,
-                      },
-                    },
-                  });
-                }}
-              >
+              <button type="button" onClick={handleDeleteProduct}>
                 Excluir Produto
               </button>
             </TopOptions>
@@ -285,7 +269,7 @@ const ProductsData: React.FC = () => {
             ref={formRef}
             initialData={{
               ...productsStatus,
-              price: productsStatus.price.toString().replace('.', ','),
+              price: Number(productsStatus.price).toFixed(2).replace('.', ','),
             }}
             onSubmit={handleSubmit}
           >
