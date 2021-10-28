@@ -3,11 +3,12 @@ import LoadingSpinner from 'components/LoadingSpinner';
 
 import { useAuth } from 'hooks/auth';
 import { useProducts } from 'hooks/products';
-import { MdInfo, MdLabel } from 'react-icons/md';
+import { MdAdd, MdInfo, MdLabel } from 'react-icons/md';
 import api from 'services/api';
 import {
   Container,
   NoCompanyDiv,
+  AddProductButton,
   ProductsContainer,
   Product,
   ProductData,
@@ -47,20 +48,22 @@ const ProductsList: React.FC = () => {
         updateProductsStatus(data[0]);
       });
     } else if (typeof productsStatus !== 'string') {
-      if (productsStatus.id.includes('deleted')) {
-        // To delete a product needs to pass deleted + product.id to productsStatus.
-        const deletedProductId = productsStatus.id.split(' ')[1]; // Gets the id.
+      if (productsStatus.id) {
+        if (productsStatus.id.includes('deleted')) {
+          // To delete a product needs to pass deleted + product.id to productsStatus.
+          const deletedProductId = productsStatus.id.split(' ')[1]; // Gets the id.
 
-        setProducts(
-          allProducts =>
-            allProducts.filter(product => product.id !== deletedProductId), // Update state without api recall.
-        );
-      } else {
-        setProducts(allProducts =>
-          allProducts.map(product =>
-            product.id !== productsStatus.id ? product : productsStatus,
-          ),
-        );
+          setProducts(
+            allProducts =>
+              allProducts.filter(product => product.id !== deletedProductId), // Update state without api recall.
+          );
+        } else {
+          setProducts(allProducts =>
+            allProducts.map(product =>
+              product.id !== productsStatus.id ? product : productsStatus,
+            ),
+          );
+        }
       }
     }
   }, [companyId, productsStatus, products.length, updateProductsStatus]);
@@ -69,6 +72,13 @@ const ProductsList: React.FC = () => {
     <Container>
       {companyId ? (
         <>
+          <AddProductButton
+            onClick={() => updateProductsStatus({} as IProduct)}
+          >
+            <MdAdd color="#fff" size={60} />
+            <strong>Adicionar produto</strong>
+          </AddProductButton>
+
           {!products.length ? (
             <LoadingSpinner color="#1c274e" />
           ) : (

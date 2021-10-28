@@ -36,6 +36,44 @@ export const Container = styled.div`
   }
 `;
 
+export const AddProductButton = styled.button`
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+
+  width: 65%;
+  height: 80px;
+
+  margin-bottom: 50px;
+  margin-left: 10px;
+
+  border-radius: 16px;
+  gap: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #1c274e;
+
+  strong {
+    color: #fff;
+    font-family: Poppins;
+    font-size: 22px;
+  }
+
+  svg {
+    transition: 0.4s;
+  }
+
+  &:hover {
+    svg {
+      width: 64px;
+      height: 64px;
+    }
+  }
+`;
+
 export const ProductsContainer = styled.div`
   width: 100%;
 
