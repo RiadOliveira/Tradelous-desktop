@@ -50,23 +50,21 @@ const ProductsList: React.FC = () => {
 
         updateProductsStatus(data[0]);
       });
-    } else if (typeof productsStatus !== 'string') {
-      if (productsStatus.id) {
-        if (productsStatus.id.includes('deleted')) {
-          // To delete a product needs to pass deleted + product.id to productsStatus.
-          const deletedProductId = productsStatus.id.split(' ')[1]; // Gets the id.
+    } else if (productsStatus !== 'newProduct' && productsStatus.id) {
+      if (productsStatus.id.includes('deleted')) {
+        // To delete a product needs to pass deleted + product.id to productsStatus.
+        const deletedProductId = productsStatus.id.split(' ')[1]; // Gets the id.
 
-          setProducts(
-            allProducts =>
-              allProducts.filter(product => product.id !== deletedProductId), // Update state without api recall.
-          );
-        } else {
-          setProducts(allProducts =>
-            allProducts.map(product =>
-              product.id !== productsStatus.id ? product : productsStatus,
-            ),
-          );
-        }
+        setProducts(
+          allProducts =>
+            allProducts.filter(product => product.id !== deletedProductId), // Update state without api recall.
+        );
+      } else {
+        setProducts(allProducts =>
+          allProducts.map(product =>
+            product.id !== productsStatus.id ? product : productsStatus,
+          ),
+        );
       }
     }
   }, [companyId, productsStatus, products.length, updateProductsStatus]);

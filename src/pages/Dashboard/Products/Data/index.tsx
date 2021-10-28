@@ -202,12 +202,15 @@ const ProductsData: React.FC = () => {
         };
 
         if (productsStatus.id) {
-          await api.put(`/products/${productsStatus.id}`, productData);
+          const { data } = await api.put(
+            `/products/${productsStatus.id}`,
+            productData,
+          );
 
           toastMessage.main = 'Atualização bem sucedida';
           toastMessage.sub = 'Produto atualizado com sucesso';
 
-          updateProductsStatus(productData);
+          updateProductsStatus(data);
         } else {
           await api.post(`/products`, productData);
 
@@ -263,7 +266,26 @@ const ProductsData: React.FC = () => {
               </button>
 
               {productsStatus.id && (
-                <button type="button" onClick={handleDeleteProduct}>
+                <button
+                  type="button"
+                  onClick={() =>
+                    showModal({
+                      text: 'Tem certeza que deseja excluir esse produto?',
+                      buttonsProps: {
+                        first: {
+                          text: 'Sim',
+                          color: '#49b454',
+                          actionFunction: handleDeleteProduct,
+                        },
+                        second: {
+                          text: 'Não',
+                          color: '#db3b3b',
+                          actionFunction: () => undefined,
+                        },
+                      },
+                    })
+                  }
+                >
                   Excluir Produto
                 </button>
               )}
