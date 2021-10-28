@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useRef } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useRef } from 'react';
 import DashboardInput from 'components/Input/DashboardInput';
 import LoadingSpinner from 'components/LoadingSpinner';
 import TopOptions from 'components/TopOptions';
@@ -192,17 +192,36 @@ const ProductsData: React.FC = () => {
           abortEarly: false,
         });
 
-        if (typeof productsStatus === 'string') {
+        if (productsStatus === 'newProduct') {
           throw new Error();
         }
 
-        await api.put(`/products/${productsStatus.id}`, productData);
+        const toastMessage = {
+          main: '',
+          sub: '',
+        };
+
+        if (productsStatus.id) {
+          await api.put(`/products/${productsStatus.id}`, productData);
+
+          toastMessage.main = 'Atualização bem sucedida';
+          toastMessage.sub = 'Produto atualizado com sucesso';
+
+          updateProductsStatus(productData);
+        } else {
+          await api.post(`/products`, productData);
+
+          toastMessage.main = 'Adição bem sucedida';
+          toastMessage.sub = 'Produto adicionado com sucesso';
+
+          updateProductsStatus('newProduct');
+        }
 
         showToast({
           type: 'success',
           text: {
-            main: 'Atualização bem sucedida',
-            sub: 'Produto atualizado com sucesso',
+            main: toastMessage.main,
+            sub: toastMessage.sub,
           },
         });
       } catch (err) {
@@ -217,12 +236,20 @@ const ProductsData: React.FC = () => {
         });
       }
     },
-    [productsStatus, showToast],
+    [productsStatus, showToast, updateProductsStatus],
   );
+
+  useEffect(() => {
+    if (productsStatus !== 'newProduct' && !productsStatus.id) {
+      formRef.current?.reset();
+    } else if (productsStatus !== 'newProduct') {
+      formRef.current?.setData(productsStatus);
+    }
+  }, [productsStatus]);
 
   return (
     <Container>
-      {typeof productsStatus === 'string' ? (
+      {productsStatus === 'newProduct' ? (
         <LoadingSpinner color="#1c274e" />
       ) : (
         <>
@@ -232,11 +259,14 @@ const ProductsData: React.FC = () => {
                 type="button"
                 onClick={() => formRef.current?.submitForm()}
               >
-                Atualizar Dados
+                {productsStatus.id ? 'Atualizar Dados' : 'Criar Produto'}
               </button>
-              <button type="button" onClick={handleDeleteProduct}>
-                Excluir Produto
-              </button>
+
+              {productsStatus.id && (
+                <button type="button" onClick={handleDeleteProduct}>
+                  Excluir Produto
+                </button>
+              )}
             </TopOptions>
           )}
 
@@ -269,7 +299,9 @@ const ProductsData: React.FC = () => {
             ref={formRef}
             initialData={{
               ...productsStatus,
-              price: Number(productsStatus.price).toFixed(2).replace('.', ','),
+              price:
+                productsStatus.price &&
+                Number(productsStatus.price).toFixed(2).replace('.', ','),
             }}
             onSubmit={handleSubmit}
           >

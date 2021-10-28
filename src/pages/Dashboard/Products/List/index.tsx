@@ -5,6 +5,7 @@ import { useAuth } from 'hooks/auth';
 import { useProducts } from 'hooks/products';
 import { MdAdd, MdInfo, MdLabel } from 'react-icons/md';
 import api from 'services/api';
+import { useToast } from 'hooks/toast';
 import {
   Container,
   NoCompanyDiv,
@@ -32,6 +33,7 @@ const ProductsList: React.FC = () => {
     user: { companyId },
   } = useAuth();
   const { updateProductsStatus, productsStatus } = useProducts();
+  const { showToast } = useToast();
 
   const [products, setProducts] = useState<IProduct[]>([]);
 
@@ -68,13 +70,23 @@ const ProductsList: React.FC = () => {
     }
   }, [companyId, productsStatus, products.length, updateProductsStatus]);
 
+  const handleNewProductButton = () => {
+    updateProductsStatus({} as IProduct);
+
+    showToast({
+      type: 'info',
+      text: {
+        main: 'Criação iniciada',
+        sub: 'Insira os dados do produto para finalizá-la',
+      },
+    });
+  };
+
   return (
     <Container>
       {companyId ? (
         <>
-          <AddProductButton
-            onClick={() => updateProductsStatus({} as IProduct)}
-          >
+          <AddProductButton onClick={handleNewProductButton}>
             <MdAdd color="#fff" size={60} />
             <strong>Adicionar produto</strong>
           </AddProductButton>
