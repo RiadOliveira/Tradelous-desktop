@@ -174,7 +174,7 @@ const CompanyList: React.FC = () => {
     <Container>
       {user.companyId ? (
         <>
-          {orderedEmployees.length === 0 ? (
+          {!orderedEmployees.length ? (
             <LoadingSpinner color="#1c274e" />
           ) : (
             <>

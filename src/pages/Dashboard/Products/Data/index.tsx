@@ -216,7 +216,7 @@ const ProductsData: React.FC = () => {
           <ProductIcon>
             {productsStatus.image ? (
               <ProductImage
-                src={`${apiStaticUrl}/image/${productsStatus.image}`}
+                src={`${apiStaticUrl}/productImage/${productsStatus.image}`}
               />
             ) : (
               <MdTagFaces size={180} color="#1c274e" />
