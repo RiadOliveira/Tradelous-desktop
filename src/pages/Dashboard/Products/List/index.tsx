@@ -16,6 +16,7 @@ import {
   ProductIcon,
   ProductImage,
   ProductText,
+  ProductSubText,
 } from './styles';
 
 interface IProduct {
@@ -114,9 +115,14 @@ const ProductsList: React.FC = () => {
                     <ProductData>
                       <ProductText>{product.name}</ProductText>
 
-                      <ProductText>
-                        {Number(product.price).toFixed(2).replace('.', ',')}
-                      </ProductText>
+                      <ProductSubText>
+                        <ProductText>{product.brand}</ProductText>
+
+                        <ProductText>
+                          R${' '}
+                          {Number(product.price).toFixed(2).replace('.', ',')}
+                        </ProductText>
+                      </ProductSubText>
                     </ProductData>
                   </Product>
                 ))}

@@ -126,7 +126,7 @@ export const ProductImage = styled.img`
 `;
 
 export const ProductData = styled.div`
-  width: 75%;
+  width: 72%;
   height: 68px;
 
   display: flex;
@@ -138,6 +138,11 @@ export const ProductText = styled.div`
   font-family: Poppins;
   font-size: 18px;
   color: #fff;
+`;
+
+export const ProductSubText = styled.section`
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const NoCompanyDiv = styled.div`
