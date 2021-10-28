@@ -10,8 +10,14 @@ import { useAuth } from 'hooks/auth';
 import { FormHandles } from '@unform/core';
 import { useModal } from 'hooks/modal';
 import { useToast } from 'hooks/toast';
-import { MdAttachMoney, MdModeEdit, MdTagFaces } from 'react-icons/md';
+import {
+  MdAttachMoney,
+  MdModeEdit,
+  MdLabelOutline,
+  MdInbox,
+} from 'react-icons/md';
 import ErrorCatcher from 'errors/errorCatcher';
+import { FaHashtag } from 'react-icons/fa';
 import {
   Container,
   ProductIcon,
@@ -128,29 +134,66 @@ const ProductsData: React.FC = () => {
     });
   }, [showModal, handleDeleteImage]);
 
-  const handleDeleteProduct = useCallback(() => {
-    console.log('delete');
-  }, []);
+  const handleDeleteProduct = useCallback(
+    async (id: string) => {
+      try {
+        await api.delete(`/products/${id}`);
+
+        updateProductsStatus({
+          id: `deleted ${id}`,
+        } as IProduct);
+
+        showToast({
+          type: 'success',
+          text: {
+            main: 'Exclusão concluída',
+            sub: 'Produto excluído com sucesso',
+          },
+        });
+      } catch {
+        showToast({
+          type: 'error',
+          text: {
+            main: 'Problema inesperado',
+            sub: 'Ocorreu algum problema na exclusão do produto',
+          },
+        });
+      }
+    },
+    [showToast, updateProductsStatus],
+  );
 
   const handleSubmit = useCallback(
     async (productData: IProduct) => {
       try {
+        // eslint-disable-next-line no-param-reassign
+        productData.price = Number(
+          productData.price.toString().replace(',', '.'),
+        );
+
         const schema = yup.object().shape({
-          name: yup.string().required('Nome da empresa obrigatório'),
-          cnpj: yup
+          name: yup.string().required('Nome do produto obrigatório'),
+          price: yup
             .number()
-            .typeError('O CNPJ deve conter somente números')
-            .required('CNPJ obrigatório')
-            .min(14, 'O tamanho mínimo do cnpj é de 14 dígitos'),
+            .moreThan(0, 'O preço precisa ser maior que zero')
+            .required('Preço do produto obrigatório'),
+          brand: yup.string().required('Marca do produto obrigatória'),
+          quantity: yup
+            .number()
+            .integer('A quantidade precisa ser um valor inteiro')
+            .min(0, 'A quantidade não pode ser negativa'),
+          barCode: yup.string().optional(),
         });
 
         await schema.validate(productData, {
           abortEarly: false,
         });
 
-        if (typeof productsStatus !== 'string') {
-          await api.put(`/products/${productsStatus.id}`, productData);
+        if (typeof productsStatus === 'string') {
+          throw new Error();
         }
+
+        await api.put(`/products/${productsStatus.id}`, productData);
 
         showToast({
           type: 'success',
@@ -197,7 +240,7 @@ const ProductsData: React.FC = () => {
                       first: {
                         text: 'Excluir',
                         color: '#db3b3b',
-                        actionFunction: handleDeleteProduct,
+                        actionFunction: async () => handleDeleteProduct,
                       },
                       second: {
                         text: 'Cancelar',
@@ -216,10 +259,10 @@ const ProductsData: React.FC = () => {
           <ProductIcon>
             {productsStatus.image ? (
               <ProductImage
-                src={`${apiStaticUrl}/productImage/${productsStatus.image}`}
+                src={`${apiStaticUrl}/product-image/${productsStatus.image}`}
               />
             ) : (
-              <MdTagFaces size={180} color="#1c274e" />
+              <MdLabelOutline size={180} color="#1c274e" />
             )}
 
             {companyId && (
@@ -240,24 +283,43 @@ const ProductsData: React.FC = () => {
 
           <Form
             ref={formRef}
-            initialData={productsStatus}
+            initialData={{
+              ...productsStatus,
+              price: productsStatus.price.toString().replace('.', ','),
+            }}
             onSubmit={handleSubmit}
           >
             <InputLine>
               <DashboardInput
                 name="name"
                 placeholder="Nome do produto"
-                Icon={MdTagFaces}
+                Icon={MdLabelOutline}
               />
 
               <DashboardInput
                 name="price"
                 placeholder="Preço do produto"
                 Icon={MdAttachMoney}
+                type="text"
+                pattern="\d*"
               />
             </InputLine>
 
-            <InputLine />
+            <InputLine>
+              <DashboardInput
+                name="quantity"
+                placeholder="Quantidade em estoque"
+                Icon={MdInbox}
+                type="text"
+                pattern="\d*"
+              />
+
+              <DashboardInput
+                name="brand"
+                placeholder="Marca do produto"
+                Icon={FaHashtag}
+              />
+            </InputLine>
           </Form>
         </>
       )}

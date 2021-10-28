@@ -3,7 +3,7 @@ import LoadingSpinner from 'components/LoadingSpinner';
 
 import { useAuth } from 'hooks/auth';
 import { useProducts } from 'hooks/products';
-import { MdInfo, MdTagFaces } from 'react-icons/md';
+import { MdInfo, MdLabel } from 'react-icons/md';
 import api from 'services/api';
 import {
   Container,
@@ -30,19 +30,42 @@ const ProductsList: React.FC = () => {
   const {
     user: { companyId },
   } = useAuth();
-  const { updateProductsStatus } = useProducts();
+  const { updateProductsStatus, productsStatus } = useProducts();
 
   const [products, setProducts] = useState<IProduct[]>([]);
 
   const apiStaticUrl = `${api.defaults.baseURL}/files`;
 
   useEffect(() => {
-    api.get('/products').then(({ data }) => {
-      setProducts(data);
+    if (
+      companyId &&
+      (productsStatus === 'newProduct' || products.length === 0)
+    ) {
+      api.get('/products').then(({ data }) => {
+        setProducts(data);
 
-      updateProductsStatus(data[0]);
-    });
-  }, [updateProductsStatus]);
+        updateProductsStatus(data[0]);
+      });
+    } else if (typeof productsStatus !== 'string') {
+      if (productsStatus.id.includes('deleted')) {
+        // To delete a product needs to pass deleted + product.id to productsStatus.
+        const deletedProductId = productsStatus.id.split(' ')[1]; // Gets the id.
+
+        setProducts(
+          allProducts =>
+            allProducts.filter(product => product.id !== deletedProductId), // Update state without api recall.
+        );
+      } else {
+        setProducts(allProducts =>
+          allProducts.map(product =>
+            product.id !== productsStatus.id ? product : productsStatus,
+          ),
+        );
+      }
+    }
+
+    updateProductsStatus('noChanges');
+  }, [companyId, productsStatus, products.length, updateProductsStatus]);
 
   return (
     <Container>
@@ -61,10 +84,10 @@ const ProductsList: React.FC = () => {
                     <ProductIcon>
                       {product.image ? (
                         <ProductImage
-                          src={`${apiStaticUrl}/productImage/${product.image}`}
+                          src={`${apiStaticUrl}/product-image/${product.image}`}
                         />
                       ) : (
-                        <MdTagFaces color="#fff" size={60} />
+                        <MdLabel color="#fff" size={60} />
                       )}
                     </ProductIcon>
 

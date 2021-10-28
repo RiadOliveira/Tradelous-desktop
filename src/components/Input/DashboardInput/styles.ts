@@ -58,6 +58,6 @@ export const PlaceHolder = styled.div`
   user-select: none;
 
   svg {
-    margin-bottom: 4%;
+    margin-bottom: 2%;
   }
 `;
