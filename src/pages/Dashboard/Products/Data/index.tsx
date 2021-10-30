@@ -246,7 +246,10 @@ const ProductsData: React.FC = () => {
     if (productsStatus !== 'newProduct' && !productsStatus?.id) {
       formRef.current?.reset();
     } else if (productsStatus !== 'newProduct') {
-      formRef.current?.setData(productsStatus);
+      formRef.current?.setData({
+        ...productsStatus,
+        price: Number(productsStatus.price).toFixed(2).replace('.', ','),
+      });
     }
   }, [productsStatus]);
 
@@ -317,16 +320,7 @@ const ProductsData: React.FC = () => {
             )}
           </ProductIcon>
 
-          <Form
-            ref={formRef}
-            initialData={{
-              ...productsStatus,
-              price:
-                productsStatus.price &&
-                Number(productsStatus.price).toFixed(2).replace('.', ','),
-            }}
-            onSubmit={handleSubmit}
-          >
+          <Form ref={formRef} onSubmit={handleSubmit}>
             <InputLine>
               <DashboardInput
                 name="name"

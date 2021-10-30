@@ -145,7 +145,7 @@ export const ProductSubText = styled.section`
   justify-content: space-between;
 `;
 
-export const NoCompanyDiv = styled.div`
+export const NoContentDiv = styled.div`
   width: 100%;
   height: 80%;
 
