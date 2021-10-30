@@ -83,6 +83,46 @@ export const ProductsContainer = styled.div`
   align-items: center;
 `;
 
+export const SearchBarContainer = styled.div`
+  width: 65%;
+  height: 80px;
+
+  border-radius: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  margin-left: 10px;
+  margin-bottom: 30px;
+
+  background-color: #fff;
+  border: 2px solid #c4c4c4;
+`;
+
+export const SearchBar = styled.input`
+  border: 0;
+  outline: 0;
+
+  width: 70%;
+  height: 75%;
+
+  font-family: Poppins;
+  font-size: 24px;
+
+  &::placeholder {
+    padding-left: 20px;
+
+    transition: opacity 0.3s;
+  }
+
+  &:focus {
+    &::placeholder {
+      opacity: 0;
+    }
+  }
+`;
+
 export const Product = styled.button`
   border: 0;
   outline: 0;

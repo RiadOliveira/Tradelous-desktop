@@ -3,7 +3,7 @@ import LoadingSpinner from 'components/LoadingSpinner';
 
 import { useAuth } from 'hooks/auth';
 import { useProducts } from 'hooks/products';
-import { MdAdd, MdInfo, MdLabel } from 'react-icons/md';
+import { MdAdd, MdInfo, MdLabel, MdSearch } from 'react-icons/md';
 import api from 'services/api';
 import { useToast } from 'hooks/toast';
 import {
@@ -11,6 +11,8 @@ import {
   NoContentDiv,
   AddProductButton,
   ProductsContainer,
+  SearchBarContainer,
+  SearchBar,
   Product,
   ProductData,
   ProductIcon,
@@ -111,6 +113,11 @@ const ProductsList: React.FC = () => {
                   </AddProductButton>
 
                   <ProductsContainer>
+                    <SearchBarContainer>
+                      <MdSearch size={48} color="#515151" />
+                      <SearchBar placeholder="Nome do produto" />
+                    </SearchBarContainer>
+
                     {products.map(product => (
                       <Product
                         key={`${product.id}`}
