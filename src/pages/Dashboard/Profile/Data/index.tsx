@@ -293,13 +293,13 @@ const ProfileData: React.FC = () => {
         </InputLine>
 
         <DashboardInput
-          style={{
-            marginTop: 90,
-          }}
           name="confirmPassword"
           placeholder="Confirmar senha"
           Icon={MdLock}
           type="password"
+          style={{
+            marginTop: 90,
+          }}
         />
       </Form>
     </Container>

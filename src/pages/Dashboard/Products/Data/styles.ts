@@ -58,7 +58,7 @@ export const ProductImage = styled.img`
 
 export const Form = styled(Unform)`
   width: 100%;
-  margin-top: 8%;
+  margin-top: 6%;
 
   display: flex;
   flex-direction: column;

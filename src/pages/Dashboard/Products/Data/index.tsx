@@ -18,6 +18,7 @@ import {
 } from 'react-icons/md';
 import ErrorCatcher from 'errors/errorCatcher';
 import { FaHashtag } from 'react-icons/fa';
+import { RiBarcodeFill } from 'react-icons/ri';
 import {
   Container,
   ProductIcon,
@@ -352,6 +353,16 @@ const ProductsData: React.FC = () => {
                 Icon={FaHashtag}
               />
             </InputLine>
+
+            <DashboardInput
+              name="barCode"
+              placeholder="Código do produto"
+              Icon={RiBarcodeFill}
+              disabled
+              style={{
+                marginTop: 90,
+              }}
+            />
           </Form>
         </>
       )}
