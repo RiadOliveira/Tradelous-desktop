@@ -243,7 +243,7 @@ const ProductsData: React.FC = () => {
   );
 
   useEffect(() => {
-    if (productsStatus !== 'newProduct' && !productsStatus.id) {
+    if (productsStatus !== 'newProduct' && !productsStatus?.id) {
       formRef.current?.reset();
     } else if (productsStatus !== 'newProduct') {
       formRef.current?.setData(productsStatus);
@@ -257,7 +257,7 @@ const ProductsData: React.FC = () => {
       ) : (
         <>
           {companyId && (
-            <TopOptions>
+            <TopOptions buttonsQuantity={productsStatus.id ? 2 : 1}>
               <button
                 type="button"
                 onClick={() => formRef.current?.submitForm()}

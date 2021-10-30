@@ -220,7 +220,7 @@ const ProfileData: React.FC = () => {
 
   return (
     <Container>
-      <TopOptions>
+      <TopOptions buttonsQuantity={3}>
         <button type="button" onClick={handleCopyId}>
           Copiar ID
         </button>

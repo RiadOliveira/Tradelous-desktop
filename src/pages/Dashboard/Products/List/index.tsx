@@ -45,10 +45,12 @@ const ProductsList: React.FC = () => {
       companyId &&
       (productsStatus === 'newProduct' || products.length === 0)
     ) {
-      api.get('/products').then(({ data }) => {
-        setProducts(data);
+      api.get<IProduct[]>('/products').then(({ data }) => {
+        if (data.length) {
+          setProducts(data);
 
-        updateProductsStatus(data[0]);
+          updateProductsStatus(data[0]);
+        }
       });
     } else if (productsStatus !== 'newProduct' && productsStatus.id) {
       if (productsStatus.id.includes('deleted')) {

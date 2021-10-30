@@ -19,7 +19,7 @@ const productsContext = createContext<IProductsContext>({} as IProductsContext);
 
 const ProductsContext: React.FC = ({ children }) => {
   const [productsStatus, setProductsStatus] = useState<IProduct | 'newProduct'>(
-    'newProduct',
+    {} as IProduct,
   );
 
   const updateProductsStatus = useCallback(

@@ -332,13 +332,14 @@ const CompanyData: React.FC = () => {
       ) : (
         <>
           {user.isAdmin && user.companyId && (
-            <TopOptions>
+            <TopOptions buttonsQuantity={2}>
               <button
                 type="button"
                 onClick={() => formRef.current?.submitForm()}
               >
                 Atualizar Dados
               </button>
+
               <button
                 type="button"
                 onClick={() => {
