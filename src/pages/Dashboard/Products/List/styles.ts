@@ -94,7 +94,7 @@ export const SearchBarContainer = styled.div`
   justify-content: space-evenly;
 
   margin-left: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 
   background-color: #fff;
   border: 2px solid #c4c4c4;

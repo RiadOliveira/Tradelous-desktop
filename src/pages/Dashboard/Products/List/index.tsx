@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import LoadingSpinner from 'components/LoadingSpinner';
 
 import { useAuth } from 'hooks/auth';
@@ -40,6 +40,7 @@ const ProductsList: React.FC = () => {
 
   const [products, setProducts] = useState<IProduct[]>([]);
   const [hasLoadedProducts, setHasLoadedProducts] = useState(false);
+  const [searchedText, setSearchedText] = useState('');
 
   const apiStaticUrl = `${api.defaults.baseURL}/files`;
 
@@ -87,6 +88,14 @@ const ProductsList: React.FC = () => {
     });
   };
 
+  const searchedProducts = useMemo(
+    () =>
+      products.filter(product =>
+        product.name.toLowerCase().includes(searchedText.toLowerCase()),
+      ),
+    [searchedText, products],
+  );
+
   return (
     <Container>
       {companyId ? (
@@ -115,10 +124,13 @@ const ProductsList: React.FC = () => {
                   <ProductsContainer>
                     <SearchBarContainer>
                       <MdSearch size={48} color="#515151" />
-                      <SearchBar placeholder="Nome do produto" />
+                      <SearchBar
+                        placeholder="Nome do produto"
+                        onChange={event => setSearchedText(event.target.value)}
+                      />
                     </SearchBarContainer>
 
-                    {products.map(product => (
+                    {searchedProducts.map(product => (
                       <Product
                         key={`${product.id}`}
                         onClick={() => updateProductsStatus(product)}
