@@ -46,7 +46,7 @@ const ModalInput: React.FC = () => {
       {modalTransition(
         (style, item) =>
           item.isVisible &&
-          !item.buttonsProps?.second && (
+          item.type === 'withInput' && (
             <Container
               ref={modalRef}
               tabIndex={0}

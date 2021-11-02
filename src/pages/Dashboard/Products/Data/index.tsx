@@ -26,6 +26,9 @@ import {
   EditIcon,
   Form,
   InputLine,
+  BarCodeContainer,
+  BarCodePlaceHolder,
+  BarCodeButton,
 } from './styles';
 
 interface IProduct {
@@ -354,15 +357,14 @@ const ProductsData: React.FC = () => {
               />
             </InputLine>
 
-            <DashboardInput
-              name="barCode"
-              placeholder="Código do produto"
-              Icon={RiBarcodeFill}
-              disabled
-              style={{
-                marginTop: 90,
-              }}
-            />
+            <BarCodeContainer>
+              <BarCodePlaceHolder>
+                <RiBarcodeFill size={42} />
+                Código do produto
+              </BarCodePlaceHolder>
+
+              <BarCodeButton type="button">Escanear código</BarCodeButton>
+            </BarCodeContainer>
           </Form>
         </>
       )}

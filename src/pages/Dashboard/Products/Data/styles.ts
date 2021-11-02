@@ -75,3 +75,49 @@ export const InputLine = styled.div`
     margin-top: 100px;
   }
 `;
+
+export const BarCodeContainer = styled.div`
+  margin-top: 45px;
+`;
+
+export const BarCodePlaceHolder = styled.div`
+  color: #515151;
+
+  font-size: 22px;
+  font-weight: bold;
+  font-family: Poppins;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  user-select: none;
+
+  margin-bottom: 4px;
+`;
+
+export const BarCodeButton = styled.button`
+  min-width: 420px;
+  min-height: 74px;
+
+  outline: 0;
+  border: 0;
+  font-family: Poppins;
+  font-size: 26px;
+
+  border-radius: 20px;
+  background-color: #fff;
+  border: 2px solid #c4c4c4;
+
+  text-align: center;
+
+  cursor: pointer;
+
+  transition: 0.4s;
+
+  &:hover {
+    background-color: ${shade(0.4, '#fff')};
+    color: #fff;
+  }
+`;

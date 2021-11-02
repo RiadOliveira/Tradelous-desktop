@@ -8,17 +8,17 @@ interface IModalProps {
     first: {
       text: string;
       color: string;
-      actionFunction: (inputText?: string) => void; // In case Modal is with input
+      actionFunction: (inputText?: string) => void;
       isSecureEntry?: boolean;
     };
     second?: {
-      // In case Modal is with input
       text: string;
       color: string;
       actionFunction: () => void;
     };
   };
   text?: string;
+  type?: 'ordinary' | 'withInput';
 }
 
 interface IModalContextData {

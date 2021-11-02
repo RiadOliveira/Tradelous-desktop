@@ -34,7 +34,7 @@ const DashboardInput: React.FC<InputProps> = ({
     <Container style={style}>
       <PlaceHolder>
         <Icon size={42} />
-        <p>{placeholder}</p>
+        {placeholder}
       </PlaceHolder>
 
       <InputContainer

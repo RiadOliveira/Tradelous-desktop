@@ -44,7 +44,7 @@ export const PlaceHolder = styled.div`
   position: absolute;
   color: #515151;
 
-  top: -90%;
+  top: -70%;
 
   font-size: 22px;
   font-weight: bold;

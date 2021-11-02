@@ -42,7 +42,7 @@ const Modal: React.FC = () => {
       {modalTransition(
         (style, item) =>
           item.isVisible &&
-          item.buttonsProps?.second && (
+          item.type === 'ordinary' && (
             <Container
               ref={modalRef}
               tabIndex={0}
