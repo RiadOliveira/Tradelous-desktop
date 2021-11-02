@@ -241,9 +241,9 @@ const ProfileData: React.FC = () => {
                   color: '#db3b3b',
                   actionFunction: verifyPassword =>
                     handleDeleteAccount(verifyPassword || ''),
-                  isSecureEntry: true,
                 },
               },
+              isSecureEntry: true,
               type: 'ordinary',
             });
           }}

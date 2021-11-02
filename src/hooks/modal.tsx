@@ -10,7 +10,6 @@ interface IModalProps {
       text: string;
       color: string;
       actionFunction: (inputText?: string) => void;
-      isSecureEntry?: boolean;
     };
     second?: {
       text: string;
@@ -18,6 +17,7 @@ interface IModalProps {
       actionFunction: () => void;
     };
   };
+  isSecureEntry?: boolean;
   text?: string;
   type: 'ordinary' | 'withInput';
 }

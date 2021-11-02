@@ -43,7 +43,7 @@ const ModalInput: React.FC<ModalProps> = ({ style }) => {
         <ModalText>{modalProps.text}</ModalText>
 
         <InputContainer
-          type={buttonsProps?.first.isSecureEntry ? 'password' : 'text'}
+          type={modalProps.isSecureEntry ? 'password' : 'text'}
           value={inputValue}
           spellCheck={false}
           onChange={event => setInputValue(event.target.value)}

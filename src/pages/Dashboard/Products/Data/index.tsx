@@ -365,7 +365,24 @@ const ProductsData: React.FC = () => {
                 Código do produto
               </BarCodePlaceHolder>
 
-              <BarCodeButton type="button">Escanear código</BarCodeButton>
+              <BarCodeButton
+                type="button"
+                onClick={() =>
+                  showModal({
+                    type: 'ordinary',
+                    text: 'Escaneie o código com seu Scanner',
+                    buttonsProps: {
+                      first: {
+                        text: 'Cancelar',
+                        color: '#db3b3b',
+                        actionFunction: () => undefined,
+                      },
+                    },
+                  })
+                }
+              >
+                Escanear código
+              </BarCodeButton>
             </BarCodeContainer>
           </Form>
         </>
