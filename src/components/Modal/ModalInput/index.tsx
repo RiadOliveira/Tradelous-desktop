@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { AllHTMLAttributes, useEffect, useRef, useState } from 'react';
 import { useModal } from 'hooks/modal';
-import { useTransition } from 'react-spring';
+import { AnimatedProps } from 'react-spring';
 import {
   Container,
   ModalContainer,
@@ -9,7 +9,9 @@ import {
   ModalButton,
 } from './styles';
 
-const ModalInput: React.FC = () => {
+type ModalProps = AnimatedProps<AllHTMLAttributes<HTMLDivElement>>;
+
+const ModalInput: React.FC<ModalProps> = ({ style }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const { modalProps, hideModal } = useModal();
@@ -17,81 +19,57 @@ const ModalInput: React.FC = () => {
 
   const [inputValue, setInputValue] = useState('');
 
-  const modalTransition = useTransition(modalProps, {
-    from: {
-      opacity: 0,
-    },
-    enter: {
-      opacity: 1,
-      delay: 200,
-    },
-    leave: {
-      opacity: 0,
-    },
-    config: {
-      duration: 400,
-    },
-  });
-
   useEffect(() => {
-    if (modalProps.isVisible) {
+    if (modalProps.type === 'withInput') {
       modalRef.current?.focus();
     }
 
     return () => setInputValue('');
-  }, [modalProps.isVisible]);
+  }, [modalProps.type]);
 
   return (
-    <>
-      {modalTransition(
-        (style, item) =>
-          item.isVisible &&
-          item.type === 'withInput' && (
-            <Container
-              ref={modalRef}
-              tabIndex={0}
-              onKeyUp={event => {
-                if (event.key === 'Escape') {
-                  setInputValue('');
-                  hideModal();
-                }
-              }}
-              style={style}
-            >
-              <ModalContainer onMouseLeave={hideModal}>
-                <ModalText>{modalProps.text}</ModalText>
+    <Container
+      ref={modalRef}
+      tabIndex={0}
+      onKeyUp={event => {
+        if (event.key === 'Escape') {
+          setInputValue('');
+          hideModal();
+        }
+      }}
+      style={style}
+    >
+      <ModalContainer onMouseLeave={hideModal}>
+        <ModalText>{modalProps.text}</ModalText>
 
-                <InputContainer
-                  type={buttonsProps?.first.isSecureEntry ? 'password' : 'text'}
-                  value={inputValue}
-                  spellCheck={false}
-                  onChange={event => setInputValue(event.target.value)}
-                  onKeyPress={key => {
-                    if (key.code === 'Enter') {
-                      setInputValue('');
-                      buttonsProps?.first.actionFunction(inputValue);
-                      hideModal();
-                    }
-                  }}
-                />
+        <InputContainer
+          type={buttonsProps?.first.isSecureEntry ? 'password' : 'text'}
+          value={inputValue}
+          spellCheck={false}
+          onChange={event => setInputValue(event.target.value)}
+          onKeyPress={key => {
+            if (key.code === 'Enter') {
+              setInputValue('');
+              buttonsProps?.first.actionFunction(inputValue);
+              hideModal();
+            }
+          }}
+        />
 
-                <ModalButton
-                  onClick={() => {
-                    if (buttonsProps) {
-                      setInputValue('');
-                      buttonsProps.first.actionFunction(inputValue);
-                      hideModal();
-                    }
-                  }}
-                  color={buttonsProps?.first.color}
-                >
-                  {buttonsProps?.first.text}
-                </ModalButton>
-              </ModalContainer>
-            </Container>
-          ),
-      )}
-    </>
+        <ModalButton
+          onClick={() => {
+            if (buttonsProps) {
+              setInputValue('');
+              buttonsProps.first.actionFunction(inputValue);
+              hideModal();
+            }
+          }}
+          color={buttonsProps?.first.color}
+        >
+          {buttonsProps?.first.text}
+        </ModalButton>
+      </ModalContainer>
+    </Container>
   );
 };
 

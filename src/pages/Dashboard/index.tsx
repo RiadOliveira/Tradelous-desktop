@@ -143,6 +143,7 @@ const Dashboard: React.FC = () => {
                   text: 'Não',
                 },
               },
+              type: 'ordinary',
             })
           }
         >

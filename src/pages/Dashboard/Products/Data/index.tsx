@@ -139,6 +139,7 @@ const ProductsData: React.FC = () => {
           actionFunction: handleDeleteImage,
         },
       },
+      type: 'ordinary',
     });
   }, [showModal, handleDeleteImage]);
 
@@ -290,6 +291,7 @@ const ProductsData: React.FC = () => {
                           actionFunction: () => undefined,
                         },
                       },
+                      type: 'ordinary',
                     })
                   }
                 >

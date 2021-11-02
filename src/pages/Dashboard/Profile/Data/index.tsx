@@ -112,6 +112,7 @@ const ProfileData: React.FC = () => {
           actionFunction: handleDeleteAvatar,
         },
       },
+      type: 'ordinary',
     });
   }, [showModal, handleDeleteAvatar]);
 
@@ -243,6 +244,7 @@ const ProfileData: React.FC = () => {
                   isSecureEntry: true,
                 },
               },
+              type: 'ordinary',
             });
           }}
         >

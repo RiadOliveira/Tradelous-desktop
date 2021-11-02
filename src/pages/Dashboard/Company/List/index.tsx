@@ -154,6 +154,7 @@ const CompanyList: React.FC = () => {
           text: 'Confirmar',
         },
       },
+      type: 'withInput',
     });
 
   const showLeaveCompanyModal = () =>
@@ -168,6 +169,7 @@ const CompanyList: React.FC = () => {
           isSecureEntry: true,
         },
       },
+      type: 'withInput',
     });
 
   return (
@@ -216,6 +218,7 @@ const CompanyList: React.FC = () => {
                             isSecureEntry: true,
                           },
                         },
+                        type: 'withInput',
                       })
                     }
                   >

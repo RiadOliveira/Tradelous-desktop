@@ -221,6 +221,7 @@ const CompanyData: React.FC = () => {
           actionFunction: handleDeleteLogo,
         },
       },
+      type: 'ordinary',
     });
   }, [showModal, handleDeleteLogo]);
 
@@ -354,6 +355,7 @@ const CompanyData: React.FC = () => {
                         isSecureEntry: true,
                       },
                     },
+                    type: 'withInput',
                   });
                 }}
               >

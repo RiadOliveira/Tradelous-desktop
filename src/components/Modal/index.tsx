@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { AllHTMLAttributes, useEffect, useRef } from 'react';
 import { useModal } from 'hooks/modal';
-import { useTransition } from 'react-spring';
+import { AnimatedProps } from 'react-spring';
 import {
   Container,
   ModalContainer,
@@ -9,79 +9,57 @@ import {
   ModalButton,
 } from './styles';
 
-const Modal: React.FC = () => {
+type ModalProps = AnimatedProps<AllHTMLAttributes<HTMLDivElement>>;
+
+const Modal: React.FC<ModalProps> = ({ style }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const { modalProps, hideModal } = useModal();
   const { buttonsProps } = modalProps;
 
-  const modalTransition = useTransition(modalProps, {
-    from: {
-      opacity: 0,
-    },
-    enter: {
-      opacity: 1,
-      delay: 200,
-    },
-    leave: {
-      opacity: 0,
-    },
-    config: {
-      duration: 400,
-    },
-  });
-
   useEffect(() => {
-    if (modalProps.isVisible) {
+    if (modalProps.type === 'ordinary') {
       modalRef.current?.focus();
     }
-  }, [modalProps.isVisible]);
+  }, [modalProps.type]);
 
   return (
-    <>
-      {modalTransition(
-        (style, item) =>
-          item.isVisible &&
-          item.type === 'ordinary' && (
-            <Container
-              ref={modalRef}
-              tabIndex={0}
-              onKeyUp={event => event.key === 'Escape' && hideModal()}
-              style={style}
-            >
-              <ModalContainer onMouseLeave={hideModal}>
-                <ModalText>{modalProps.text}</ModalText>
+    <Container
+      ref={modalRef}
+      tabIndex={0}
+      onKeyUp={event => event.key === 'Escape' && hideModal()}
+      style={style}
+    >
+      <ModalContainer onMouseLeave={hideModal}>
+        <ModalText>{modalProps.text}</ModalText>
 
-                <ButtonsContainer>
-                  <ModalButton
-                    onClick={() => {
-                      if (buttonsProps) {
-                        buttonsProps.first.actionFunction();
-                        hideModal();
-                      }
-                    }}
-                    color={buttonsProps?.first.color}
-                  >
-                    {buttonsProps?.first.text}
-                  </ModalButton>
+        <ButtonsContainer>
+          <ModalButton
+            onClick={() => {
+              if (buttonsProps) {
+                buttonsProps.first.actionFunction();
+                hideModal();
+              }
+            }}
+            color={buttonsProps?.first.color}
+          >
+            {buttonsProps?.first.text}
+          </ModalButton>
 
-                  <ModalButton
-                    onClick={() => {
-                      if (buttonsProps?.second) {
-                        buttonsProps.second.actionFunction();
-                        hideModal();
-                      }
-                    }}
-                    color={buttonsProps?.second?.color}
-                  >
-                    {buttonsProps?.second?.text}
-                  </ModalButton>
-                </ButtonsContainer>
-              </ModalContainer>
-            </Container>
-          ),
-      )}
-    </>
+          <ModalButton
+            onClick={() => {
+              if (buttonsProps?.second) {
+                buttonsProps.second.actionFunction();
+                hideModal();
+              }
+            }}
+            color={buttonsProps?.second?.color}
+          >
+            {buttonsProps?.second?.text}
+          </ModalButton>
+        </ButtonsContainer>
+      </ModalContainer>
+    </Container>
   );
 };
 
