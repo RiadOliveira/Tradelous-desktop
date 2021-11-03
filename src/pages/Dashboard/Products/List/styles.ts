@@ -104,21 +104,43 @@ export const SearchBar = styled.input`
   border: 0;
   outline: 0;
 
-  width: 70%;
+  width: 60%;
   height: 75%;
 
   font-family: Poppins;
   font-size: 24px;
 
-  &::placeholder {
-    padding-left: 20px;
+  text-align: center;
 
+  &::placeholder {
     transition: opacity 0.3s;
   }
 
   &:focus {
     &::placeholder {
       opacity: 0;
+    }
+  }
+`;
+
+export const BarCodeButton = styled.button`
+  outline: 0;
+  border: 0;
+
+  cursor: pointer;
+  background-color: #fff;
+
+  svg {
+    transition: 0.4s;
+    color: #515151;
+  }
+
+  &:hover {
+    svg {
+      width: 46px;
+      height: 46px;
+
+      color: #1c274e;
     }
   }
 `;

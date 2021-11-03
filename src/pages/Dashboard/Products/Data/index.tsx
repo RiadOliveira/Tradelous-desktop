@@ -82,7 +82,7 @@ const ProductsData: React.FC = () => {
     });
   }, [barCodeValue, hideModal]);
 
-  const handleBarCodeButton = () => {
+  const handleBarCodeButton = useCallback(() => {
     showModal({
       type: 'ordinary',
       text: 'Escaneie o código com seu Scanner',
@@ -96,7 +96,7 @@ const ProductsData: React.FC = () => {
     });
 
     handleBarCodeRead();
-  };
+  }, [handleBarCodeRead, showModal]);
 
   const handleUpdateImage = useCallback(
     async (event: ChangeEvent<HTMLInputElement>) => {

@@ -6,6 +6,7 @@ import { useProducts } from 'hooks/products';
 import { MdAdd, MdInfo, MdLabel, MdSearch } from 'react-icons/md';
 import api from 'services/api';
 import { useToast } from 'hooks/toast';
+import { RiBarcodeFill } from 'react-icons/ri';
 import {
   Container,
   NoContentDiv,
@@ -13,6 +14,7 @@ import {
   ProductsContainer,
   SearchBarContainer,
   SearchBar,
+  BarCodeButton,
   Product,
   ProductData,
   ProductIcon,
@@ -123,11 +125,16 @@ const ProductsList: React.FC = () => {
 
                   <ProductsContainer>
                     <SearchBarContainer>
-                      <MdSearch size={48} color="#515151" />
+                      <MdSearch size={42} color="#515151" />
+
                       <SearchBar
                         placeholder="Nome do produto"
                         onChange={event => setSearchedText(event.target.value)}
                       />
+
+                      <BarCodeButton>
+                        <RiBarcodeFill size={42} />
+                      </BarCodeButton>
                     </SearchBarContainer>
 
                     {searchedProducts.map(product => (
