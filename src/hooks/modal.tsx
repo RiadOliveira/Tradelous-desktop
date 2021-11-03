@@ -17,7 +17,7 @@ interface IModalProps {
       actionFunction: () => void;
     };
   };
-  isSecureEntry?: boolean;
+  isSecureEntry?: boolean; // Used in Modals with input.
   text?: string;
   type: 'ordinary' | 'withInput';
 }

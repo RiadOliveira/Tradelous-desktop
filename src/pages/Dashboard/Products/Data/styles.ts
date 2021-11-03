@@ -1,6 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { shade } from 'polished';
 import { Form as Unform } from '@unform/web';
+
+interface BarCodeContainerProps {
+  hasCode: boolean;
+}
 
 export const Container = styled.div`
   display: flex;
@@ -76,10 +80,6 @@ export const InputLine = styled.div`
   }
 `;
 
-export const BarCodeContainer = styled.div`
-  margin-top: 45px;
-`;
-
 export const BarCodePlaceHolder = styled.div`
   color: #515151;
 
@@ -95,10 +95,54 @@ export const BarCodePlaceHolder = styled.div`
   user-select: none;
 
   margin-bottom: 4px;
+
+  transition: 1s;
+`;
+
+export const BarCodeContainer = styled.div<BarCodeContainerProps>`
+  margin-top: 45px;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  p {
+    font-family: Poppins;
+    text-align: center;
+
+    padding: 8px;
+    background-color: #fff;
+    border-radius: 4px;
+
+    border: 1px solid #c4c4c4;
+
+    opacity: 0;
+
+    position: absolute;
+    top: -30%;
+
+    transition: 1s;
+  }
+
+  ${({ hasCode }) =>
+    hasCode &&
+    css`
+      &:hover {
+        p {
+          opacity: 0.5;
+          top: -15%;
+        }
+
+        ${BarCodePlaceHolder} {
+          opacity: 0;
+        }
+      }
+    `}
 `;
 
 export const BarCodeButton = styled.button`
-  min-width: 420px;
+  width: 420px;
   min-height: 74px;
 
   outline: 0;

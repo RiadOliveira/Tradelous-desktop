@@ -1,4 +1,10 @@
-import React, { ChangeEvent, useCallback, useEffect, useRef } from 'react';
+import React, {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import DashboardInput from 'components/Input/DashboardInput';
 import LoadingSpinner from 'components/LoadingSpinner';
 import TopOptions from 'components/TopOptions';
@@ -46,13 +52,51 @@ const ProductsData: React.FC = () => {
   const {
     user: { companyId },
   } = useAuth();
-  const { showModal } = useModal();
+  const { showModal, hideModal } = useModal();
   const { showToast } = useToast();
+
+  const [barCodeValue, setBarCodeValue] = useState('');
 
   const formRef = useRef<FormHandles>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
+  const barCodeInputRef = useRef<HTMLButtonElement>(null);
 
   const apiStaticUrl = `${api.defaults.baseURL}/files`;
+
+  const handleBarCodeRead = useCallback(() => {
+    setTimeout(() => barCodeInputRef.current?.focus(), 2000);
+
+    let barCode = '';
+
+    barCodeInputRef.current?.addEventListener('keydown', event => {
+      if (event.code === 'Enter' && !barCodeValue) {
+        barCodeInputRef.current?.blur();
+
+        setBarCodeValue(barCode);
+        setTimeout(() => hideModal(), 500);
+
+        barCode = '';
+      } else {
+        barCode += event.key;
+      }
+    });
+  }, [barCodeValue, hideModal]);
+
+  const handleBarCodeButton = () => {
+    showModal({
+      type: 'ordinary',
+      text: 'Escaneie o código com seu Scanner',
+      buttonsProps: {
+        first: {
+          text: 'Cancelar',
+          color: '#db3b3b',
+          actionFunction: () => undefined,
+        },
+      },
+    });
+
+    handleBarCodeRead();
+  };
 
   const handleUpdateImage = useCallback(
     async (event: ChangeEvent<HTMLInputElement>) => {
@@ -179,6 +223,11 @@ const ProductsData: React.FC = () => {
           productData.price.toString().replace(',', '.'),
         );
 
+        if (barCodeValue) {
+          // eslint-disable-next-line no-param-reassign
+          productData.barCode = barCodeValue;
+        }
+
         const schema = yup.object().shape({
           name: yup.string().required('Nome do produto obrigatório'),
           price: yup
@@ -244,17 +293,19 @@ const ProductsData: React.FC = () => {
         });
       }
     },
-    [productsStatus, showToast, updateProductsStatus],
+    [barCodeValue, productsStatus, showToast, updateProductsStatus],
   );
 
   useEffect(() => {
     if (productsStatus !== 'newProduct' && !productsStatus?.id) {
       formRef.current?.reset();
+      setBarCodeValue('');
     } else if (productsStatus !== 'newProduct') {
       formRef.current?.setData({
         ...productsStatus,
         price: Number(productsStatus.price).toFixed(2).replace('.', ','),
       });
+      setBarCodeValue(productsStatus.barCode || '');
     }
   }, [productsStatus]);
 
@@ -359,29 +410,20 @@ const ProductsData: React.FC = () => {
               />
             </InputLine>
 
-            <BarCodeContainer>
+            <BarCodeContainer hasCode={!!barCodeValue}>
               <BarCodePlaceHolder>
                 <RiBarcodeFill size={42} />
                 Código do produto
               </BarCodePlaceHolder>
 
+              <p>{barCodeValue}</p>
+
               <BarCodeButton
                 type="button"
-                onClick={() =>
-                  showModal({
-                    type: 'ordinary',
-                    text: 'Escaneie o código com seu Scanner',
-                    buttonsProps: {
-                      first: {
-                        text: 'Cancelar',
-                        color: '#db3b3b',
-                        actionFunction: () => undefined,
-                      },
-                    },
-                  })
-                }
+                ref={barCodeInputRef}
+                onClick={handleBarCodeButton}
               >
-                Escanear código
+                {barCodeValue ? 'Código obtido' : 'Sem código inserido'}
               </BarCodeButton>
             </BarCodeContainer>
           </Form>
