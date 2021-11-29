@@ -45,6 +45,15 @@ const authContext = createContext<IAuthContextData>({} as IAuthContextData);
 const AuthContext: React.FC = ({ children }) => {
   const [authData, setAuthData] = useState<IAuthProps>({} as IAuthProps);
 
+  const signOut = useCallback(() => {
+    localStorage.removeItem('@Tradelous-user');
+    localStorage.removeItem('@Tradelous-token');
+
+    api.defaults.headers.authorization = undefined;
+
+    setAuthData({} as IAuthProps);
+  }, []);
+
   useEffect(() => {
     const user = localStorage.getItem('@Tradelous-user');
     const token = localStorage.getItem('@Tradelous-token');
@@ -55,9 +64,17 @@ const AuthContext: React.FC = ({ children }) => {
         token,
       });
 
+      api.interceptors.response.use(response => {
+        if (response.status === 401) {
+          signOut();
+        }
+
+        return response;
+      });
+
       api.defaults.headers.authorization = `Bearer ${token}`;
     }
-  }, []);
+  }, [signOut]);
 
   const signIn = useCallback(async (data: SignInData) => {
     const response = await api.post<IAuthProps>('/user/sessions', data);
@@ -145,15 +162,6 @@ const AuthContext: React.FC = ({ children }) => {
     },
     [authData.user],
   );
-
-  const signOut = useCallback(() => {
-    localStorage.removeItem('@Tradelous-user');
-    localStorage.removeItem('@Tradelous-token');
-
-    api.defaults.headers.authorization = undefined;
-
-    setAuthData({} as IAuthProps);
-  }, []);
 
   return (
     <authContext.Provider
