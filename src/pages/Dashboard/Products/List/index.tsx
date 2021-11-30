@@ -1,4 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import LoadingSpinner from 'components/LoadingSpinner';
 
 import { useAuth } from 'hooks/auth';
@@ -7,6 +13,7 @@ import { MdAdd, MdInfo, MdLabel, MdSearch } from 'react-icons/md';
 import api from 'services/api';
 import { useToast } from 'hooks/toast';
 import { RiBarcodeFill } from 'react-icons/ri';
+import { useModal } from 'hooks/modal';
 import {
   Container,
   NoContentDiv,
@@ -39,10 +46,14 @@ const ProductsList: React.FC = () => {
   } = useAuth();
   const { updateProductsStatus, productsStatus } = useProducts();
   const { showToast } = useToast();
+  const { showModal, hideModal } = useModal();
 
   const [products, setProducts] = useState<IProduct[]>([]);
   const [hasLoadedProducts, setHasLoadedProducts] = useState(false);
   const [searchedText, setSearchedText] = useState('');
+  const [barCodeValue, setBarCodeValue] = useState('');
+
+  const barCodeButtonRef = useRef<HTMLButtonElement>(null);
 
   const apiStaticUrl = `${api.defaults.baseURL}/files`;
 
@@ -90,13 +101,61 @@ const ProductsList: React.FC = () => {
     });
   };
 
-  const searchedProducts = useMemo(
-    () =>
-      products.filter(product =>
-        product.name.toLowerCase().includes(searchedText.toLowerCase()),
-      ),
-    [searchedText, products],
-  );
+  const handleBarCodeRead = useCallback(() => {
+    showModal({
+      type: 'ordinary',
+      text: 'Escaneie o código com seu Scanner',
+      buttonsProps: {
+        first: {
+          text: 'Cancelar',
+          color: '#db3b3b',
+          actionFunction: () => undefined,
+        },
+      },
+    });
+
+    setTimeout(() => barCodeButtonRef.current?.focus(), 300);
+
+    let barCode = '';
+
+    barCodeButtonRef.current?.addEventListener('keydown', event => {
+      if (event.code === 'Enter') {
+        barCodeButtonRef.current?.blur();
+
+        setBarCodeValue(barCode);
+        hideModal();
+
+        barCode = '';
+      } else {
+        barCode += event.key;
+      }
+    });
+  }, [hideModal, showModal]);
+
+  const searchedProducts = useMemo(() => {
+    if (barCodeValue) {
+      const findedProduct = products.find(
+        product => product.barCode === barCodeValue,
+      );
+
+      if (findedProduct) {
+        updateProductsStatus(findedProduct);
+      } else {
+        showToast({
+          text: {
+            main: 'Código de barras inválido',
+            sub: 'Nenhum produto encontrado com o código',
+          },
+        });
+      }
+
+      return findedProduct ? [findedProduct] : [];
+    }
+
+    return products.filter(product =>
+      product.name.toLowerCase().includes(searchedText.toLowerCase()),
+    );
+  }, [barCodeValue, products, updateProductsStatus, showToast, searchedText]);
 
   return (
     <Container>
@@ -129,10 +188,19 @@ const ProductsList: React.FC = () => {
 
                       <SearchBar
                         placeholder="Nome do produto"
-                        onChange={event => setSearchedText(event.target.value)}
+                        onChange={event => {
+                          if (barCodeValue) {
+                            setBarCodeValue('');
+                          }
+
+                          setSearchedText(event.target.value);
+                        }}
                       />
 
-                      <BarCodeButton>
+                      <BarCodeButton
+                        ref={barCodeButtonRef}
+                        onClick={handleBarCodeRead}
+                      >
                         <RiBarcodeFill size={42} />
                       </BarCodeButton>
                     </SearchBarContainer>

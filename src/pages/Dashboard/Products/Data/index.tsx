@@ -59,30 +59,11 @@ const ProductsData: React.FC = () => {
 
   const formRef = useRef<FormHandles>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
-  const barCodeInputRef = useRef<HTMLButtonElement>(null);
+  const barCodeButtonRef = useRef<HTMLButtonElement>(null);
 
   const apiStaticUrl = `${api.defaults.baseURL}/files`;
 
   const handleBarCodeRead = useCallback(() => {
-    setTimeout(() => barCodeInputRef.current?.focus(), 2000);
-
-    let barCode = '';
-
-    barCodeInputRef.current?.addEventListener('keydown', event => {
-      if (event.code === 'Enter' && !barCodeValue) {
-        barCodeInputRef.current?.blur();
-
-        setBarCodeValue(barCode);
-        setTimeout(() => hideModal(), 500);
-
-        barCode = '';
-      } else {
-        barCode += event.key;
-      }
-    });
-  }, [barCodeValue, hideModal]);
-
-  const handleBarCodeButton = useCallback(() => {
     showModal({
       type: 'ordinary',
       text: 'Escaneie o código com seu Scanner',
@@ -95,8 +76,23 @@ const ProductsData: React.FC = () => {
       },
     });
 
-    handleBarCodeRead();
-  }, [handleBarCodeRead, showModal]);
+    setTimeout(() => barCodeButtonRef.current?.focus(), 300);
+
+    let barCode = '';
+
+    barCodeButtonRef.current?.addEventListener('keydown', event => {
+      if (event.code === 'Enter') {
+        barCodeButtonRef.current?.blur();
+
+        setBarCodeValue(barCode);
+        hideModal();
+
+        barCode = '';
+      } else {
+        barCode += event.key;
+      }
+    });
+  }, [hideModal, showModal]);
 
   const handleUpdateImage = useCallback(
     async (event: ChangeEvent<HTMLInputElement>) => {
@@ -420,8 +416,8 @@ const ProductsData: React.FC = () => {
 
               <BarCodeButton
                 type="button"
-                ref={barCodeInputRef}
-                onClick={handleBarCodeButton}
+                ref={barCodeButtonRef}
+                onClick={handleBarCodeRead}
               >
                 {barCodeValue ? 'Código obtido' : 'Sem código inserido'}
               </BarCodeButton>
