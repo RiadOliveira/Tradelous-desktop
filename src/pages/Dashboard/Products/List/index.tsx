@@ -149,7 +149,7 @@ const ProductsList: React.FC = () => {
         });
       }
 
-      return findedProduct ? [findedProduct] : [];
+      return findedProduct ? [findedProduct] : products;
     }
 
     return products.filter(product =>
