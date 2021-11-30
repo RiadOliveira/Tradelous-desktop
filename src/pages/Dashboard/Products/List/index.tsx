@@ -7,7 +7,6 @@ import React, {
 } from 'react';
 import LoadingSpinner from 'components/LoadingSpinner';
 
-import { useAuth } from 'hooks/auth';
 import { useProducts } from 'hooks/products';
 import { MdAdd, MdInfo, MdLabel, MdSearch } from 'react-icons/md';
 import api from 'services/api';
@@ -41,9 +40,6 @@ interface IProduct {
 }
 
 const ProductsList: React.FC = () => {
-  const {
-    user: { companyId },
-  } = useAuth();
   const { updateProductsStatus, productsStatus } = useProducts();
   const { showToast } = useToast();
   const { showModal, hideModal } = useModal();
@@ -58,10 +54,7 @@ const ProductsList: React.FC = () => {
   const apiStaticUrl = `${api.defaults.baseURL}/files`;
 
   useEffect(() => {
-    if (
-      companyId &&
-      (productsStatus === 'newProduct' || products.length === 0)
-    ) {
+    if (productsStatus === 'newProduct' || products.length === 0) {
       api.get<IProduct[]>('/products').then(({ data }) => {
         if (data.length) {
           setProducts(data);
@@ -70,7 +63,7 @@ const ProductsList: React.FC = () => {
 
         setHasLoadedProducts(true);
       });
-    } else if (productsStatus !== 'newProduct' && productsStatus.id) {
+    } else if (productsStatus.id) {
       if (productsStatus.id.includes('deleted')) {
         // To delete a product needs to pass deleted + product.id to productsStatus.
         const deletedProductId = productsStatus.id.split(' ')[1]; // Gets the id.
@@ -87,7 +80,7 @@ const ProductsList: React.FC = () => {
         );
       }
     }
-  }, [companyId, productsStatus, products.length, updateProductsStatus]);
+  }, [productsStatus, products.length, updateProductsStatus]);
 
   const handleNewProductButton = () => {
     updateProductsStatus({} as IProduct);
@@ -159,98 +152,83 @@ const ProductsList: React.FC = () => {
 
   return (
     <Container>
-      {companyId ? (
+      {!hasLoadedProducts ? (
+        <LoadingSpinner color="#1c274e" />
+      ) : (
         <>
-          {!hasLoadedProducts ? (
-            <LoadingSpinner color="#1c274e" />
+          {!products.length ? (
+            <NoContentDiv>
+              <MdInfo size={80} color="#1c274e" />
+
+              <h2>
+                Parece que sua empresa ainda não possui nenhum produto
+                cadastrado, você pode cadastrar o primeiro preenchendo o
+                formulário ao lado.
+              </h2>
+            </NoContentDiv>
           ) : (
             <>
-              {!products.length ? (
-                <NoContentDiv>
-                  <MdInfo size={80} color="#1c274e" />
+              <AddProductButton onClick={handleNewProductButton}>
+                <MdAdd color="#fff" size={60} />
+                <strong>Adicionar produto</strong>
+              </AddProductButton>
 
-                  <h2>
-                    Parece que sua empresa ainda não possui nenhum produto
-                    cadastrado, você pode cadastrar o primeiro preenchendo o
-                    formulário ao lado.
-                  </h2>
-                </NoContentDiv>
-              ) : (
-                <>
-                  <AddProductButton onClick={handleNewProductButton}>
-                    <MdAdd color="#fff" size={60} />
-                    <strong>Adicionar produto</strong>
-                  </AddProductButton>
+              <ProductsContainer>
+                <SearchBarContainer>
+                  <MdSearch size={42} color="#515151" />
 
-                  <ProductsContainer>
-                    <SearchBarContainer>
-                      <MdSearch size={42} color="#515151" />
+                  <SearchBar
+                    placeholder="Nome do produto"
+                    onChange={event => {
+                      if (barCodeValue) {
+                        setBarCodeValue('');
+                      }
 
-                      <SearchBar
-                        placeholder="Nome do produto"
-                        onChange={event => {
-                          if (barCodeValue) {
-                            setBarCodeValue('');
-                          }
+                      setSearchedText(event.target.value);
+                    }}
+                  />
 
-                          setSearchedText(event.target.value);
-                        }}
-                      />
+                  <BarCodeButton
+                    ref={barCodeButtonRef}
+                    onClick={handleBarCodeRead}
+                  >
+                    <RiBarcodeFill size={42} />
+                  </BarCodeButton>
+                </SearchBarContainer>
 
-                      <BarCodeButton
-                        ref={barCodeButtonRef}
-                        onClick={handleBarCodeRead}
-                      >
-                        <RiBarcodeFill size={42} />
-                      </BarCodeButton>
-                    </SearchBarContainer>
+                {searchedProducts.map(product => (
+                  <Product
+                    key={`${product.id}`}
+                    onClick={() => updateProductsStatus(product)}
+                  >
+                    <ProductIcon>
+                      {product.image ? (
+                        <ProductImage
+                          src={`${apiStaticUrl}/product-image/${product.image}`}
+                        />
+                      ) : (
+                        <MdLabel color="#fff" size={60} />
+                      )}
+                    </ProductIcon>
 
-                    {searchedProducts.map(product => (
-                      <Product
-                        key={`${product.id}`}
-                        onClick={() => updateProductsStatus(product)}
-                      >
-                        <ProductIcon>
-                          {product.image ? (
-                            <ProductImage
-                              src={`${apiStaticUrl}/product-image/${product.image}`}
-                            />
-                          ) : (
-                            <MdLabel color="#fff" size={60} />
-                          )}
-                        </ProductIcon>
+                    <ProductData>
+                      <ProductText>{product.name}</ProductText>
 
-                        <ProductData>
-                          <ProductText>{product.name}</ProductText>
+                      <ProductSubText>
+                        <ProductText>{product.brand}</ProductText>
 
-                          <ProductSubText>
-                            <ProductText>{product.brand}</ProductText>
-
-                            <ProductText>
-                              R${' '}
-                              {Number(product.price)
-                                .toFixed(2)
-                                .replace('.', ',')}
-                            </ProductText>
-                          </ProductSubText>
-                        </ProductData>
-                      </Product>
-                    ))}
-                  </ProductsContainer>
-                </>
-              )}
+                        <ProductText>
+                          R${' '}
+                          {Number(product.price).toFixed(2).replace('.', ',')}
+                        </ProductText>
+                      </ProductSubText>
+                    </ProductData>
+                  </Product>
+                ))}
+              </ProductsContainer>
             </>
           )}
         </>
-      ) : (
-        <NoContentDiv>
-          <MdInfo size={80} color="#1c274e" />
-
-          <h2>
-            Você ainda não está associado a nenhuma empresa, se você for dono de
-            uma empresa, preencha os dados dela e confirme sua criação.
-          </h2>
-        </NoContentDiv>
       )}
     </Container>
   );
