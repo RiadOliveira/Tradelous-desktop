@@ -2,6 +2,7 @@ import React, { createContext, useState, useContext, useCallback } from 'react';
 import Modal from 'components/Modal';
 import ModalInput from 'components/Modal/ModalInput';
 import { useTransition } from 'react-spring';
+import ModalDatePicker from 'components/Modal/ModalDatePicker';
 
 interface IModalProps {
   isVisible: boolean;
@@ -19,7 +20,7 @@ interface IModalProps {
   };
   isSecureEntry?: boolean; // Used in Modals with input.
   text?: string;
-  type: 'ordinary' | 'withInput';
+  type: 'ordinary' | 'withInput' | 'datePicker';
 }
 
 interface IModalContextData {
@@ -76,7 +77,13 @@ const ModalContext: React.FC = ({ children }) => {
           (item.type === 'ordinary' ? (
             <Modal style={style} />
           ) : (
-            <ModalInput style={style} />
+            <>
+              {item.type === 'withInput' ? (
+                <ModalInput style={style} />
+              ) : (
+                <ModalDatePicker style={style} />
+              )}
+            </>
           )),
       )}
     </modalContext.Provider>

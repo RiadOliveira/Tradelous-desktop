@@ -1,15 +1,15 @@
 import LoadingSpinner from 'components/LoadingSpinner';
 import React, { useEffect, useMemo, useState } from 'react';
-import { MdInfo, MdSearch, MdShop } from 'react-icons/md';
-import api from 'services/api';
+import { MdInfo } from 'react-icons/md';
 import { format } from 'date-fns';
 import { RiShoppingBag3Fill } from 'react-icons/ri';
+import api from 'services/api';
+import { useModal } from 'hooks/modal';
 import {
   Container,
   NoContentDiv,
   SalesContainer,
   SearchBarContainer,
-  SearchBar,
   Sale,
   SaleData,
   SaleIcon,
@@ -47,6 +47,8 @@ interface ISale {
 }
 
 const SalesList: React.FC = () => {
+  const { showModal } = useModal();
+
   const [sales, setSales] = useState<ISale[]>([]);
   const [hasLoadedSales, setHasLoadedSales] = useState(false);
 
@@ -68,6 +70,20 @@ const SalesList: React.FC = () => {
 
   const searchedSales = useMemo(() => sales, [sales]);
 
+  useEffect(() => {
+    showModal({
+      text: 'Selecione a data de pesquisa das vendas',
+      buttonsProps: {
+        first: {
+          actionFunction: () => undefined,
+          color: '#1c274e',
+          text: 'Confirmar',
+        },
+      },
+      type: 'datePicker',
+    });
+  }, [showModal]);
+
   return (
     <Container>
       {!hasLoadedSales ? (
@@ -87,11 +103,7 @@ const SalesList: React.FC = () => {
           ) : (
             <>
               <SalesContainer>
-                <SearchBarContainer>
-                  <MdSearch size={42} color="#515151" />
-
-                  <SearchBar />
-                </SearchBarContainer>
+                <SearchBarContainer />
 
                 {searchedSales.map(sale => (
                   <Sale

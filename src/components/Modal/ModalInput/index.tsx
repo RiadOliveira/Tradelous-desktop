@@ -27,6 +27,12 @@ const ModalInput: React.FC<ModalProps> = ({ style }) => {
     return () => setInputValue('');
   }, [modalProps.type]);
 
+  const confirmData = () => {
+    setInputValue('');
+    buttonsProps?.first.actionFunction(inputValue);
+    hideModal();
+  };
+
   return (
     <Container
       ref={modalRef}
@@ -47,23 +53,11 @@ const ModalInput: React.FC<ModalProps> = ({ style }) => {
           value={inputValue}
           spellCheck={false}
           onChange={event => setInputValue(event.target.value)}
-          onKeyPress={key => {
-            if (key.code === 'Enter') {
-              setInputValue('');
-              buttonsProps?.first.actionFunction(inputValue);
-              hideModal();
-            }
-          }}
+          onKeyPress={key => key.code === 'Enter' && confirmData()}
         />
 
         <ModalButton
-          onClick={() => {
-            if (buttonsProps) {
-              setInputValue('');
-              buttonsProps.first.actionFunction(inputValue);
-              hideModal();
-            }
-          }}
+          onClick={() => buttonsProps && confirmData()}
           color={buttonsProps?.first.color}
         >
           {buttonsProps?.first.text}

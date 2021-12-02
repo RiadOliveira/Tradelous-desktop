@@ -62,29 +62,6 @@ export const SearchBarContainer = styled.div`
   border: 2px solid #c4c4c4;
 `;
 
-export const SearchBar = styled.input`
-  border: 0;
-  outline: 0;
-
-  width: 60%;
-  height: 75%;
-
-  font-family: Poppins;
-  font-size: 24px;
-
-  text-align: center;
-
-  &::placeholder {
-    transition: opacity 0.3s;
-  }
-
-  &:focus {
-    &::placeholder {
-      opacity: 0;
-    }
-  }
-`;
-
 export const Sale = styled.button`
   border: 0;
   outline: 0;
