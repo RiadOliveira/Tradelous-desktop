@@ -179,6 +179,7 @@ const SalesList: React.FC = () => {
                     },
                   },
                   type: 'datePicker',
+                  initialValue: searchConfig.date,
                 })
               }
             >
@@ -212,7 +213,11 @@ const SalesList: React.FC = () => {
                   </SaleIcon>
 
                   <SaleData>
-                    <SaleText>{sale.employee.name}</SaleText>
+                    <SaleSubText>
+                      <SaleText>{sale.employee.name}</SaleText>
+
+                      <SaleText>{sale.date}</SaleText>
+                    </SaleSubText>
 
                     <SaleSubText>
                       <SaleText>{sale.product.name}</SaleText>

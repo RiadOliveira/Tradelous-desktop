@@ -22,14 +22,28 @@ const ModalDatePicker: React.FC<ModalProps> = ({ style }) => {
   const { buttonsProps } = modalProps;
 
   const actualDateObject = useMemo(() => {
-    const actualDate = new Date(Date.now());
+    let actualDate: { day: string; month: string; year: string };
 
-    return {
-      day: actualDate.getDate(),
-      month: actualDate.getMonth() + 1,
-      year: actualDate.getFullYear(),
-    };
-  }, []);
+    if (modalProps.initialValue) {
+      const [day, month, year] = modalProps.initialValue.split('-');
+
+      actualDate = {
+        day,
+        month,
+        year,
+      };
+    } else {
+      const actualDateValue = new Date(Date.now());
+
+      actualDate = {
+        day: actualDateValue.getDate().toString(),
+        month: (actualDateValue.getMonth() + 1).toString(),
+        year: actualDateValue.getFullYear().toString(),
+      };
+    }
+
+    return actualDate;
+  }, [modalProps.initialValue]);
 
   useEffect(() => {
     if (modalProps.type === 'datePicker') {

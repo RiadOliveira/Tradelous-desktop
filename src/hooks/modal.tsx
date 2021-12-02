@@ -20,6 +20,7 @@ interface IModalProps {
   };
   isSecureEntry?: boolean; // Used in Modals with input.
   text?: string;
+  initialValue?: string; // To start a input/date picker modal with some value.
   type: 'ordinary' | 'withInput' | 'datePicker';
 }
 
