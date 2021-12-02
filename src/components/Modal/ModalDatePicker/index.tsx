@@ -13,6 +13,7 @@ type ModalProps = AnimatedProps<AllHTMLAttributes<HTMLDivElement>>;
 
 const ModalDatePicker: React.FC<ModalProps> = ({ style }) => {
   const modalRef = useRef<HTMLDivElement>(null);
+
   const dayInput = useRef<HTMLInputElement>(null);
   const monthInput = useRef<HTMLInputElement>(null);
   const yearInput = useRef<HTMLInputElement>(null);
@@ -25,7 +26,7 @@ const ModalDatePicker: React.FC<ModalProps> = ({ style }) => {
 
     return {
       day: actualDate.getDate(),
-      month: actualDate.getMonth(),
+      month: actualDate.getMonth() + 1,
       year: actualDate.getFullYear(),
     };
   }, []);
@@ -34,19 +35,7 @@ const ModalDatePicker: React.FC<ModalProps> = ({ style }) => {
     if (modalProps.type === 'datePicker') {
       modalRef.current?.focus();
     }
-
-    const dayRef = dayInput.current;
-    const monthRef = monthInput.current;
-    const yearRef = yearInput.current;
-
-    return () => {
-      if (dayRef && monthRef && yearRef) {
-        dayRef.setAttribute('value', actualDateObject.day.toString());
-        monthRef.setAttribute('value', actualDateObject.month.toString());
-        yearRef.setAttribute('value', actualDateObject.year.toString());
-      }
-    };
-  }, [actualDateObject, modalProps.type]);
+  }, [modalProps.type]);
 
   const confirmData = () => {
     buttonsProps?.first.actionFunction(

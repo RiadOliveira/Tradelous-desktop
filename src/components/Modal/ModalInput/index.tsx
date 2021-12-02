@@ -23,12 +23,9 @@ const ModalInput: React.FC<ModalProps> = ({ style }) => {
     if (modalProps.type === 'withInput') {
       modalRef.current?.focus();
     }
-
-    return () => setInputValue('');
   }, [modalProps.type]);
 
   const confirmData = () => {
-    setInputValue('');
     buttonsProps?.first.actionFunction(inputValue);
     hideModal();
   };
@@ -37,12 +34,7 @@ const ModalInput: React.FC<ModalProps> = ({ style }) => {
     <Container
       ref={modalRef}
       tabIndex={0}
-      onKeyUp={event => {
-        if (event.key === 'Escape') {
-          setInputValue('');
-          hideModal();
-        }
-      }}
+      onKeyUp={event => event.key === 'Escape' && hideModal()}
       style={style}
     >
       <ModalContainer onMouseLeave={hideModal}>

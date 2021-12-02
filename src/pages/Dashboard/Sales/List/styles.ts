@@ -204,7 +204,7 @@ export const SaleSubText = styled.section`
 
 export const NoContentDiv = styled.div`
   width: 100%;
-  height: 80%;
+  height: 60vh;
 
   display: flex;
   flex-direction: column;
