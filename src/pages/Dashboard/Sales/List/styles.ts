@@ -36,15 +36,6 @@ export const Container = styled.div`
   }
 `;
 
-export const SalesContainer = styled.div`
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
-`;
-
 export const SearchBarContainer = styled.div`
   width: 65%;
   height: 80px;
@@ -53,13 +44,100 @@ export const SearchBarContainer = styled.div`
 
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
 
   margin-left: 10px;
   margin-bottom: 40px;
 
   background-color: #fff;
   border: 2px solid #c4c4c4;
+`;
+
+export const SelectType = styled.div`
+  width: 32%;
+  height: 80%;
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 8px;
+
+  transition: 0.6s;
+
+  strong {
+    font-family: Poppins;
+    font-size: 28px;
+  }
+
+  button {
+    outline: 0;
+    border: 0;
+    background-color: transparent;
+    position: absolute;
+
+    cursor: default;
+
+    opacity: 0;
+    transition: 0.2s;
+
+    svg {
+      color: #515151;
+      transition: 0.2s;
+    }
+
+    &:hover {
+      svg {
+        color: #000;
+      }
+    }
+  }
+
+  &:hover {
+    width: 65%;
+
+    button {
+      opacity: 0.8;
+      cursor: pointer;
+    }
+  }
+`;
+
+export const CalendarButton = styled.button`
+  outline: 0;
+  border: 0;
+
+  cursor: pointer;
+  background-color: transparent;
+
+  width: 42px;
+  height: 42px;
+
+  margin-left: 2%;
+
+  svg {
+    transition: 0.4s;
+    color: #515151;
+  }
+
+  &:hover {
+    svg {
+      width: 46px;
+      height: 46px;
+
+      color: #1c274e;
+    }
+  }
+`;
+
+export const SalesContainer = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
 `;
 
 export const Sale = styled.button`

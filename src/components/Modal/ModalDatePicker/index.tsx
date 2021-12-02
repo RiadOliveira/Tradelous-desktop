@@ -66,8 +66,7 @@ const ModalDatePicker: React.FC<ModalProps> = ({ style }) => {
       }}
       style={style}
     >
-      <ModalContainer>
-        {/* onMouseLeave={hideModal} */}
+      <ModalContainer onMouseLeave={hideModal}>
         <ModalText>{modalProps.text}</ModalText>
 
         <PickerContainer

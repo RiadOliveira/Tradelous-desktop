@@ -1,15 +1,18 @@
 import LoadingSpinner from 'components/LoadingSpinner';
 import React, { useEffect, useMemo, useState } from 'react';
-import { MdInfo } from 'react-icons/md';
+import { MdArrowBack, MdArrowForward, MdInfo } from 'react-icons/md';
 import { format } from 'date-fns';
 import { RiShoppingBag3Fill } from 'react-icons/ri';
 import api from 'services/api';
 import { useModal } from 'hooks/modal';
+import { FaCalendar } from 'react-icons/fa';
 import {
   Container,
   NoContentDiv,
-  SalesContainer,
   SearchBarContainer,
+  SelectType,
+  SalesContainer,
+  CalendarButton,
   Sale,
   SaleData,
   SaleIcon,
@@ -46,11 +49,14 @@ interface ISale {
   product: IProduct;
 }
 
+type ISearchType = 'day' | 'week' | 'month';
+
 const SalesList: React.FC = () => {
   const { showModal } = useModal();
 
   const [sales, setSales] = useState<ISale[]>([]);
   const [hasLoadedSales, setHasLoadedSales] = useState(false);
+  const [searchType, setSearchType] = useState<ISearchType>('month');
 
   const apiStaticUrl = `${api.defaults.baseURL}/files`;
 
@@ -58,7 +64,7 @@ const SalesList: React.FC = () => {
     const actualDate = new Date(Date.now());
 
     api
-      .get<ISale[]>(`/sales/day/${format(actualDate, 'dd-MM-yyyy')}`)
+      .get<ISale[]>(`/sales/${searchType}/${format(actualDate, 'dd-MM-yyyy')}`)
       .then(({ data }) => {
         if (data.length) {
           setSales(data);
@@ -66,23 +72,9 @@ const SalesList: React.FC = () => {
 
         setHasLoadedSales(true);
       });
-  }, []);
+  }, [searchType]);
 
   const searchedSales = useMemo(() => sales, [sales]);
-
-  useEffect(() => {
-    showModal({
-      text: 'Selecione a data de pesquisa das vendas',
-      buttonsProps: {
-        first: {
-          actionFunction: pickerText => console.log(pickerText),
-          color: '#1c274e',
-          text: 'Confirmar',
-        },
-      },
-      type: 'datePicker',
-    });
-  }, [showModal]);
 
   return (
     <Container>
@@ -102,7 +94,38 @@ const SalesList: React.FC = () => {
           ) : (
             <>
               <SalesContainer>
-                <SearchBarContainer />
+                <SearchBarContainer>
+                  <SelectType>
+                    <button type="button" style={{ left: 0 }}>
+                      <MdArrowBack size={42} />
+                    </button>
+
+                    <strong>Mensal</strong>
+
+                    <button type="button" style={{ right: 0 }}>
+                      <MdArrowForward size={42} />
+                    </button>
+                  </SelectType>
+
+                  <CalendarButton
+                    onClick={() =>
+                      showModal({
+                        text: 'Selecione a data de pesquisa das vendas',
+                        buttonsProps: {
+                          first: {
+                            actionFunction: pickerText =>
+                              console.log(pickerText),
+                            color: '#1c274e',
+                            text: 'Confirmar',
+                          },
+                        },
+                        type: 'datePicker',
+                      })
+                    }
+                  >
+                    <FaCalendar size={42} />
+                  </CalendarButton>
+                </SearchBarContainer>
 
                 {searchedSales.map(sale => (
                   <Sale
