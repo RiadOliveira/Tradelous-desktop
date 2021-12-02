@@ -8,12 +8,20 @@ export const Container = styled.div`
   align-items: center;
 `;
 
-export const ProductIcon = styled.div`
+export const IconsContainer = styled.div`
+  display: flex;
+  margin-top: 4%;
+  margin-bottom: 6%;
+
+  width: 64%;
+
+  justify-content: space-between;
+`;
+
+export const SaleIcon = styled.div`
   width: 250px;
   height: 250px;
   background-color: #349beb;
-
-  margin-top: 4%;
 
   display: flex;
   justify-content: center;

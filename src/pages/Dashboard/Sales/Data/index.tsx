@@ -12,11 +12,13 @@ import TopOptions from 'components/TopOptions';
 import DashboardInput from 'components/Input/DashboardInput';
 import * as yup from 'yup';
 
+import { MdLabelOutline, MdPerson } from 'react-icons/md';
 import {
   Container,
   Form,
   InputLine,
-  ProductIcon,
+  IconsContainer,
+  SaleIcon,
   ProductImage,
 } from './styles';
 
@@ -162,20 +164,32 @@ const SalesData: React.FC = () => {
                   })
                 }
               >
-                Excluir Produto
+                Excluir Venda
               </button>
             )}
           </TopOptions>
 
-          <ProductIcon>
-            {salesStatus.product?.image ? (
-              <ProductImage
-                src={`${apiStaticUrl}/product-image/${salesStatus.product?.image}`}
-              />
-            ) : (
-              <RiShoppingBag3Fill size={180} color="#1c274e" />
-            )}
-          </ProductIcon>
+          <IconsContainer>
+            <SaleIcon>
+              {salesStatus.employee?.avatar ? (
+                <ProductImage
+                  src={`${apiStaticUrl}/avatar/${salesStatus.employee?.avatar}`}
+                />
+              ) : (
+                <MdPerson size={180} color="#1c274e" />
+              )}
+            </SaleIcon>
+
+            <SaleIcon>
+              {salesStatus.product?.image ? (
+                <ProductImage
+                  src={`${apiStaticUrl}/product-image/${salesStatus.product?.image}`}
+                />
+              ) : (
+                <MdLabelOutline size={180} color="#1c274e" />
+              )}
+            </SaleIcon>
+          </IconsContainer>
 
           <Form ref={formRef} onSubmit={handleSubmit}>
             <InputLine>
