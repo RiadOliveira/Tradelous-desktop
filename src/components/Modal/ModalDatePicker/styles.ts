@@ -49,7 +49,8 @@ export const ModalText = styled.p`
 `;
 
 export const PickerContainer = styled.div`
-  width: 40%;
+  width: 36%;
+  padding: 0 4%;
   height: 18%;
 
   border: 2px solid #c4c4c4;
@@ -61,13 +62,13 @@ export const PickerContainer = styled.div`
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
 
   input {
     outline: 0;
     border: 0;
 
-    width: 16%;
+    width: 18%;
     height: 80%;
     border-radius: 5px;
 

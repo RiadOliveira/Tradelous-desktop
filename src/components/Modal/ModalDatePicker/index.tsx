@@ -92,8 +92,7 @@ const ModalDatePicker: React.FC<ModalProps> = ({ style }) => {
           /
           <input
             style={{
-              width: '28%',
-              marginLeft: '1%',
+              width: '36%',
               textAlign: 'start',
             }}
             type="text"
