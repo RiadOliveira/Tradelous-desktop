@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useSpring } from 'react-spring';
-import GetScreenVhInPixels from 'utils/GetScreenVhInPixels';
+import GetScreenVhInPixels from 'utils/getScreenVhInPixels';
 import { Container, ScrollIndicator } from './styles';
 
 interface ScrollBarProps {

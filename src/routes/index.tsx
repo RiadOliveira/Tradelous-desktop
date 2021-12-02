@@ -3,11 +3,13 @@ import Landing from 'pages/Authentication/Landing';
 import RegisterCompany from 'pages/Authentication/RegisterCompany';
 import ForgotPassword from 'pages/Authentication/ForgotPassword';
 import RecoverPassword from 'pages/Authentication/RecoverPassword';
+import Dashboard from 'pages/Dashboard';
 
+import { SalesContext } from 'hooks/sales';
 import { Switch, useLocation } from 'react-router-dom';
 import { useTransition, animated } from 'react-spring';
-import Dashboard from 'pages/Dashboard';
 import { ProductsContext } from 'hooks/products';
+
 import Route from './Route';
 
 const Routes: React.FC = () => {
@@ -43,7 +45,14 @@ const Routes: React.FC = () => {
               component={RegisterCompany}
             />
             <ProductsContext>
-              <Route exact isPrivate path="/dashboard" component={Dashboard} />
+              <SalesContext>
+                <Route
+                  exact
+                  isPrivate
+                  path="/dashboard"
+                  component={Dashboard}
+                />
+              </SalesContext>
             </ProductsContext>
           </Switch>
         </animated.div>

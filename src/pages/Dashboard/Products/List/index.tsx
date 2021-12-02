@@ -13,6 +13,7 @@ import api from 'services/api';
 import { useToast } from 'hooks/toast';
 import { RiBarcodeFill } from 'react-icons/ri';
 import { useModal } from 'hooks/modal';
+import formatPrice from 'utils/formatPrice';
 import {
   Container,
   NoContentDiv,
@@ -217,10 +218,7 @@ const ProductsList: React.FC = () => {
                       <ProductSubText>
                         <ProductText>{product.brand}</ProductText>
 
-                        <ProductText>
-                          R${' '}
-                          {Number(product.price).toFixed(2).replace('.', ',')}
-                        </ProductText>
+                        <ProductText>{formatPrice(product.price)}</ProductText>
                       </ProductSubText>
                     </ProductData>
                   </Product>

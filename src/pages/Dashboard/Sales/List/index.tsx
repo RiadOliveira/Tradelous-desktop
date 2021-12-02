@@ -7,6 +7,9 @@ import api from 'services/api';
 import { useModal } from 'hooks/modal';
 import { FaCalendar } from 'react-icons/fa';
 import { useTransition, animated } from 'react-spring';
+import { useToast } from 'hooks/toast';
+import { ISale, useSales } from 'hooks/sales';
+import formatPrice from 'utils/formatPrice';
 import {
   Container,
   NoContentDiv,
@@ -22,34 +25,6 @@ import {
   SaleSubText,
 } from './styles';
 
-interface IEmployee {
-  name: string;
-  email: string;
-  avatar: string;
-  isAdmin: boolean;
-}
-
-interface IProduct {
-  name: string;
-  price: number;
-  quantity: number;
-  brand: string;
-  image?: string;
-}
-
-interface ISale {
-  id: string;
-  companyId: string;
-  employeeId: string;
-  productId: string;
-  date: string;
-  method: 'money' | 'card';
-  quantity: number;
-  totalPrice: number;
-  employee: IEmployee;
-  product: IProduct;
-}
-
 type ISearchType = 'day' | 'week' | 'month';
 
 interface ISearchConfig {
@@ -61,11 +36,19 @@ const types = ['day', 'week', 'month'] as ISearchType[];
 
 const SalesList: React.FC = () => {
   const { showModal } = useModal();
+  const { showToast } = useToast();
+  const { updateSalesStatus, salesStatus } = useSales();
+
+  const actualFormattedDate = useMemo(
+    () => format(new Date(Date.now()), 'dd-MM-yyyy'),
+    [],
+  );
 
   const [sales, setSales] = useState<ISale[]>([]);
+
   const [hasLoadedSales, setHasLoadedSales] = useState(false);
   const [searchConfig, setSearchConfig] = useState<ISearchConfig>({
-    date: format(new Date(Date.now()), 'dd-MM-yyyy'),
+    date: actualFormattedDate,
     type: types[0],
   });
 
@@ -103,29 +86,67 @@ const SalesList: React.FC = () => {
   });
 
   useEffect(() => {
+    if (salesStatus === 'newSale' || sales.length === 0) {
+      api.get<ISale[]>(`/sales/day/${actualFormattedDate}`).then(({ data }) => {
+        setSales(data);
+        updateSalesStatus(data[0] || {});
+        setHasLoadedSales(true);
+      });
+    } else if (salesStatus.id) {
+      if (salesStatus.id.includes('deleted')) {
+        // To delete a sale needs to pass deleted + sale.id to salesStatus.
+        const deletedSaleId = salesStatus.id.split(' ')[1]; // Gets the id.
+
+        setSales(
+          allSales => allSales.filter(sale => sale.id !== deletedSaleId), // Update state without api recall.
+        );
+      } else {
+        setSales(allSales =>
+          allSales.map(sale =>
+            sale.id !== salesStatus.id ? sale : salesStatus,
+          ),
+        );
+      }
+    }
+  }, [
+    actualFormattedDate,
+    sales.length,
+    salesStatus,
+    showToast,
+    updateSalesStatus,
+  ]);
+
+  useEffect(() => {
     api
       .get<ISale[]>(`/sales/${searchConfig.type}/${searchConfig.date}`)
       .then(({ data }) => {
         setSales(data);
-        setHasLoadedSales(true);
-      });
-  }, [searchConfig]);
-
-  const searchedSales = useMemo(() => sales, [sales]);
+        updateSalesStatus(data[0] || {});
+      })
+      .catch(() =>
+        showToast({
+          type: 'error',
+          text: {
+            main: 'Data requisitada inválida',
+            sub: 'Por favor, insira uma data válida',
+          },
+        }),
+      );
+  }, [searchConfig, showToast, updateSalesStatus]);
 
   const updateType = useCallback(
     (type: 'forwards' | 'backwards') => {
-      const typesIndex = types.findIndex(value => value === searchConfig.type);
+      const typeIndex = types.findIndex(value => value === searchConfig.type);
 
       if (type === 'forwards') {
         setSearchConfig(prev => ({
           date: prev.date,
-          type: types[typesIndex === 2 ? 0 : typesIndex + 1],
+          type: types[typeIndex === 2 ? 0 : typeIndex + 1],
         }));
       } else {
         setSearchConfig(prev => ({
           date: prev.date,
-          type: types[typesIndex === 0 ? 2 : typesIndex - 1],
+          type: types[typeIndex === 0 ? 2 : typeIndex - 1],
         }));
       }
     },
@@ -143,7 +164,7 @@ const SalesList: React.FC = () => {
               <button
                 type="button"
                 style={{ left: 0 }}
-                onClick={() => updateType('forwards')}
+                onClick={() => updateType('backwards')}
               >
                 <MdArrowBack size={42} />
               </button>
@@ -157,7 +178,7 @@ const SalesList: React.FC = () => {
               <button
                 type="button"
                 style={{ right: 0 }}
-                onClick={() => updateType('backwards')}
+                onClick={() => updateType('forwards')}
               >
                 <MdArrowForward size={42} />
               </button>
@@ -195,12 +216,10 @@ const SalesList: React.FC = () => {
             </NoContentDiv>
           ) : (
             <>
-              {searchedSales.map(sale => (
+              {sales.map(sale => (
                 <Sale
                   key={`${sale.id}`}
-                  onClick={() => {
-                    console.log(sale.id);
-                  }}
+                  onClick={() => updateSalesStatus(sale)}
                 >
                   <SaleIcon>
                     {sale.product.image ? (
@@ -222,10 +241,7 @@ const SalesList: React.FC = () => {
                     <SaleSubText>
                       <SaleText>{sale.product.name}</SaleText>
 
-                      <SaleText>
-                        R${' '}
-                        {Number(sale.totalPrice).toFixed(2).replace('.', ',')}
-                      </SaleText>
+                      <SaleText>{formatPrice(sale.totalPrice)}</SaleText>
                     </SaleSubText>
                   </SaleData>
                 </Sale>

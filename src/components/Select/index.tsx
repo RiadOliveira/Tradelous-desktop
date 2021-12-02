@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { IconType } from 'react-icons';
 import { differenceInSeconds } from 'date-fns';
-import removeAccentuation from 'utils/RemoveAccentuation';
+import removeAccentuation from 'utils/removeAccentuation';
 import {
   Container,
   PlaceHolder,

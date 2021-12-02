@@ -12,7 +12,6 @@ import api from 'services/api';
 import * as yup from 'yup';
 
 import { useProducts } from 'hooks/products';
-import { useAuth } from 'hooks/auth';
 import { FormHandles } from '@unform/core';
 import { useModal } from 'hooks/modal';
 import { useToast } from 'hooks/toast';
@@ -49,9 +48,6 @@ interface IProduct {
 
 const ProductsData: React.FC = () => {
   const { productsStatus, updateProductsStatus } = useProducts();
-  const {
-    user: { companyId },
-  } = useAuth();
   const { showModal, hideModal } = useModal();
   const { showToast } = useToast();
 
@@ -62,6 +58,19 @@ const ProductsData: React.FC = () => {
   const barCodeButtonRef = useRef<HTMLButtonElement>(null);
 
   const apiStaticUrl = `${api.defaults.baseURL}/files`;
+
+  useEffect(() => {
+    if (productsStatus !== 'newProduct' && !productsStatus?.id) {
+      formRef.current?.reset();
+      setBarCodeValue('');
+    } else if (productsStatus !== 'newProduct') {
+      formRef.current?.setData({
+        ...productsStatus,
+        price: Number(productsStatus.price).toFixed(2).replace('.', ','),
+      });
+      setBarCodeValue(productsStatus.barCode || '');
+    }
+  }, [productsStatus]);
 
   const handleBarCodeRead = useCallback(() => {
     showModal({
@@ -292,61 +301,43 @@ const ProductsData: React.FC = () => {
     [barCodeValue, productsStatus, showToast, updateProductsStatus],
   );
 
-  useEffect(() => {
-    if (productsStatus !== 'newProduct' && !productsStatus?.id) {
-      formRef.current?.reset();
-      setBarCodeValue('');
-    } else if (productsStatus !== 'newProduct') {
-      formRef.current?.setData({
-        ...productsStatus,
-        price: Number(productsStatus.price).toFixed(2).replace('.', ','),
-      });
-      setBarCodeValue(productsStatus.barCode || '');
-    }
-  }, [productsStatus]);
-
   return (
     <Container>
       {productsStatus === 'newProduct' ? (
         <LoadingSpinner color="#1c274e" />
       ) : (
         <>
-          {companyId && (
-            <TopOptions buttonsQuantity={productsStatus.id ? 2 : 1}>
+          <TopOptions buttonsQuantity={productsStatus.id ? 2 : 1}>
+            <button type="button" onClick={() => formRef.current?.submitForm()}>
+              {productsStatus.id ? 'Atualizar Dados' : 'Criar Produto'}
+            </button>
+
+            {productsStatus.id && (
               <button
                 type="button"
-                onClick={() => formRef.current?.submitForm()}
-              >
-                {productsStatus.id ? 'Atualizar Dados' : 'Criar Produto'}
-              </button>
-
-              {productsStatus.id && (
-                <button
-                  type="button"
-                  onClick={() =>
-                    showModal({
-                      text: 'Tem certeza que deseja excluir esse produto?',
-                      buttonsProps: {
-                        first: {
-                          text: 'Sim',
-                          color: '#49b454',
-                          actionFunction: handleDeleteProduct,
-                        },
-                        second: {
-                          text: 'Não',
-                          color: '#db3b3b',
-                          actionFunction: () => undefined,
-                        },
+                onClick={() =>
+                  showModal({
+                    text: 'Tem certeza que deseja excluir esse produto?',
+                    buttonsProps: {
+                      first: {
+                        text: 'Sim',
+                        color: '#49b454',
+                        actionFunction: handleDeleteProduct,
                       },
-                      type: 'ordinary',
-                    })
-                  }
-                >
-                  Excluir Produto
-                </button>
-              )}
-            </TopOptions>
-          )}
+                      second: {
+                        text: 'Não',
+                        color: '#db3b3b',
+                        actionFunction: () => undefined,
+                      },
+                    },
+                    type: 'ordinary',
+                  })
+                }
+              >
+                Excluir Produto
+              </button>
+            )}
+          </TopOptions>
 
           <ProductIcon>
             {productsStatus.image ? (
@@ -357,20 +348,16 @@ const ProductsData: React.FC = () => {
               <MdLabelOutline size={180} color="#1c274e" />
             )}
 
-            {companyId && (
-              <>
-                <EditIcon onClick={handleEditIcon}>
-                  <MdModeEdit size={140} color="#fff" />
-                </EditIcon>
+            <EditIcon onClick={handleEditIcon}>
+              <MdModeEdit size={140} color="#fff" />
+            </EditIcon>
 
-                <input
-                  ref={imageInputRef}
-                  onChange={event => handleUpdateImage(event)}
-                  type="file"
-                  style={{ display: 'none' }}
-                />
-              </>
-            )}
+            <input
+              ref={imageInputRef}
+              onChange={event => handleUpdateImage(event)}
+              type="file"
+              style={{ display: 'none' }}
+            />
           </ProductIcon>
 
           <Form ref={formRef} onSubmit={handleSubmit}>
