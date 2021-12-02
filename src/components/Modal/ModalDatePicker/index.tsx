@@ -1,10 +1,4 @@
-import React, {
-  AllHTMLAttributes,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { AllHTMLAttributes, useEffect, useMemo, useRef } from 'react';
 import { useModal } from 'hooks/modal';
 import { AnimatedProps } from 'react-spring';
 import {
@@ -17,14 +11,11 @@ import {
 
 type ModalProps = AnimatedProps<AllHTMLAttributes<HTMLDivElement>>;
 
-interface DateType {
-  day: number;
-  month: number;
-  year: number;
-}
-
 const ModalDatePicker: React.FC<ModalProps> = ({ style }) => {
   const modalRef = useRef<HTMLDivElement>(null);
+  const dayInput = useRef<HTMLInputElement>(null);
+  const monthInput = useRef<HTMLInputElement>(null);
+  const yearInput = useRef<HTMLInputElement>(null);
 
   const { modalProps, hideModal } = useModal();
   const { buttonsProps } = modalProps;
@@ -39,20 +30,27 @@ const ModalDatePicker: React.FC<ModalProps> = ({ style }) => {
     };
   }, []);
 
-  const [pickerValue, setPickerValue] = useState<DateType>(actualDateObject);
-
   useEffect(() => {
     if (modalProps.type === 'datePicker') {
       modalRef.current?.focus();
     }
 
-    return () => setPickerValue(actualDateObject);
+    const dayRef = dayInput.current;
+    const monthRef = monthInput.current;
+    const yearRef = yearInput.current;
+
+    return () => {
+      if (dayRef && monthRef && yearRef) {
+        dayRef.setAttribute('value', actualDateObject.day.toString());
+        monthRef.setAttribute('value', actualDateObject.month.toString());
+        yearRef.setAttribute('value', actualDateObject.year.toString());
+      }
+    };
   }, [actualDateObject, modalProps.type]);
 
   const confirmData = () => {
-    setPickerValue(actualDateObject);
     buttonsProps?.first.actionFunction(
-      `${pickerValue.day}-${pickerValue.month}-${pickerValue.year}`,
+      `${dayInput.current?.value}-${monthInput.current?.value}-${yearInput.current?.value}`,
     );
     hideModal();
   };
@@ -63,7 +61,6 @@ const ModalDatePicker: React.FC<ModalProps> = ({ style }) => {
       tabIndex={0}
       onKeyUp={event => {
         if (event.key === 'Escape') {
-          setPickerValue(actualDateObject);
           hideModal();
         }
       }}
@@ -80,14 +77,16 @@ const ModalDatePicker: React.FC<ModalProps> = ({ style }) => {
             type="text"
             pattern="\d*"
             maxLength={2}
-            defaultValue={pickerValue.day.toString()}
+            defaultValue={actualDateObject.day}
+            ref={dayInput}
           />
           /
           <input
             type="text"
             pattern="\d*"
             maxLength={2}
-            defaultValue={pickerValue.month.toString()}
+            defaultValue={actualDateObject.month}
+            ref={monthInput}
           />
           /
           <input
@@ -98,7 +97,8 @@ const ModalDatePicker: React.FC<ModalProps> = ({ style }) => {
             type="text"
             pattern="\d*"
             maxLength={4}
-            defaultValue={pickerValue.year.toString()}
+            defaultValue={actualDateObject.year}
+            ref={yearInput}
           />
         </PickerContainer>
 

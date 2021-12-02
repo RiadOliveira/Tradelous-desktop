@@ -75,7 +75,7 @@ const SalesList: React.FC = () => {
       text: 'Selecione a data de pesquisa das vendas',
       buttonsProps: {
         first: {
-          actionFunction: () => undefined,
+          actionFunction: pickerText => console.log(pickerText),
           color: '#1c274e',
           text: 'Confirmar',
         },
@@ -95,9 +95,8 @@ const SalesList: React.FC = () => {
               <MdInfo size={80} color="#1c274e" />
 
               <h2>
-                Parece que sua empresa ainda não possui nenhum produto
-                cadastrado, você pode cadastrar o primeiro preenchendo o
-                formulário ao lado.
+                Parece que sua empresa ainda não possui nenhuma venda efetuada,
+                você pode efetuar a primeira preenchendo o formulário ao lado.
               </h2>
             </NoContentDiv>
           ) : (
