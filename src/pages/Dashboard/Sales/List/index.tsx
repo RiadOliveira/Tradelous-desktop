@@ -1,11 +1,12 @@
 import LoadingSpinner from 'components/LoadingSpinner';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { MdArrowBack, MdArrowForward, MdInfo } from 'react-icons/md';
 import { format } from 'date-fns';
 import { RiShoppingBag3Fill } from 'react-icons/ri';
 import api from 'services/api';
 import { useModal } from 'hooks/modal';
 import { FaCalendar } from 'react-icons/fa';
+import { useTransition, animated } from 'react-spring';
 import {
   Container,
   NoContentDiv,
@@ -50,15 +51,47 @@ interface ISale {
 }
 
 type ISearchType = 'day' | 'week' | 'month';
+const types = ['day', 'week', 'month'] as ISearchType[];
 
 const SalesList: React.FC = () => {
   const { showModal } = useModal();
 
   const [sales, setSales] = useState<ISale[]>([]);
   const [hasLoadedSales, setHasLoadedSales] = useState(false);
-  const [searchType, setSearchType] = useState<ISearchType>('month');
+  const [searchType, setSearchType] = useState<ISearchType>(types[1]);
 
   const apiStaticUrl = `${api.defaults.baseURL}/files`;
+
+  const parseSearchType = (type: ISearchType) => {
+    switch (type) {
+      case 'day':
+        return 'Diário';
+      case 'week':
+        return 'Semanal';
+      case 'month':
+        return 'Mensal';
+      default:
+        return 'Diário';
+    }
+  };
+
+  const typeTransition = useTransition(searchType, {
+    from: {
+      opacity: 0,
+    },
+    enter: {
+      marginTop: 0,
+      opacity: 1,
+      delay: 200,
+    },
+    leave: {
+      position: 'absolute',
+      opacity: 0,
+    },
+    config: {
+      duration: 400,
+    },
+  });
 
   useEffect(() => {
     const actualDate = new Date(Date.now());
@@ -75,6 +108,19 @@ const SalesList: React.FC = () => {
   }, [searchType]);
 
   const searchedSales = useMemo(() => sales, [sales]);
+
+  const updateType = useCallback(
+    (type: 'forwards' | 'backwards') => {
+      const typesIndex = types.findIndex(value => value === searchType);
+
+      if (type === 'forwards') {
+        setSearchType(types[typesIndex === 2 ? 0 : typesIndex + 1]);
+      } else {
+        setSearchType(types[typesIndex === 0 ? 2 : typesIndex - 1]);
+      }
+    },
+    [searchType],
+  );
 
   return (
     <Container>
@@ -96,13 +142,25 @@ const SalesList: React.FC = () => {
               <SalesContainer>
                 <SearchBarContainer>
                   <SelectType>
-                    <button type="button" style={{ left: 0 }}>
+                    <button
+                      type="button"
+                      style={{ left: 0 }}
+                      onClick={() => updateType('forwards')}
+                    >
                       <MdArrowBack size={42} />
                     </button>
 
-                    <strong>Mensal</strong>
+                    {typeTransition((style, item) => (
+                      <animated.strong style={style}>
+                        {parseSearchType(item)}
+                      </animated.strong>
+                    ))}
 
-                    <button type="button" style={{ right: 0 }}>
+                    <button
+                      type="button"
+                      style={{ right: 0 }}
+                      onClick={() => updateType('backwards')}
+                    >
                       <MdArrowForward size={42} />
                     </button>
                   </SelectType>
