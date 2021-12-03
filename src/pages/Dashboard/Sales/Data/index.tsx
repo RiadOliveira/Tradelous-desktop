@@ -80,7 +80,10 @@ const SalesData: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (salesStatus !== 'newSale' && !salesStatus?.id) {
+    if (
+      salesStatus !== 'newSale' &&
+      (!salesStatus.id || salesStatus.id.includes('deleted'))
+    ) {
       formRef.current?.reset();
       formRef.current?.setFieldValue('employee', name);
     } else if (salesStatus !== 'newSale') {
@@ -151,29 +154,27 @@ const SalesData: React.FC = () => {
           abortEarly: false,
         });
 
-        const requestObject = {
-          productId: selectedProduct.id,
-          method: paymentMethod || 'money',
-          quantity: saleData.quantity,
-        };
-
         const toastMessage = {
           main: '',
           sub: '',
         };
 
         if (!salesStatus.id) {
-          await api.post('/sales', requestObject);
+          await api.post('/sales', {
+            productId: selectedProduct.id,
+            method: paymentMethod || 'money',
+            quantity: saleData.quantity,
+          });
 
           toastMessage.main = 'Adição bem sucedida';
           toastMessage.sub = 'Venda efetuada com sucesso';
 
           updateSalesStatus('newSale');
         } else {
-          const { data } = await api.put<ISale>(
-            `/sales/${salesStatus.id}`,
-            requestObject,
-          );
+          const { data } = await api.put<ISale>(`/sales/${salesStatus.id}`, {
+            method: paymentMethod || 'money',
+            quantity: saleData.quantity,
+          });
 
           toastMessage.main = 'Atualização bem sucedida';
           toastMessage.sub = 'Venda atualizada com sucesso';

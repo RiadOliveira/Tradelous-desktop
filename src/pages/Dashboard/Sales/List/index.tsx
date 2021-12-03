@@ -86,16 +86,18 @@ const SalesList: React.FC = () => {
   });
 
   useEffect(() => {
-    if (salesStatus === 'newSale' || sales.length === 0) {
-      api.get<ISale[]>(`/sales/day/${actualFormattedDate}`).then(({ data }) => {
-        if (data.length) {
-          setSales(data);
-          updateSalesStatus(data[0] || {});
-        }
+    api.get<ISale[]>(`/sales/day/${actualFormattedDate}`).then(({ data }) => {
+      if (data.length) {
+        setSales(data);
+        updateSalesStatus(data[0] || {});
+      }
 
-        setHasLoadedSales(true);
-      });
-    } else if (salesStatus.id) {
+      setHasLoadedSales(true);
+    });
+  }, [actualFormattedDate, updateSalesStatus]);
+
+  useEffect(() => {
+    if (salesStatus !== 'newSale' && salesStatus.id) {
       if (salesStatus.id.includes('deleted')) {
         // To delete a sale needs to pass deleted + sale.id to salesStatus.
         const deletedSaleId = salesStatus.id.split(' ')[1]; // Gets the id.
