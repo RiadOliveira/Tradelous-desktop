@@ -133,7 +133,7 @@ export const UserAvatar = styled.img`
   border-radius: 50%;
 
   margin-right: 10px;
-  border: 2px solid #c4c4c4;
+  border: 1.5px solid #c4c4c4;
 `;
 
 export const UserName = styled.h2`

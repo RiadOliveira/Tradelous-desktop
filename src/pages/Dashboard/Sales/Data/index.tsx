@@ -33,8 +33,9 @@ import {
 } from './styles';
 
 interface IProductOption {
-  name: string;
   id: string;
+  name: string;
+  quantity: string;
   [key: string]: string;
 }
 
@@ -48,11 +49,21 @@ const SalesData: React.FC = () => {
 
   const [companyProducts, setCompanyProducts] = useState<IProductOption[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<IProductOption>(
-    {} as IProductOption,
+    salesStatus !== 'newSale' && salesStatus.product
+      ? ({
+          name: salesStatus.product.name,
+          id: salesStatus.product.id,
+          quantity: salesStatus.product.quantity.toString(),
+        } as IProductOption)
+      : ({} as IProductOption),
   );
 
-  const [paymentMethod, setPaymentMethod] = useState<'money' | 'card' | 'none'>(
-    'none',
+  const [paymentMethod, setPaymentMethod] = useState<
+    'money' | 'card' | undefined
+  >(
+    salesStatus !== 'newSale' && salesStatus.id
+      ? salesStatus.method
+      : undefined,
   );
 
   const formRef = useRef<FormHandles>(null);
@@ -71,7 +82,8 @@ const SalesData: React.FC = () => {
       formRef.current?.reset();
       formRef.current?.setFieldValue('employee', name);
     } else if (salesStatus !== 'newSale') {
-      formRef.current?.setData(salesStatus);
+      formRef.current?.setFieldValue('employee', salesStatus.employee.name);
+      formRef.current?.setFieldValue('quantity', salesStatus.quantity);
     }
   }, [name, salesStatus]);
 
@@ -115,12 +127,19 @@ const SalesData: React.FC = () => {
   const handleSubmit = useCallback(
     async (saleData: ISale) => {
       try {
+        if (salesStatus === 'newSale') {
+          throw new Error();
+        }
+
+        // eslint-disable-next-line no-param-reassign
+        saleData.quantity = saleData.quantity || 1;
+
         const schema = yup.object().shape({
           quantity: yup
             .number()
             .min(1, 'A quantidade vendida precisa ser no mínimo 1')
             .max(
-              saleData.quantity + saleData.product.quantity,
+              saleData.quantity + Number(selectedProduct.quantity),
               'Quantidade requisitada maior que a disponível',
             )
             .required('Quantidade vendida obrigatória'),
@@ -130,37 +149,35 @@ const SalesData: React.FC = () => {
           abortEarly: false,
         });
 
-        if (salesStatus === 'newSale') {
-          throw new Error();
-        }
-
-        const response = await api.put(`/sales/${salesStatus.id}`, {
-          productId: salesStatus.productId,
-          method: 'money',
-
-          // method: sellMethod,
+        const requestObject = {
+          productId: selectedProduct.id,
+          method: paymentMethod || 'money',
           quantity: saleData.quantity,
-        });
+        };
 
-        let { quantity } = saleData;
+        const toastMessage = {
+          main: '',
+          sub: '',
+        };
 
-        if (saleData.quantity !== salesStatus.quantity) {
-          const quantityDifference = Math.abs(
-            saleData.quantity - salesStatus.quantity,
+        if (!salesStatus.id) {
+          await api.post('/sales', requestObject);
+
+          toastMessage.main = 'Adição bem sucedida';
+          toastMessage.sub = 'Venda efetuada com sucesso';
+
+          updateSalesStatus('newSale');
+        } else {
+          const { data } = await api.put<ISale>(
+            `/sales/${salesStatus.id}`,
+            requestObject,
           );
 
-          quantity = salesStatus.product.quantity;
+          toastMessage.main = 'Atualização bem sucedida';
+          toastMessage.sub = 'Venda atualizada com sucesso';
 
-          quantity +=
-            salesStatus.quantity > saleData.quantity
-              ? quantityDifference
-              : -quantityDifference;
+          updateSalesStatus(data);
         }
-
-        updateSalesStatus({
-          ...salesStatus,
-          quantity,
-        });
 
         showToast({
           type: 'success',
@@ -170,10 +187,25 @@ const SalesData: React.FC = () => {
           },
         });
       } catch (err) {
-        ErrorCatcher(err as Error | yup.ValidationError, formRef);
+        const toastText = ErrorCatcher(
+          err as Error | yup.ValidationError,
+          formRef,
+        );
+
+        showToast({
+          type: 'error',
+          text: toastText,
+        });
       }
     },
-    [salesStatus, showToast, updateSalesStatus],
+    [
+      paymentMethod,
+      salesStatus,
+      selectedProduct.id,
+      selectedProduct.quantity,
+      showToast,
+      updateSalesStatus,
+    ],
   );
 
   return (
@@ -258,7 +290,7 @@ const SalesData: React.FC = () => {
             <InputLine>
               <DashboardInput
                 name="quantity"
-                placeholder="Quantidade em estoque"
+                placeholder="Quantidade da venda"
                 Icon={MdInbox}
                 type="text"
                 pattern="\d*"
