@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import LoadingSpinner from 'components/LoadingSpinner';
 
-import { useProducts } from 'hooks/products';
+import { IProduct, useProducts } from 'hooks/products';
 import { MdAdd, MdInfo, MdLabel, MdSearch } from 'react-icons/md';
 import api from 'services/api';
 import { useToast } from 'hooks/toast';
@@ -29,16 +29,6 @@ import {
   ProductText,
   ProductSubText,
 } from './styles';
-
-interface IProduct {
-  name: string;
-  id: string;
-  price: number;
-  quantity: number;
-  brand: string;
-  barCode?: string;
-  image?: string;
-}
 
 const ProductsList: React.FC = () => {
   const { updateProductsStatus, productsStatus } = useProducts();

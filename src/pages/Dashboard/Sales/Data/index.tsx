@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { FormHandles } from '@unform/core';
 import { useModal } from 'hooks/modal';
 import { useSales, ISale } from 'hooks/sales';
 import { useToast } from 'hooks/toast';
-import { RiShoppingBag3Fill } from 'react-icons/ri';
 
 import api from 'services/api';
 import ErrorCatcher from 'errors/errorCatcher';
@@ -12,32 +11,73 @@ import TopOptions from 'components/TopOptions';
 import DashboardInput from 'components/Input/DashboardInput';
 import * as yup from 'yup';
 
-import { MdLabelOutline, MdPerson } from 'react-icons/md';
+import {
+  MdAttachMoney,
+  MdInbox,
+  MdLabelOutline,
+  MdPerson,
+} from 'react-icons/md';
+import Select from 'components/Select';
+import { useAuth } from 'hooks/auth';
 import {
   Container,
   Form,
   InputLine,
   IconsContainer,
   SaleIcon,
+  SaleIconTitle,
   ProductImage,
+  MethodSwitch,
+  PlaceHolder,
 } from './styles';
+
+interface IProductOption {
+  name: string;
+  id: string;
+  [key: string]: string;
+}
 
 const SalesData: React.FC = () => {
   const { salesStatus, updateSalesStatus } = useSales();
   const { showModal } = useModal();
   const { showToast } = useToast();
+  const {
+    user: { name },
+  } = useAuth();
+
+  const [companyProducts, setCompanyProducts] = useState<IProductOption[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<IProductOption>(
+    {} as IProductOption,
+  );
 
   const formRef = useRef<FormHandles>(null);
-
   const apiStaticUrl = `${api.defaults.baseURL}/files`;
+
+  useEffect(() => {
+    api.get<IProductOption[]>('/products').then(({ data }) => {
+      if (data.length) {
+        setCompanyProducts(data);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     if (salesStatus !== 'newSale' && !salesStatus?.id) {
       formRef.current?.reset();
+      formRef.current?.setFieldValue('employee', name);
     } else if (salesStatus !== 'newSale') {
       formRef.current?.setData(salesStatus);
     }
-  }, [salesStatus]);
+  }, [name, salesStatus]);
+
+  const handleSelectProduct = useCallback(
+    (productId: string) =>
+      setSelectedProduct(
+        companyProducts.find(product => product.id === productId) ||
+          ({} as IProductOption),
+      ),
+    [companyProducts],
+  );
 
   const handleDeleteSale = useCallback(async () => {
     try {
@@ -178,6 +218,8 @@ const SalesData: React.FC = () => {
               ) : (
                 <MdPerson size={180} color="#1c274e" />
               )}
+
+              <SaleIconTitle>{salesStatus.employee?.name}</SaleIconTitle>
             </SaleIcon>
 
             <SaleIcon>
@@ -188,41 +230,69 @@ const SalesData: React.FC = () => {
               ) : (
                 <MdLabelOutline size={180} color="#1c274e" />
               )}
+
+              <SaleIconTitle>{salesStatus.product?.name}</SaleIconTitle>
             </SaleIcon>
           </IconsContainer>
 
           <Form ref={formRef} onSubmit={handleSubmit}>
             <InputLine>
               <DashboardInput
-                name="name"
-                placeholder="Nome do produto"
-                Icon={RiShoppingBag3Fill}
-              />
-
-              <DashboardInput
-                name="price"
-                placeholder="Preço do produto"
-                Icon={RiShoppingBag3Fill}
-                type="text"
-                pattern="\d*"
-              />
-            </InputLine>
-
-            <InputLine>
-              <DashboardInput
                 name="quantity"
                 placeholder="Quantidade em estoque"
-                Icon={RiShoppingBag3Fill}
+                Icon={MdInbox}
                 type="text"
                 pattern="\d*"
               />
 
-              <DashboardInput
-                name="brand"
-                placeholder="Marca do produto"
-                Icon={RiShoppingBag3Fill}
-              />
+              <MethodSwitch>
+                <PlaceHolder>
+                  <MdAttachMoney size={42} />
+                  Método de pagamento
+                </PlaceHolder>
+
+                <button
+                  type="button"
+                  style={{
+                    background: '#49b454',
+                    borderTopRightRadius: 0,
+                    borderBottomRightRadius: 0,
+                  }}
+                >
+                  Dinheiro
+                </button>
+                <button
+                  type="button"
+                  style={{
+                    background: '#1c274e',
+                    borderTopLeftRadius: 0,
+                    borderBottomLeftRadius: 0,
+                  }}
+                >
+                  Cartão
+                </button>
+              </MethodSwitch>
             </InputLine>
+
+            {!salesStatus.id && (
+              <InputLine>
+                <DashboardInput
+                  name="employee"
+                  placeholder="Funcionário"
+                  Icon={MdPerson}
+                  disabled
+                />
+
+                <Select
+                  Icon={MdLabelOutline}
+                  data={companyProducts}
+                  optionValueReference="name"
+                  placeHolder="Produto"
+                  setFunction={optionId => handleSelectProduct(optionId)}
+                  isOfDashboard
+                />
+              </InputLine>
+            )}
           </Form>
         </>
       )}

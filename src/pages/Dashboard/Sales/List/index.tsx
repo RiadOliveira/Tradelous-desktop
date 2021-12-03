@@ -88,8 +88,11 @@ const SalesList: React.FC = () => {
   useEffect(() => {
     if (salesStatus === 'newSale' || sales.length === 0) {
       api.get<ISale[]>(`/sales/day/${actualFormattedDate}`).then(({ data }) => {
-        setSales(data);
-        updateSalesStatus(data[0] || {});
+        if (data.length) {
+          setSales(data);
+          updateSalesStatus(data[0] || {});
+        }
+
         setHasLoadedSales(true);
       });
     } else if (salesStatus.id) {

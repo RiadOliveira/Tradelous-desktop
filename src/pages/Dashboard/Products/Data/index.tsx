@@ -11,7 +11,7 @@ import TopOptions from 'components/TopOptions';
 import api from 'services/api';
 import * as yup from 'yup';
 
-import { useProducts } from 'hooks/products';
+import { IProduct, useProducts } from 'hooks/products';
 import { FormHandles } from '@unform/core';
 import { useModal } from 'hooks/modal';
 import { useToast } from 'hooks/toast';
@@ -35,16 +35,6 @@ import {
   BarCodePlaceHolder,
   BarCodeButton,
 } from './styles';
-
-interface IProduct {
-  name: string;
-  id: string;
-  price: number;
-  quantity: number;
-  brand: string;
-  barCode?: string;
-  image?: string;
-}
 
 const ProductsData: React.FC = () => {
   const { productsStatus, updateProductsStatus } = useProducts();

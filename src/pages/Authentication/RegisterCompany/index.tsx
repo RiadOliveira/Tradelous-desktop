@@ -26,7 +26,6 @@ interface IBrazilianState extends OptionProps {
 interface IBrazilianCity extends OptionProps {
   id: string;
   nome: string;
-  [key: string]: string;
 }
 
 interface RegisterCompanyData {

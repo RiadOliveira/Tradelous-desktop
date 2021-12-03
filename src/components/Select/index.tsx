@@ -120,7 +120,7 @@ const Select: React.FC<SelectProps> = ({
     <Container isOfDashboard={isOfDashboard} disabled={disabled}>
       <PlaceHolder>
         <div>
-          <Icon size={32} />
+          <Icon size={isOfDashboard ? 42 : 32} />
           <p>{placeHolder}</p>
         </div>
       </PlaceHolder>

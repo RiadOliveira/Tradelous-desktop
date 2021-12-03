@@ -1,18 +1,11 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
+import { IProduct } from './products';
 
 interface IEmployee {
   name: string;
   email: string;
   avatar: string;
   isAdmin: boolean;
-}
-
-interface IProduct {
-  name: string;
-  price: number;
-  quantity: number;
-  brand: string;
-  image?: string;
 }
 
 interface ISale {
