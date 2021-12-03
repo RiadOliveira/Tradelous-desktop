@@ -236,13 +236,21 @@ const SalesList: React.FC = () => {
 
                   <SaleData>
                     <SaleSubText>
-                      <SaleText>{sale.employee.name}</SaleText>
+                      <SaleText>
+                        {sale.employee.name.length > 17
+                          ? `${sale.employee.name.substring(0, 17)}...`
+                          : sale.employee.name}
+                      </SaleText>
 
                       <SaleText>{sale.date}</SaleText>
                     </SaleSubText>
 
                     <SaleSubText>
-                      <SaleText>{sale.product.name}</SaleText>
+                      <SaleText>
+                        {sale.product.name.length > 17
+                          ? `${sale.product.name.substring(0, 17)}...`
+                          : sale.product.name}
+                      </SaleText>
 
                       <SaleText>{formatPrice(sale.totalPrice)}</SaleText>
                     </SaleSubText>

@@ -10,8 +10,6 @@ interface IEmployee {
 
 interface ISale {
   id: string;
-  companyId: string;
-  employeeId: string;
   productId: string;
   date: string;
   method: 'money' | 'card';

@@ -203,7 +203,11 @@ const ProductsList: React.FC = () => {
                     </ProductIcon>
 
                     <ProductData>
-                      <ProductText>{product.name}</ProductText>
+                      <ProductText>
+                        {product.name.length > 28
+                          ? `${product.name.substring(0, 28)}...`
+                          : product.name}
+                      </ProductText>
 
                       <ProductSubText>
                         <ProductText>{product.brand}</ProductText>

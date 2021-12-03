@@ -60,14 +60,16 @@ const SalesData: React.FC = () => {
 
   const [paymentMethod, setPaymentMethod] = useState<
     'money' | 'card' | undefined
-  >(
-    salesStatus !== 'newSale' && salesStatus.id
-      ? salesStatus.method
-      : undefined,
-  );
+  >(undefined);
 
   const formRef = useRef<FormHandles>(null);
   const apiStaticUrl = `${api.defaults.baseURL}/files`;
+
+  useEffect(() => {
+    if (!paymentMethod && salesStatus !== 'newSale' && salesStatus.id) {
+      setPaymentMethod(salesStatus.method);
+    }
+  }, [paymentMethod, salesStatus]);
 
   useEffect(() => {
     api.get<IProductOption[]>('/products').then(({ data }) => {
@@ -176,7 +178,12 @@ const SalesData: React.FC = () => {
           toastMessage.main = 'Atualização bem sucedida';
           toastMessage.sub = 'Venda atualizada com sucesso';
 
-          updateSalesStatus(data);
+          updateSalesStatus({
+            ...data,
+            date: salesStatus.date,
+            product: salesStatus.product,
+            employee: salesStatus.employee,
+          });
         }
 
         showToast({
