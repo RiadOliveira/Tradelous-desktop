@@ -25,8 +25,8 @@ import {
   InputLine,
   IconsContainer,
   SaleIcon,
-  SaleIconTitle,
-  ProductImage,
+  SaleContentTitle,
+  SaleContentImage,
   MethodSwitch,
   PlaceHolder,
 } from './styles';
@@ -42,7 +42,7 @@ const SalesData: React.FC = () => {
   const { showModal } = useModal();
   const { showToast } = useToast();
   const {
-    user: { name },
+    user: { name, avatar },
   } = useAuth();
 
   const [companyProducts, setCompanyProducts] = useState<IProductOption[]>([]);
@@ -212,26 +212,40 @@ const SalesData: React.FC = () => {
           <IconsContainer>
             <SaleIcon>
               {salesStatus.employee?.avatar ? (
-                <ProductImage
+                <SaleContentImage
                   src={`${apiStaticUrl}/avatar/${salesStatus.employee?.avatar}`}
                 />
               ) : (
-                <MdPerson size={180} color="#1c274e" />
+                <>
+                  {avatar ? (
+                    <SaleContentImage
+                      src={`${apiStaticUrl}/avatar/${avatar}`}
+                    />
+                  ) : (
+                    <MdPerson size={180} color="#1c274e" />
+                  )}
+                </>
               )}
 
-              <SaleIconTitle>{salesStatus.employee?.name}</SaleIconTitle>
+              {salesStatus.employee && (
+                <SaleContentTitle>
+                  {salesStatus.employee?.name}
+                </SaleContentTitle>
+              )}
             </SaleIcon>
 
             <SaleIcon>
               {salesStatus.product?.image ? (
-                <ProductImage
+                <SaleContentImage
                   src={`${apiStaticUrl}/product-image/${salesStatus.product?.image}`}
                 />
               ) : (
                 <MdLabelOutline size={180} color="#1c274e" />
               )}
 
-              <SaleIconTitle>{salesStatus.product?.name}</SaleIconTitle>
+              {salesStatus.product && (
+                <SaleContentTitle>{salesStatus.product?.name}</SaleContentTitle>
+              )}
             </SaleIcon>
           </IconsContainer>
 

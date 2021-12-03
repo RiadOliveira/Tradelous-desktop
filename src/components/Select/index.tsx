@@ -133,6 +133,7 @@ const Select: React.FC<SelectProps> = ({
         }
         onMouseLeave={() => setIsShowingOptions(false)}
         isShowingOptions={isShowingOptions}
+        hasScrollBar={data.length > 4}
         ref={selectRef}
         style={{ overflowY: isShowingOptions ? 'scroll' : 'hidden' }}
       >

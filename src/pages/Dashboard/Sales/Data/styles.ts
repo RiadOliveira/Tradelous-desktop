@@ -30,9 +30,9 @@ export const SaleIcon = styled.div`
   border-radius: 50%;
 `;
 
-export const SaleIconTitle = styled.strong``;
+export const SaleContentTitle = styled.strong``;
 
-export const ProductImage = styled.img`
+export const SaleContentImage = styled.img`
   width: 250px;
   height: 250px;
 
