@@ -86,6 +86,7 @@ const SalesData: React.FC = () => {
     ) {
       formRef.current?.reset();
       formRef.current?.setFieldValue('employee', name);
+      setPaymentMethod(undefined);
     } else if (salesStatus !== 'newSale') {
       formRef.current?.setFieldValue('employee', salesStatus.employee.name);
       formRef.current?.setFieldValue('quantity', salesStatus.quantity);
