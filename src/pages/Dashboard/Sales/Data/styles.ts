@@ -32,9 +32,44 @@ export const SaleIcon = styled.div`
 
   border: 2px solid ${shade(0.1, '#c4c4c4')};
   border-radius: 50%;
+
+  position: relative;
+
+  &:before {
+    width: 254px;
+    height: 254px;
+
+    background: transparent;
+    border: 20px solid #dddddd;
+    border-radius: 50%;
+
+    content: '';
+
+    position: absolute;
+    pointer-events: none;
+
+    z-index: 1;
+  }
 `;
 
-export const SaleContentTitle = styled.strong``;
+export const SaleContentTitle = styled.aside`
+  position: absolute;
+
+  bottom: 10%;
+
+  background-color: rgba(0, 0, 0, 0.65);
+  color: #fff;
+
+  font-family: Poppins;
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
+
+  width: 80%;
+
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+`;
 
 export const SaleContentImage = styled.img`
   width: 250px;

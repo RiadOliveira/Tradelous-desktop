@@ -266,7 +266,9 @@ const SalesData: React.FC = () => {
 
               {salesStatus.employee && (
                 <SaleContentTitle>
-                  {salesStatus.employee?.name}
+                  {salesStatus.employee.name.length > 17
+                    ? `${salesStatus.employee.name.substring(0, 17)}...`
+                    : salesStatus.employee.name}
                 </SaleContentTitle>
               )}
             </SaleIcon>
@@ -281,7 +283,11 @@ const SalesData: React.FC = () => {
               )}
 
               {salesStatus.product && (
-                <SaleContentTitle>{salesStatus.product?.name}</SaleContentTitle>
+                <SaleContentTitle>
+                  {salesStatus.product.name.length > 17
+                    ? `${salesStatus.product.name.substring(0, 17)}...`
+                    : salesStatus.product.name}
+                </SaleContentTitle>
               )}
             </SaleIcon>
           </IconsContainer>
