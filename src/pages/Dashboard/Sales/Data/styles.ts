@@ -1,6 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { shade } from 'polished';
 import { Form as Unform } from '@unform/web';
+
+interface SwitchButtonProps {
+  isSelected?: boolean;
+}
 
 export const Container = styled.div`
   display: flex;
@@ -59,6 +63,31 @@ export const InputLine = styled.div`
   }
 `;
 
+export const SwitchButton = styled.button<SwitchButtonProps>`
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+
+  width: ${({ isSelected }) => (isSelected ? '100%' : '50%')};
+  height: 100%;
+  border-radius: 18px;
+
+  color: #fff;
+  font-family: Poppins;
+  font-weight: bolder;
+  font-size: 22px;
+
+  transition: 0.5s;
+
+  ${({ isSelected }) =>
+    !isSelected &&
+    css`
+      &:hover {
+        width: 65%;
+      }
+    `}
+`;
+
 export const MethodSwitch = styled.div`
   width: 420px;
   min-height: 70px;
@@ -72,27 +101,6 @@ export const MethodSwitch = styled.div`
   justify-content: center;
 
   position: relative;
-
-  button {
-    outline: 0;
-    border: 0;
-    cursor: pointer;
-
-    width: 50%;
-    height: 100%;
-    border-radius: 18px;
-
-    color: #fff;
-    font-family: Poppins;
-    font-weight: bolder;
-    font-size: 22px;
-
-    transition: 0.5s;
-
-    &:hover {
-      width: 65%;
-    }
-  }
 `;
 
 export const PlaceHolder = styled.div`

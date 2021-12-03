@@ -28,6 +28,7 @@ import {
   SaleContentTitle,
   SaleContentImage,
   MethodSwitch,
+  SwitchButton,
   PlaceHolder,
 } from './styles';
 
@@ -48,6 +49,10 @@ const SalesData: React.FC = () => {
   const [companyProducts, setCompanyProducts] = useState<IProductOption[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<IProductOption>(
     {} as IProductOption,
+  );
+
+  const [paymentMethod, setPaymentMethod] = useState<'money' | 'card' | 'none'>(
+    'none',
   );
 
   const formRef = useRef<FormHandles>(null);
@@ -265,7 +270,9 @@ const SalesData: React.FC = () => {
                   Método de pagamento
                 </PlaceHolder>
 
-                <button
+                <SwitchButton
+                  isSelected={paymentMethod === 'money'}
+                  onClick={() => setPaymentMethod('money')}
                   type="button"
                   style={{
                     background: '#49b454',
@@ -274,8 +281,11 @@ const SalesData: React.FC = () => {
                   }}
                 >
                   Dinheiro
-                </button>
-                <button
+                </SwitchButton>
+
+                <SwitchButton
+                  isSelected={paymentMethod === 'card'}
+                  onClick={() => setPaymentMethod('card')}
                   type="button"
                   style={{
                     background: '#1c274e',
@@ -284,7 +294,7 @@ const SalesData: React.FC = () => {
                   }}
                 >
                   Cartão
-                </button>
+                </SwitchButton>
               </MethodSwitch>
             </InputLine>
 
