@@ -1,6 +1,6 @@
 import LoadingSpinner from 'components/LoadingSpinner';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { MdArrowBack, MdArrowForward, MdInfo } from 'react-icons/md';
+import { MdAdd, MdArrowBack, MdArrowForward, MdInfo } from 'react-icons/md';
 import { format } from 'date-fns';
 import { RiShoppingBag3Fill } from 'react-icons/ri';
 import api from 'services/api';
@@ -16,6 +16,7 @@ import {
   SearchBarContainer,
   SelectType,
   SalesContainer,
+  CreateSaleButton,
   CalendarButton,
   Sale,
   SaleData,
@@ -167,12 +168,29 @@ const SalesList: React.FC = () => {
     [searchConfig],
   );
 
+  const handleNewSaleButton = () => {
+    updateSalesStatus({} as ISale);
+
+    showToast({
+      type: 'info',
+      text: {
+        main: 'Criação iniciada',
+        sub: 'Insira os dados da venda para finalizá-la',
+      },
+    });
+  };
+
   return (
     <Container>
       {!hasLoadedSales ? (
         <LoadingSpinner color="#1c274e" />
       ) : (
         <SalesContainer>
+          <CreateSaleButton onClick={handleNewSaleButton}>
+            <MdAdd color="#fff" size={60} />
+            <strong>Efetuar venda</strong>
+          </CreateSaleButton>
+
           <SearchBarContainer>
             <SelectType>
               <button

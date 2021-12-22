@@ -140,6 +140,44 @@ export const SalesContainer = styled.div`
   align-items: center;
 `;
 
+export const CreateSaleButton = styled.button`
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+
+  width: 65%;
+  height: 80px;
+
+  margin-bottom: 30px;
+  margin-left: 10px;
+
+  border-radius: 16px;
+  gap: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #1c274e;
+
+  strong {
+    color: #fff;
+    font-family: Poppins;
+    font-size: 22px;
+  }
+
+  svg {
+    transition: 0.4s;
+  }
+
+  &:hover {
+    svg {
+      width: 64px;
+      height: 64px;
+    }
+  }
+`;
+
 export const Sale = styled.button`
   border: 0;
   outline: 0;
@@ -204,7 +242,7 @@ export const SaleSubText = styled.section`
 
 export const NoContentDiv = styled.div`
   width: 100%;
-  height: 60vh;
+  height: 50vh;
 
   display: flex;
   flex-direction: column;

@@ -44,7 +44,7 @@ export const AddProductButton = styled.button`
   width: 65%;
   height: 80px;
 
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   margin-left: 10px;
 
   border-radius: 16px;

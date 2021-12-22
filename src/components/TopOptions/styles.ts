@@ -8,7 +8,7 @@ interface ITopOptions {
 export const Container = styled.aside<ITopOptions>`
   position: absolute;
   top: ${({ childrenQuantity }) => -childrenQuantity * 50}px;
-  left: 40px;
+  left: 20px;
 
   width: 160px;
   border-bottom-right-radius: 10px;
