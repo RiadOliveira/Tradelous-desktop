@@ -105,6 +105,25 @@ const CompanyData: React.FC = () => {
 
             return { ...data[index], index: index.toString() };
           });
+        })
+        .catch(() => {
+          const state = company.address.split('/')[1];
+
+          setAllStates([
+            {
+              id: '0',
+              index: '0',
+              nome: state,
+              sigla: state,
+            },
+          ]);
+
+          setSelectedState({
+            id: '0',
+            index: '0',
+            nome: state,
+            sigla: state,
+          });
         });
     }
   }, [company.address, user.companyId]);
@@ -133,6 +152,23 @@ const CompanyData: React.FC = () => {
               return { ...data[index], index: index.toString() };
             });
           }
+        })
+        .catch(() => {
+          const city = company.address.split('/')[0];
+
+          setStateCities([
+            {
+              id: '0',
+              index: '0',
+              nome: city,
+            },
+          ]);
+
+          setSelectedCity({
+            id: '0',
+            index: '0',
+            nome: city,
+          });
         });
     }
 
