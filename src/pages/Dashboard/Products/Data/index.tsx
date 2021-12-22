@@ -62,16 +62,46 @@ const ProductsData: React.FC = () => {
     }
   }, [productsStatus]);
 
+  const handleDeleteBarCode = useCallback(() => {
+    if (productsStatus !== 'newProduct') {
+      const { id, name, price, brand, quantity } = productsStatus;
+
+      api
+        .put(`/products/${id}`, {
+          name,
+          price,
+          brand,
+          quantity,
+        })
+        .then(() => {
+          setBarCodeValue('');
+          showToast({
+            type: 'success',
+            text: {
+              main: 'Exclusão do código concluída',
+              sub: 'Código de barras excluído com sucesso',
+            },
+          });
+        });
+    }
+  }, [productsStatus, showToast]);
+
   const handleBarCodeRead = useCallback(() => {
     showModal({
       type: 'ordinary',
       text: 'Escaneie o código com seu Scanner',
       buttonsProps: {
-        first: {
-          text: 'Cancelar',
-          color: '#db3b3b',
-          actionFunction: () => undefined,
-        },
+        first: !barCodeValue
+          ? {
+              text: 'Cancelar',
+              color: '#db3b3b',
+              actionFunction: () => undefined,
+            }
+          : {
+              text: 'Excluir código',
+              color: '#db3b3b',
+              actionFunction: () => handleDeleteBarCode(),
+            },
       },
     });
 
@@ -87,11 +117,19 @@ const ProductsData: React.FC = () => {
         hideModal();
 
         barCode = '';
+
+        showToast({
+          type: 'success',
+          text: {
+            main: 'Código de barras obtido',
+            sub: 'Clique em atualizar dados para confirmá-lo',
+          },
+        });
       } else {
         barCode += event.key;
       }
     });
-  }, [hideModal, showModal]);
+  }, [barCodeValue, handleDeleteBarCode, hideModal, showModal, showToast]);
 
   const handleUpdateImage = useCallback(
     async (event: ChangeEvent<HTMLInputElement>) => {
@@ -109,6 +147,14 @@ const ProductsData: React.FC = () => {
           );
 
           updateProductsStatus(updatedProduct);
+
+          showToast({
+            type: 'success',
+            text: {
+              main: 'Atualização bem sucedida',
+              sub: 'Imagem do produto atualizada com sucesso',
+            },
+          });
         }
       } catch {
         showToast({
