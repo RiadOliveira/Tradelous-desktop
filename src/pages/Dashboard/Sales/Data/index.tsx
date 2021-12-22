@@ -115,7 +115,7 @@ const SalesData: React.FC = () => {
           type: 'success',
           text: {
             main: 'Exclusão concluída',
-            sub: 'Venda excluído com sucesso',
+            sub: 'Venda excluída com sucesso',
           },
         });
       }
@@ -129,6 +129,14 @@ const SalesData: React.FC = () => {
       });
     }
   }, [salesStatus, showToast, updateSalesStatus]);
+
+  const hasSelectedSale = useCallback(
+    () =>
+      salesStatus !== 'newSale' &&
+      salesStatus.id &&
+      !salesStatus.id.includes('deleted'),
+    [salesStatus],
+  );
 
   const handleSubmit = useCallback(
     async (saleData: ISale) => {
@@ -160,18 +168,7 @@ const SalesData: React.FC = () => {
           sub: '',
         };
 
-        if (!salesStatus.id) {
-          await api.post('/sales', {
-            productId: selectedProduct.id,
-            method: paymentMethod || 'money',
-            quantity: saleData.quantity,
-          });
-
-          toastMessage.main = 'Adição bem sucedida';
-          toastMessage.sub = 'Venda efetuada com sucesso';
-
-          updateSalesStatus('newSale');
-        } else {
+        if (hasSelectedSale()) {
           const { data } = await api.put<ISale>(`/sales/${salesStatus.id}`, {
             method: paymentMethod || 'money',
             quantity: saleData.quantity,
@@ -186,13 +183,24 @@ const SalesData: React.FC = () => {
             product: salesStatus.product,
             employee: salesStatus.employee,
           });
+        } else {
+          await api.post('/sales', {
+            productId: selectedProduct.id,
+            method: paymentMethod || 'money',
+            quantity: saleData.quantity,
+          });
+
+          toastMessage.main = 'Adição bem sucedida';
+          toastMessage.sub = 'Venda efetuada com sucesso';
+
+          updateSalesStatus('newSale');
         }
 
         showToast({
           type: 'success',
           text: {
-            main: 'Atualização bem sucedida',
-            sub: 'Venda atualizada com sucesso',
+            main: toastMessage.main,
+            sub: toastMessage.sub,
           },
         });
       } catch (err) {
@@ -208,6 +216,7 @@ const SalesData: React.FC = () => {
       }
     },
     [
+      hasSelectedSale,
       paymentMethod,
       salesStatus,
       selectedProduct.id,
@@ -223,12 +232,12 @@ const SalesData: React.FC = () => {
         <LoadingSpinner color="#1c274e" />
       ) : (
         <>
-          <TopOptions buttonsQuantity={salesStatus.id ? 2 : 1}>
+          <TopOptions buttonsQuantity={hasSelectedSale() ? 2 : 1}>
             <button type="button" onClick={() => formRef.current?.submitForm()}>
-              {salesStatus.id ? 'Atualizar Dados' : 'Criar Venda'}
+              {hasSelectedSale() ? 'Atualizar Dados' : 'Criar Venda'}
             </button>
 
-            {salesStatus.id && (
+            {hasSelectedSale() && (
               <button
                 type="button"
                 onClick={() =>
@@ -345,7 +354,7 @@ const SalesData: React.FC = () => {
               </MethodSwitch>
             </InputLine>
 
-            {!salesStatus.id && (
+            {(!salesStatus.id || salesStatus.id.includes('deleted')) && (
               <InputLine>
                 <DashboardInput
                   name="employee"

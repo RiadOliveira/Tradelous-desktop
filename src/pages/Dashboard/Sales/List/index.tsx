@@ -122,6 +122,15 @@ const SalesList: React.FC = () => {
   ]);
 
   useEffect(() => {
+    if (salesStatus === 'newSale') {
+      setSearchConfig({
+        date: actualFormattedDate,
+        type: 'day',
+      });
+    }
+  }, [actualFormattedDate, salesStatus]);
+
+  useEffect(() => {
     api
       .get<ISale[]>(`/sales/${searchConfig.type}/${searchConfig.date}`)
       .then(({ data }) => {
