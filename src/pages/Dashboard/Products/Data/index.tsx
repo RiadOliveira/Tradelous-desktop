@@ -50,7 +50,10 @@ const ProductsData: React.FC = () => {
   const apiStaticUrl = `${api.defaults.baseURL}/files`;
 
   useEffect(() => {
-    if (productsStatus !== 'newProduct' && !productsStatus?.id) {
+    if (
+      productsStatus !== 'newProduct' &&
+      (!productsStatus?.id || productsStatus.id.includes('deleted'))
+    ) {
       formRef.current?.reset();
       setBarCodeValue('');
     } else if (productsStatus !== 'newProduct') {
@@ -256,6 +259,14 @@ const ProductsData: React.FC = () => {
     }
   }, [productsStatus, showToast, updateProductsStatus]);
 
+  const hasSelectedProduct = useCallback(
+    () =>
+      productsStatus !== 'newProduct' &&
+      productsStatus.id &&
+      !productsStatus.id.includes('deleted'),
+    [productsStatus],
+  );
+
   const handleSubmit = useCallback(
     async (productData: IProduct) => {
       try {
@@ -296,7 +307,7 @@ const ProductsData: React.FC = () => {
           sub: '',
         };
 
-        if (productsStatus.id) {
+        if (hasSelectedProduct()) {
           const { data } = await api.put(
             `/products/${productsStatus.id}`,
             productData,
@@ -334,7 +345,13 @@ const ProductsData: React.FC = () => {
         });
       }
     },
-    [barCodeValue, productsStatus, showToast, updateProductsStatus],
+    [
+      barCodeValue,
+      hasSelectedProduct,
+      productsStatus,
+      showToast,
+      updateProductsStatus,
+    ],
   );
 
   return (
@@ -343,12 +360,12 @@ const ProductsData: React.FC = () => {
         <LoadingSpinner color="#1c274e" />
       ) : (
         <>
-          <TopOptions buttonsQuantity={productsStatus.id ? 2 : 1}>
+          <TopOptions buttonsQuantity={hasSelectedProduct() ? 2 : 1}>
             <button type="button" onClick={() => formRef.current?.submitForm()}>
-              {productsStatus.id ? 'Atualizar Dados' : 'Criar Produto'}
+              {hasSelectedProduct() ? 'Atualizar Dados' : 'Criar Produto'}
             </button>
 
-            {productsStatus.id && (
+            {hasSelectedProduct() && (
               <button
                 type="button"
                 onClick={() =>
