@@ -125,7 +125,7 @@ const ProductsData: React.FC = () => {
           type: 'success',
           text: {
             main: 'Código de barras obtido',
-            sub: 'Clique em atualizar dados para confirmá-lo',
+            sub: 'Atualize os dados para confirmá-lo',
           },
         });
       } else {
