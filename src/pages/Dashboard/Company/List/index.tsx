@@ -251,7 +251,9 @@ const CompanyList: React.FC = () => {
 
           <h2>
             Você ainda não está associado a nenhuma empresa, se você for dono de
-            uma empresa, preencha os dados dela e confirme sua criação.
+            uma, preencha os dados dela e confirme sua criação, se não, envie
+            seu ID (Disponível no perfil) para seu chefe, para que ele possa lhe
+            adicionar à empresa.
           </h2>
         </NoCompanyDiv>
       )}

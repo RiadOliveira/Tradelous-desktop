@@ -81,13 +81,8 @@ const CompanyData: React.FC = () => {
       });
     } else {
       formRef.current?.reset();
-
-      if (selectedState.id) {
-        setSelectedState(allStates[0]);
-      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [allStates, user.companyId]);
+  }, [user.companyId]);
 
   useEffect(() => {
     if (!user.companyId || company.address) {
