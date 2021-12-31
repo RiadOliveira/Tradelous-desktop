@@ -12,7 +12,7 @@ import {
 type ModalProps = AnimatedProps<AllHTMLAttributes<HTMLDivElement>>;
 
 const ModalInput: React.FC<ModalProps> = ({ style }) => {
-  const modalRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const { modalProps, hideModal } = useModal();
   const { buttonsProps } = modalProps;
@@ -21,7 +21,7 @@ const ModalInput: React.FC<ModalProps> = ({ style }) => {
 
   useEffect(() => {
     if (modalProps.type === 'withInput') {
-      modalRef.current?.focus();
+      inputRef.current?.focus();
     }
   }, [modalProps.type]);
 
@@ -32,7 +32,6 @@ const ModalInput: React.FC<ModalProps> = ({ style }) => {
 
   return (
     <Container
-      ref={modalRef}
       tabIndex={0}
       onKeyUp={event => event.key === 'Escape' && hideModal()}
       style={style}
@@ -41,8 +40,9 @@ const ModalInput: React.FC<ModalProps> = ({ style }) => {
         <ModalText>{modalProps.text}</ModalText>
 
         <InputContainer
+          ref={inputRef}
           type={modalProps.isSecureEntry ? 'password' : 'text'}
-          value={inputValue || modalProps.initialValue}
+          value={modalProps.initialValue || inputValue}
           spellCheck={false}
           onChange={event => setInputValue(event.target.value)}
           onKeyPress={key => key.code === 'Enter' && confirmData()}
