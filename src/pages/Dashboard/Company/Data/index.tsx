@@ -79,8 +79,15 @@ const CompanyData: React.FC = () => {
       api.get('/company').then(response => {
         setCompany(response.data);
       });
+    } else {
+      formRef.current?.reset();
+
+      if (selectedState.id) {
+        setSelectedState(allStates[0]);
+      }
     }
-  }, [user.companyId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allStates, user.companyId]);
 
   useEffect(() => {
     if (!user.companyId || company.address) {

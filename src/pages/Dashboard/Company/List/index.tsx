@@ -35,9 +35,11 @@ const CompanyList: React.FC = () => {
   const apiStaticUrl = useMemo(() => `${api.defaults.baseURL}/files`, []);
 
   useEffect(() => {
-    api.get('/company/list-employees').then(response => {
-      setEmployees(response.data);
-    });
+    if (user.companyId) {
+      api.get('/company/list-employees').then(response => {
+        setEmployees(response.data);
+      });
+    }
   }, [user.companyId]);
 
   const orderedEmployees = useMemo(() => {
