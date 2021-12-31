@@ -66,7 +66,7 @@ const SalesData: React.FC = () => {
   const apiStaticUrl = `${api.defaults.baseURL}/files`;
 
   useEffect(() => {
-    if (!paymentMethod && salesStatus !== 'newSale' && salesStatus.id) {
+    if (salesStatus !== 'newSale' && salesStatus.id) {
       setPaymentMethod(salesStatus.method);
     }
   }, [paymentMethod, salesStatus]);
