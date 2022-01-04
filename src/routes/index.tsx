@@ -1,6 +1,5 @@
 import React from 'react';
 import Landing from 'pages/Authentication/Landing';
-import RegisterCompany from 'pages/Authentication/RegisterCompany';
 import ForgotPassword from 'pages/Authentication/ForgotPassword';
 import RecoverPassword from 'pages/Authentication/RecoverPassword';
 import Dashboard from 'pages/Dashboard';
@@ -38,12 +37,6 @@ const Routes: React.FC = () => {
             <Route exact path="/" component={Landing} />
             <Route exact path="/forgot-password" component={ForgotPassword} />
             <Route exact path="/recover-password" component={RecoverPassword} />
-            <Route
-              isPrivate
-              exact
-              path="/register-company"
-              component={RegisterCompany}
-            />
             <ProductsContext>
               <SalesContext>
                 <Route

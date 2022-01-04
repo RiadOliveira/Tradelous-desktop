@@ -1,18 +1,18 @@
-import { FormHandles } from '@unform/core';
-import React, { useCallback, useRef, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { SpringValue } from 'react-spring';
-import * as yup from 'yup';
+import React, { useCallback, useRef } from 'react';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import SideBar from 'components/SideBar';
 import ErrorCatcher from 'errors/errorCatcher';
 import api from 'services/api';
+import * as yup from 'yup';
 
+import { FormHandles } from '@unform/core';
+import { SpringValue } from 'react-spring';
 import { MdLock, MdMail, MdPerson } from 'react-icons/md';
 import { useAuth } from 'hooks/auth';
 import { useToast } from 'hooks/toast';
-import { Container, InputLine, CheckBoxInput, FormContainer } from './styles';
+import { useHistory } from 'react-router-dom';
+import { Container, InputLine, FormContainer } from './styles';
 
 interface ScreenProps {
   resetFunction: () => void;
@@ -35,8 +35,6 @@ const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
 
   const { showToast } = useToast();
   const { signIn } = useAuth();
-
-  const [isAdmin, setIsAdmin] = useState(false);
 
   const handleSubmit = useCallback(
     async (data: SignUpData) => {
@@ -61,25 +59,19 @@ const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
           abortEarly: false,
         });
 
-        await api.post('/user/sign-up', {
-          ...data,
-          isAdmin,
-        });
+        await api.post('/user/sign-up', data);
 
         await signIn({ email: data.email, password: data.password });
 
-        if (isAdmin) {
-          navigation.push('/register-company');
-        } else {
-          showToast({
-            type: 'success',
-            text: {
-              main: 'Cadastro efetuado',
-              sub: 'Agora só falta entrar em uma empresa',
-            },
-            isOfAuth: true,
-          });
-        }
+        navigation.push('/dashboard');
+
+        showToast({
+          type: 'success',
+          text: {
+            main: 'Cadastro efetuado',
+            sub: 'Agora só falta se associar a uma empresa',
+          },
+        });
       } catch (err) {
         const toastText = ErrorCatcher(
           err as Error | yup.ValidationError,
@@ -93,7 +85,7 @@ const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
         });
       }
     },
-    [isAdmin, navigation, signIn, showToast],
+    [signIn, navigation, showToast],
   );
 
   return (
@@ -116,17 +108,10 @@ const SignUp: React.FC<ScreenProps> = ({ resetFunction, animatedStyle }) => {
             placeholder="Confirmar senha"
             Icon={MdLock}
             type="password"
+            onKeyPress={key =>
+              key.code === 'Enter' && formRef.current?.submitForm()
+            }
           />
-        </InputLine>
-
-        <InputLine>
-          <CheckBoxInput>
-            <p>Dono da empresa?</p>
-            <input
-              onChange={event => setIsAdmin(event.target.checked)}
-              type="checkbox"
-            />
-          </CheckBoxInput>
         </InputLine>
       </FormContainer>
 

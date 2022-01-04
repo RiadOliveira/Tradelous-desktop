@@ -21,7 +21,6 @@ interface SelectProps {
   Icon: IconType;
   data: OptionProps[];
   optionValueReference: string;
-  isOfDashboard?: boolean;
   initialOptionPosition?: number;
   disabled?: boolean;
   setFunction: (optionId: string) => void;
@@ -38,7 +37,6 @@ const Select: React.FC<SelectProps> = ({
   data,
   optionValueReference,
   setFunction,
-  isOfDashboard = false,
   initialOptionPosition = 0,
   disabled = false,
 }) => {
@@ -117,10 +115,10 @@ const Select: React.FC<SelectProps> = ({
     });
 
   return (
-    <Container isOfDashboard={isOfDashboard} disabled={disabled}>
+    <Container disabled={disabled}>
       <PlaceHolder>
         <div>
-          <Icon size={isOfDashboard ? 42 : 32} />
+          <Icon size={42} />
           <p>{placeHolder}</p>
         </div>
       </PlaceHolder>
@@ -155,7 +153,6 @@ const Select: React.FC<SelectProps> = ({
               <ScrollBar
                 dataLength={data.length}
                 scrollTop={scrollTopDistance}
-                isOfDashboard={isOfDashboard}
               />
             )}
 

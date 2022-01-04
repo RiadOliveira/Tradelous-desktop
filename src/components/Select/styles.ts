@@ -3,7 +3,6 @@ import { shade } from 'polished';
 import { MdArrowDropDown } from 'react-icons/md';
 
 interface SelectProps {
-  isOfDashboard?: boolean;
   disabled?: boolean;
 }
 
@@ -98,7 +97,7 @@ export const SelectContainer = styled.div<OptionProps>`
 `;
 
 export const Container = styled.div<SelectProps>`
-  width: ${({ isOfDashboard }) => (!isOfDashboard ? '560' : '420')}px;
+  width: 420px;
   height: 80px;
 
   position: relative;
@@ -117,33 +116,17 @@ export const Container = styled.div<SelectProps>`
     `}
 
   ${PlaceHolder} {
-    ${({ isOfDashboard }) =>
-      isOfDashboard
-        ? css`
-            color: #515151;
-            font-size: 24px;
-          `
-        : css`
-            color: #fff;
-            font-size: 32px;
-          `};
+    color: #515151;
+    font-size: 24px;
   }
 
   ${SelectContainer} {
-    ${({ isOfDashboard }) =>
-      isOfDashboard
-        ? css`
-            border: 2px solid #c4c4c4;
-            border-radius: 20px;
-          `
-        : css`
-            border-radius: 5px;
-          `};
+    border: 2px solid #c4c4c4;
+    border-radius: 20px;
   }
 
   ${Option} {
-    font-size: ${props => (props.isOfDashboard ? '26' : '28')}px;
-    font-weight: ${props => (props.isOfDashboard ? 'normal' : 'bold')};
+    font-size: 26px;
   }
 `;
 

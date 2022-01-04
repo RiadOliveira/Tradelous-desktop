@@ -465,7 +465,6 @@ const CompanyData: React.FC = () => {
                       ({} as IBrazilianState),
                   )
                 }
-                isOfDashboard
                 initialOptionPosition={Number(selectedState.index)}
                 disabled={!user.isAdmin && !!user.companyId}
               />
@@ -481,7 +480,6 @@ const CompanyData: React.FC = () => {
                       ({} as IBrazilianCity),
                   )
                 }
-                isOfDashboard
                 initialOptionPosition={Number(selectedCity.index)}
                 disabled={!user.isAdmin && !!user.companyId}
               />

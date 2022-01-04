@@ -6,14 +6,9 @@ import { Container, ScrollIndicator } from './styles';
 interface ScrollBarProps {
   scrollTop: number;
   dataLength: number;
-  isOfDashboard?: boolean;
 }
 
-const ScrollBar: React.FC<ScrollBarProps> = ({
-  scrollTop,
-  dataLength,
-  isOfDashboard = false,
-}) => {
+const ScrollBar: React.FC<ScrollBarProps> = ({ scrollTop, dataLength }) => {
   const maxDistance = useMemo(() => GetScreenVhInPixels(20.5), []);
   const margin =
     4 +
@@ -35,7 +30,7 @@ const ScrollBar: React.FC<ScrollBarProps> = ({
   });
 
   return (
-    <Container style={{ ...appearAnimation, top: isOfDashboard ? 6 : 4 }}>
+    <Container style={{ ...appearAnimation, top: 6 }}>
       <ScrollIndicator style={scrollAnimation} />
     </Container>
   );

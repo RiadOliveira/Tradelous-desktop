@@ -369,7 +369,6 @@ const SalesData: React.FC = () => {
                   optionValueReference="name"
                   placeHolder="Produto"
                   setFunction={optionId => handleSelectProduct(optionId)}
-                  isOfDashboard
                 />
               </InputLine>
             )}
