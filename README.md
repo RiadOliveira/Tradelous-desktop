@@ -2,12 +2,20 @@
 
 <p align="center">
   A app developed in order to provide an easy way to managment stocks and sales of varied companies. It was made mainly in order to pratice
-  my development skills with React, Electron and Typescript.
+  my development skills on web and desktop.
 </p>
 
 <h4 align="center"> 
 	:convenience_store:&nbsp; Tradelous :heavy_check_mark: Finished &nbsp; :convenience_store: </br></br>
 </h4>
+
+### 🛠 Technologies
+
+Tools used on this project:
+
+- [React](https://reactjs.org/)
+- [Electron](https://www.electronjs.org/)
+- [TypeScript](https://www.typescriptlang.org/) </br></br>
 
 ### Features
 - [Admin] Can hire (Using their IDs, which the user can access on profile's screen) and fire employees of/from the company.
@@ -16,7 +24,7 @@
 - Product's register, update and delete (By an employee or the admin of the company).
   - It's possible to read a barcode from products, using a scanner, and associate this code to the product saved on the app, being possible to use it on products' search afterwards.
 - Sale's system to register product's sales, determining product's quantity and saving it on the current date.
-- Search system to find products (By name) and sales (By date, being possible to choose the type of the search, that can be: day, week and month. Starting on the selected date, example: if the user choose January 10 and type month, will find all sales between January 10 and February 10).
+- Search system to find products (By name) and sales (By date, being possible to choose the type of the search, that can be: day, week and month. Starting on the selected date, example: if the user choose January 10 and type month, will find all sales between January 10 and February 10). </br></br>
 
 ### Screen Shots
 - Authentication screens
@@ -52,3 +60,16 @@
 
   - Sales
   ![image](https://user-images.githubusercontent.com/69125013/147826176-79d6cf9a-9b0c-4369-8596-2f4bd7f3be20.png)
+  
+### Author
+---
+<a href="https://github.com/RiadOliveira">
+ <img src="https://avatars.githubusercontent.com/u/69125013?v=4;" width="100px;" alt=""/>
+ <br/>
+ <sub><b>Ríad Oliveira</b></sub>
+</a>
+
+</br>Contact:</br>
+
+[![Linkedin Badge](https://img.shields.io/badge/-Ríad&nbsp;Oliveira-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/r%C3%ADad-oliveira-8492891b4/)](https://www.linkedin.com/in/r%C3%ADad-oliveira-8492891b4/) 
+[![Gmail Badge](https://img.shields.io/badge/-riad.oliveira@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:riad.oliveira@gmail.com)](mailto:riad.oliveira@gmail.com)
