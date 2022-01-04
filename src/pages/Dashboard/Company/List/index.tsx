@@ -132,7 +132,7 @@ const CompanyList: React.FC = () => {
           },
         });
 
-        setUserCompany(false, undefined);
+        setUserCompany(false);
       } catch {
         showToast({
           type: 'error',
