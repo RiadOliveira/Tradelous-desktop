@@ -15,7 +15,7 @@ Contents
 =================
 <!--ts-->
    * [🛠 Technologies](#technologies)
-   * [:computer: Install & run](#install&run)
+   * [:computer: Install & Run](#install&run)
       * [Prerequisites](#prerequisites)
       * [Running the app](#running)
    * [:gear: Features](#features)
@@ -33,7 +33,7 @@ Tools used on this project:
 - [Electron](https://www.electronjs.org/)
 - [TypeScript](https://www.typescriptlang.org/) </br></br>
 
-<h2 id="install&run">:computer: Install & run</h2>
+<h2 id="install&run">:computer: Install & Run</h2>
 
 <ul>
   <li id="prerequisites"><h3>Prerequisites</h3></li>
