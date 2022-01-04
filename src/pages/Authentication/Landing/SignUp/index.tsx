@@ -24,7 +24,6 @@ interface ScreenProps {
 interface SignUpData {
   name: string;
   email: string;
-  isAdmin: boolean;
   password: string;
   confirmPassword: string;
 }
