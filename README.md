@@ -14,15 +14,15 @@
 Contents
 =================
 <!--ts-->
-   * [Technologies](#technologies)
-   * [Install & run](#install&run)
+   * [🛠 Technologies](#technologies)
+   * [:computer: Install & run](#install&run)
       * [Prerequisites](#prerequisites)
       * [Running the app](#running)
-   * [Features](#features)
-   * [Screen Shots](#screenshots)
+   * [:gear: Features](#features)
+   * [:camera: Screen Shots](#screenshots)
       * [Authentication](#auth-screens)
       * [Dashboard](#dashboard-screens)
-   * [Author](#author)
+   * [:man: Author](#author)
 <!--te-->
 </br>
 
@@ -33,7 +33,7 @@ Tools used on this project:
 - [Electron](https://www.electronjs.org/)
 - [TypeScript](https://www.typescriptlang.org/) </br></br>
 
-<h2 id="install&run">Install & run</h2>
+<h2 id="install&run">:computer: Install & run</h2>
 
 <ul>
   <li id="prerequisites"><h3>Prerequisites</h3></li>
@@ -60,7 +60,7 @@ Tools used on this project:
 
 </br>
 
-<h2 id="features">Features</h2>
+<h2 id="features">:gear: Features</h2>
 
 - [Admin] Can hire (Using their IDs, which the user can access on profile's screen) and fire employees of/from the company.
 - User's register which can be admin or employee of a company.
@@ -70,7 +70,7 @@ Tools used on this project:
 - Sale's system to register product's sales, determining product's quantity and saving it on the current date.
 - Search system to find products (By name) and sales (By date, being possible to choose the type of the search, that can be: day, week and month. Starting on the selected date, example: if the user choose January 10 and type month, will find all sales between January 10 and February 10). </br></br>
 
-<h2 id="screenshots">Screen Shots</h2>
+<h2 id="screenshots">:camera: Screen Shots</h2>
 
 - <h3 id="auth-screens">Authentication</h3>
 
@@ -110,7 +110,7 @@ Tools used on this project:
   
 </br>
 
-<h2 id="author">Author</h2>
+<h2 id="author">:man: Author</h2>
 
 ---
 <a href="https://github.com/RiadOliveira">
