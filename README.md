@@ -78,16 +78,16 @@ Tools used on this project:
   ![image](https://user-images.githubusercontent.com/69125013/147825665-aff715c5-473f-475f-964e-9657411c5313.png)
 
   - #### SignUp
-  ![image](https://user-images.githubusercontent.com/69125013/147825679-bc36e7af-caa7-4975-97b5-8acb118c7463.png)
-
-  - #### Register Company (On account creation)
-  ![image](https://user-images.githubusercontent.com/69125013/147825717-2a838b4f-23e2-4e8a-9f28-79ad62575c2b.png)
+  ![image](https://user-images.githubusercontent.com/69125013/148123918-ca63c481-98d6-4517-a7d4-f5a89546bdc0.png)
 
   - #### SignIn
   ![image](https://user-images.githubusercontent.com/69125013/147825769-131d2aad-e4f4-4f89-9259-0e255fbf6ae6.png)
 
   - #### Forgot Password
   ![image](https://user-images.githubusercontent.com/69125013/147825808-ad1b14ff-51a2-4ecc-8d6e-5e1f315a8a12.png)
+  
+  - #### Recover Password
+  ![image](https://user-images.githubusercontent.com/69125013/148124121-6f14aab9-eadd-4c50-ac0d-b79f86a3206e.png)
 
 - <h3 id="dashboard-screens">Dashboard</h3>
 
