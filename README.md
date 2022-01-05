@@ -1,8 +1,7 @@
 <h1 align="center">Tradelous (Desktop)</h1>
 
 <p align="center">
-  A app developed in order to provide an easy way to managment stocks and sales of varied companies. It was made mainly in order to pratice
-  my development skills on web and desktop.
+  A app developed in order to provide an easy way to managment stocks and sales of varied companies. I have decided to create this application in order to practice my web and desktop development skills.
 </p>
 
 <h4 align="center"> 
