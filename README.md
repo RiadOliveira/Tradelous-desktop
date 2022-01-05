@@ -21,7 +21,16 @@ Contents
    * [:gear: Features](#features)
    * [:camera: Screen Shots](#screenshots)
       * [Authentication](#auth-screens)
+        * [Landing Screen](#landing)
+        * [SignUp](#sign-up)
+        * [SignIn](#sign-in)
+        * [Forgot Password](#forgot-password)
+        * [Recover Password](#recover-password)
       * [Dashboard](#dashboard-screens)
+        * [Company](#company)
+        * [Profile](#profile)
+        * [Products](#products)
+        * [Sales](#sales)
    * [:man: Author](#author)
 <!--te-->
 </br>
@@ -74,24 +83,25 @@ Tools used on this project:
 
 - <h3 id="auth-screens">Authentication</h3>
 
-  - #### Landing screen
+  - <h4 id="landing">Landing Screen</h4>
   ![image](https://user-images.githubusercontent.com/69125013/147825665-aff715c5-473f-475f-964e-9657411c5313.png)
 
-  - #### SignUp
+  - <h4 id="sign-up">SignUp</h4>
   ![image](https://user-images.githubusercontent.com/69125013/148123918-ca63c481-98d6-4517-a7d4-f5a89546bdc0.png)
 
-  - #### SignIn
+  - <h4 id="sign-in">SignIn</h4>
   ![image](https://user-images.githubusercontent.com/69125013/147825769-131d2aad-e4f4-4f89-9259-0e255fbf6ae6.png)
 
-  - #### Forgot Password
+  - <h4 id="forgot-password">Forgot Password</h4>
   ![image](https://user-images.githubusercontent.com/69125013/147825808-ad1b14ff-51a2-4ecc-8d6e-5e1f315a8a12.png)
   
-  - #### Recover Password
+  - <h4 id="recover-password">Recover Password</h4>
   ![image](https://user-images.githubusercontent.com/69125013/148124121-6f14aab9-eadd-4c50-ac0d-b79f86a3206e.png)
 
 - <h3 id="dashboard-screens">Dashboard</h3>
 
-  - #### Company 
+  - <h4 id="company">Company</h4> 
+  
     - **Admin view**
     ![image](https://user-images.githubusercontent.com/69125013/147825927-cabeddf6-f544-4aed-808a-ab2a1701d80b.png)
     - **Employee view**
@@ -99,13 +109,13 @@ Tools used on this project:
     - **Unemployed view**
     ![image](https://user-images.githubusercontent.com/69125013/147827544-8ad91f31-40f5-4cc8-add4-37854ad8cf6e.png)
 
-  - #### Profile
+  - <h4 id="profile">Profile</h4>
   ![image](https://user-images.githubusercontent.com/69125013/147825972-7dd9d435-fc7f-4074-98ec-379920fa977f.png)
 
-  - #### Products
+  - <h4 id="products">Products</h4>
   ![image](https://user-images.githubusercontent.com/69125013/147826010-25e9ef50-474a-49a8-b486-3ead4bed8105.png)
 
-  - #### Sales
+  - <h4 id="sales">Sales</h4>
   ![image](https://user-images.githubusercontent.com/69125013/147826176-79d6cf9a-9b0c-4369-8596-2f4bd7f3be20.png)
   
 </br>
