@@ -53,6 +53,9 @@ Tools used on this project:
   ```bash
     # Clone this repository
     $ git clone https://github.com/RiadOliveira/Tradelous-frontend-desktop.git
+  
+    # Access project's folder
+    $ cd Tradelous-frontend-desktop
 
     # Install the dependecies
     $ npm install
