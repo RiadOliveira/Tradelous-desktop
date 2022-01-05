@@ -26,7 +26,7 @@ Contents
         * [SignIn](#sign-in)
         * [Forgot Password](#forgot-password)
         * [Recover Password](#recover-password)
-      * [Dashboard](#dashboard-screens)
+      * [Dashboard](#dashboard-screens) 
         * [Company](#company)
         * [Profile](#profile)
         * [Products](#products)
@@ -83,6 +83,8 @@ Tools used on this project:
 
 - <h3 id="auth-screens">Authentication</h3>
 
+  ![Landing-transition](https://user-images.githubusercontent.com/69125013/148226991-258b5e0c-93b6-4800-ae37-f431eeffe7e2.gif)
+
   - <h4 id="landing">Landing Screen</h4>
   ![image](https://user-images.githubusercontent.com/69125013/147825665-aff715c5-473f-475f-964e-9657411c5313.png)
 
@@ -99,6 +101,8 @@ Tools used on this project:
   ![image](https://user-images.githubusercontent.com/69125013/148124121-6f14aab9-eadd-4c50-ac0d-b79f86a3206e.png)
 
 - <h3 id="dashboard-screens">Dashboard</h3>
+  
+  ![Dashboard-transition](https://user-images.githubusercontent.com/69125013/148225486-c60a203b-2799-4a5b-86ae-f3f314c7e605.gif)
 
   - <h4 id="company">Company</h4> 
   
