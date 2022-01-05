@@ -5,7 +5,6 @@ export const Container = styled.div`
   width: 560px;
   height: 80px;
   border-radius: 5px;
-
   background-color: #fff;
 
   display: flex;
@@ -40,8 +39,6 @@ export const PlaceHolder = styled(animated.button)`
   border: 0;
   background-color: transparent;
 
-  left: 50%;
-
   font-size: 32px;
   font-weight: bold;
 
@@ -50,12 +47,7 @@ export const PlaceHolder = styled(animated.button)`
   cursor: text;
   user-select: none;
 
-  div {
-    position: relative;
-    left: -50%;
-
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  display: flex;
+  align-items: center;
+  gap: 8px;
 `;

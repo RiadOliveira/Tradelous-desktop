@@ -95,10 +95,8 @@ const Input: React.FC<InputProps> = ({
         onFocus={placeHolderHandle}
         style={placeHolderAnimation}
       >
-        <div>
-          <Icon size={32} />
-          <p>{placeholder}</p>
-        </div>
+        <Icon size={32} />
+        <p>{placeholder}</p>
       </PlaceHolder>
 
       <InputContainer
