@@ -1,8 +1,7 @@
 <h1 align="center">Tradelous (Desktop)</h1>
 
 <p align="center">
-  A app developed in order to provide an easy way to managment stocks and sales of varied companies. It was made mainly in order to pratice
-  my development skills on web and desktop.
+  An app developed in order to provide an easy way to manage stocks and sales of varied companies. I have decided to create this application in order to practice my web and desktop development skills.
 </p>
 
 <h4 align="center"> 
@@ -31,6 +30,7 @@ Contents
         * [Profile](#profile)
         * [Products](#products)
         * [Sales](#sales)
+   * [:memo: License](#license)
    * [:man: Author](#author)
 <!--te-->
 </br>
@@ -53,7 +53,10 @@ Tools used on this project:
   
   ```bash
     # Clone this repository
-    $ git clone <https://github.com/RiadOliveira/Tradelous-frontend-desktop.git>
+    $ git clone https://github.com/RiadOliveira/Tradelous-frontend-desktop.git
+  
+    # Access project's folder
+    $ cd Tradelous-frontend-desktop
 
     # Install the dependecies
     $ npm install
@@ -122,6 +125,11 @@ Tools used on this project:
   - <h4 id="sales">Sales</h4>
   ![image](https://user-images.githubusercontent.com/69125013/147826176-79d6cf9a-9b0c-4369-8596-2f4bd7f3be20.png)
   
+</br>
+
+<h2 id="license">:memo: License</h2>
+This project is MIT Licensed. See <a href="https://github.com/RiadOliveira/Tradelous-frontend-desktop/blob/main/LICENSE">LICENSE</a> file for more details.
+
 </br>
 
 <h2 id="author">:man: Author</h2>
