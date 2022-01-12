@@ -53,10 +53,10 @@ Tools used on this project:
   
   ```bash
     # Clone this repository
-    $ git clone https://github.com/RiadOliveira/Tradelous-frontend-desktop.git
+    $ git clone https://github.com/RiadOliveira/Tradelous-desktop.git
   
     # Access project's folder
-    $ cd Tradelous-frontend-desktop
+    $ cd Tradelous-desktop
 
     # Install the dependecies
     $ npm install
