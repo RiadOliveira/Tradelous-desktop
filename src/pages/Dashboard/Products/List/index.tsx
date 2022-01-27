@@ -125,9 +125,8 @@ const ProductsList: React.FC = () => {
         product => product.barCode === barCodeValue,
       );
 
-      if (findedProduct) {
-        updateProductsStatus(findedProduct);
-      } else {
+      if (findedProduct) updateProductsStatus(findedProduct);
+      else {
         showToast({
           text: {
             main: 'Código de barras inválido',
@@ -174,10 +173,7 @@ const ProductsList: React.FC = () => {
                   <SearchBar
                     placeholder="Nome do produto"
                     onChange={event => {
-                      if (barCodeValue) {
-                        setBarCodeValue('');
-                      }
-
+                      if (barCodeValue) setBarCodeValue('');
                       setSearchedText(event.target.value);
                     }}
                   />

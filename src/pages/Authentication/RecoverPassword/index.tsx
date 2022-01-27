@@ -30,9 +30,8 @@ const RecoverPassword: React.FC = () => {
   useEffect(() => {
     const response = localStorage.getItem('@Tradelous-user');
 
-    if (response) {
-      setUserEmail(response);
-    } else {
+    if (response) setUserEmail(response);
+    else {
       navigation.goBack();
 
       showToast({

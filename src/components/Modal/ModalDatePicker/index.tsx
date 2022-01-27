@@ -62,9 +62,7 @@ const ModalDatePicker: React.FC<ModalProps> = ({ style }) => {
       ref={modalRef}
       tabIndex={0}
       onKeyUp={event => {
-        if (event.key === 'Escape') {
-          hideModal();
-        }
+        if (event.key === 'Escape') hideModal();
       }}
       style={style}
     >

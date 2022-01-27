@@ -48,7 +48,6 @@ const ProfileData: React.FC = () => {
       try {
         if (event.target.files) {
           const [avatar] = event.target.files;
-
           updateUsersAvatar(avatar);
         }
       } catch {

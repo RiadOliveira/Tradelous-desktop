@@ -73,9 +73,7 @@ const SalesData: React.FC = () => {
 
   useEffect(() => {
     api.get<IProductOption[]>('/products').then(({ data }) => {
-      if (data.length) {
-        setCompanyProducts(data);
-      }
+      if (data.length) setCompanyProducts(data);
     });
   }, []);
 
@@ -143,9 +141,7 @@ const SalesData: React.FC = () => {
   const handleSubmit = useCallback(
     async (saleData: ISale) => {
       try {
-        if (salesStatus === 'newSale') {
-          throw new Error();
-        }
+        if (salesStatus === 'newSale') throw new Error();
 
         // eslint-disable-next-line no-param-reassign
         saleData.quantity = saleData.quantity || 1;

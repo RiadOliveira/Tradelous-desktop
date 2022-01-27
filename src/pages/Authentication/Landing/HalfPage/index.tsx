@@ -108,13 +108,9 @@ const HalfPage: React.FC<HalfPageProps> = ({
     ) {
       setTimeout(() => setSelectedAnimation(animationStates[2]), 600);
       setTimeout(() => true, 300); // In order to wait animation time to set another state.
-    } else if (!$isFull && !isHidden) {
-      setSelectedAnimation(selectedHoverState);
-    } else if ($isFull) {
-      setSelectedAnimation(animationStates[0]);
-    } else if (isHidden) {
-      setSelectedAnimation(animationStates[1]);
-    }
+    } else if (!$isFull && !isHidden) setSelectedAnimation(selectedHoverState);
+    else if ($isFull) setSelectedAnimation(animationStates[0]);
+    else if (isHidden) setSelectedAnimation(animationStates[1]);
   }, [
     $isFull,
     animationStates,
@@ -124,9 +120,7 @@ const HalfPage: React.FC<HalfPageProps> = ({
   ]);
 
   const handleHoverState = (state: number) => {
-    if (!$isFull && !isHidden) {
-      setSelectedHoverState(hoverStates[state]);
-    }
+    if (!$isFull && !isHidden) setSelectedHoverState(hoverStates[state]);
   };
 
   const animationProps = useSpring(selectedAnimation);

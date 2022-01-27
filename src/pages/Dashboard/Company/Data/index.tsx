@@ -80,9 +80,7 @@ const CompanyData: React.FC = () => {
       api.get('/company').then(response => {
         setCompany(response.data);
       });
-    } else {
-      formRef.current?.reset();
-    }
+    } else formRef.current?.reset();
   }, [user.companyId]);
 
   // Gets states data.

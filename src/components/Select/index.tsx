@@ -68,9 +68,7 @@ const Select: React.FC<SelectProps> = ({
   }, [selectedOption, isShowingOptions]);
 
   useEffect(() => {
-    if (data.length > 0) {
-      setFunction(data[selectedOption].id);
-    }
+    if (data.length > 0) setFunction(data[selectedOption].id);
   }, [data, selectedOption, setFunction]);
 
   // Search system through select.
@@ -89,10 +87,11 @@ const Select: React.FC<SelectProps> = ({
         if (
           searchedTextProps.time &&
           differenceInSeconds(new Date(Date.now()), searchedTextProps.time) < 1
-        )
+        ) {
           searchText = removeAccentuation(
             (searchedTextProps.text + key).toLowerCase(),
           );
+        }
       }
 
       const findedIndex = data.findIndex(value =>
@@ -104,7 +103,6 @@ const Select: React.FC<SelectProps> = ({
       // If not find any option with the searched text, resets it.
       if (findedIndex === -1) {
         setSearchedTextProps({ text: '', time: new Date(Date.now()) });
-
         return 0;
       }
 

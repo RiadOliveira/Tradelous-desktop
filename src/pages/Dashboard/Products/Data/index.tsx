@@ -277,10 +277,8 @@ const ProductsData: React.FC = () => {
           productData.price.toString().replace(',', '.'),
         );
 
-        if (barCodeValue) {
-          // eslint-disable-next-line no-param-reassign
-          productData.barCode = barCodeValue;
-        }
+        // eslint-disable-next-line no-param-reassign
+        if (barCodeValue) productData.barCode = barCodeValue;
 
         const schema = yup.object().shape({
           name: yup.string().required('Nome do produto obrigatório'),
@@ -300,9 +298,7 @@ const ProductsData: React.FC = () => {
           abortEarly: false,
         });
 
-        if (productsStatus === 'newProduct') {
-          throw new Error();
-        }
+        if (productsStatus === 'newProduct') throw new Error();
 
         const toastMessage = {
           main: '',
