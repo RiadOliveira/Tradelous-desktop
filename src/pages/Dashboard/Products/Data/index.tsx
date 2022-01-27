@@ -54,9 +54,11 @@ const ProductsData: React.FC = () => {
       productsStatus !== 'newProduct' &&
       (!productsStatus?.id || productsStatus.id.includes('deleted'))
     ) {
+      // Resets form's data.
       formRef.current?.reset();
       setBarCodeValue('');
     } else if (productsStatus !== 'newProduct') {
+      // Sets product's data.
       formRef.current?.setData({
         ...productsStatus,
         price: Number(productsStatus.price).toFixed(2).replace('.', ','),
@@ -307,6 +309,7 @@ const ProductsData: React.FC = () => {
           sub: '',
         };
 
+        // Updates selected product.
         if (hasSelectedProduct()) {
           const { data } = await api.put(
             `/products/${productsStatus.id}`,
@@ -318,6 +321,7 @@ const ProductsData: React.FC = () => {
 
           updateProductsStatus(data);
         } else {
+          // Create a new product.
           await api.post(`/products`, productData);
 
           toastMessage.main = 'Adição bem sucedida';

@@ -36,6 +36,7 @@ const Toast: React.FC = () => {
     },
   });
 
+  // To hide toast after 4000 ms.
   useEffect(() => {
     if (!isRunningTimer && toastProps.isVisible) {
       setTimeout(() => {

@@ -18,9 +18,7 @@ const Modal: React.FC<ModalProps> = ({ style }) => {
   const { buttonsProps } = modalProps;
 
   useEffect(() => {
-    if (modalProps.type === 'ordinary') {
-      modalRef.current?.focus();
-    }
+    if (modalProps.type === 'ordinary') modalRef.current?.focus();
   }, [modalProps.type]);
 
   return (

@@ -84,10 +84,12 @@ const SalesData: React.FC = () => {
       salesStatus !== 'newSale' &&
       (!salesStatus.id || salesStatus.id.includes('deleted'))
     ) {
+      // Resets form's data (Sale's creation mode).
       formRef.current?.reset();
       formRef.current?.setFieldValue('employee', name);
       setPaymentMethod(undefined);
     } else if (salesStatus !== 'newSale') {
+      // Sets form's data (Sale's view mode).
       formRef.current?.setFieldValue('employee', salesStatus.employee.name);
       formRef.current?.setFieldValue('quantity', salesStatus.quantity);
     }

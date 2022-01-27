@@ -21,6 +21,7 @@ const ModalDatePicker: React.FC<ModalProps> = ({ style }) => {
   const { modalProps, hideModal } = useModal();
   const { buttonsProps } = modalProps;
 
+  // Generate and get actualDateObject.
   const actualDateObject = useMemo(() => {
     let actualDate: { day: string; month: string; year: string };
 
@@ -46,9 +47,7 @@ const ModalDatePicker: React.FC<ModalProps> = ({ style }) => {
   }, [modalProps.initialValue]);
 
   useEffect(() => {
-    if (modalProps.type === 'datePicker') {
-      modalRef.current?.focus();
-    }
+    if (modalProps.type === 'datePicker') modalRef.current?.focus();
   }, [modalProps.type]);
 
   const confirmData = () => {

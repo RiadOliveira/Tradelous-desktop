@@ -64,6 +64,7 @@ const AuthContext: React.FC = ({ children }) => {
         token,
       });
 
+      // Signout when 401 error.
       api.interceptors.response.use(
         response => response,
         error => {
@@ -112,11 +113,10 @@ const AuthContext: React.FC = ({ children }) => {
 
   const updateUsersAvatar = useCallback(
     async (file?: File) => {
-      let data;
+      let data: FormData | undefined;
 
       if (file) {
         data = new FormData();
-
         data.append('avatar', file);
       }
 

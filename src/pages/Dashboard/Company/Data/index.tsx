@@ -74,6 +74,7 @@ const CompanyData: React.FC = () => {
 
   const apiStaticUrl = `${api.defaults.baseURL}/files`;
 
+  // Gets company data.
   useEffect(() => {
     if (user.companyId) {
       api.get('/company').then(response => {
@@ -84,6 +85,7 @@ const CompanyData: React.FC = () => {
     }
   }, [user.companyId]);
 
+  // Gets states data.
   useEffect(() => {
     if (!user.companyId || company.address) {
       api
@@ -130,6 +132,7 @@ const CompanyData: React.FC = () => {
     }
   }, [company.address, user.companyId]);
 
+  // Gets cities data.
   useEffect(() => {
     let unmounted = false;
 

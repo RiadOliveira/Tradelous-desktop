@@ -10,6 +10,8 @@ interface ScrollBarProps {
 
 const ScrollBar: React.FC<ScrollBarProps> = ({ scrollTop, dataLength }) => {
   const maxDistance = useMemo(() => GetScreenVhInPixels(20.5), []);
+
+  // Values have been tested until obtains a good result.
   const margin =
     4 +
     (scrollTop * (dataLength > 25 ? 4 : 4.2)) /

@@ -20,9 +20,7 @@ const ModalInput: React.FC<ModalProps> = ({ style }) => {
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
-    if (modalProps.type === 'withInput') {
-      inputRef.current?.focus();
-    }
+    if (modalProps.type === 'withInput') inputRef.current?.focus();
   }, [modalProps.type]);
 
   const confirmData = () => {

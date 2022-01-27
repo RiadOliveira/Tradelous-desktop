@@ -46,6 +46,7 @@ const ProductsList: React.FC = () => {
 
   useEffect(() => {
     if (productsStatus === 'newProduct' || products.length === 0) {
+      // Gets all products from API.
       api.get<IProduct[]>('/products').then(({ data }) => {
         if (data.length) {
           setProducts(data);
@@ -55,6 +56,7 @@ const ProductsList: React.FC = () => {
         setHasLoadedProducts(true);
       });
     } else if (productsStatus.id) {
+      // If selected product has been deleted.
       if (productsStatus.id.includes('deleted')) {
         // To delete a product needs to pass deleted + product.id to productsStatus.
         const deletedProductId = productsStatus.id.split(' ')[1]; // Gets the id.
@@ -102,6 +104,7 @@ const ProductsList: React.FC = () => {
 
     let barCode = '';
 
+    // Gets all characters scanned.
     barCodeButtonRef.current?.addEventListener('keydown', event => {
       if (event.code === 'Enter') {
         barCodeButtonRef.current?.blur();

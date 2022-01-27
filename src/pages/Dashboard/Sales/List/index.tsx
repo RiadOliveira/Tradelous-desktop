@@ -55,6 +55,7 @@ const SalesList: React.FC = () => {
 
   const apiStaticUrl = `${api.defaults.baseURL}/files`;
 
+  // Parse to brazilian portuguese.
   const parseSearchType = (type: ISearchType) => {
     switch (type) {
       case 'day':
@@ -99,6 +100,7 @@ const SalesList: React.FC = () => {
 
   useEffect(() => {
     if (salesStatus !== 'newSale' && salesStatus.id) {
+      // If selected sale has been deleted.
       if (salesStatus.id.includes('deleted')) {
         // To delete a sale needs to pass deleted + sale.id to salesStatus.
         const deletedSaleId = salesStatus.id.split(' ')[1]; // Gets the id.

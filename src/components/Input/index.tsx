@@ -42,9 +42,7 @@ const Input: React.FC<InputProps> = ({
   }, [fieldName, registerField]);
 
   useEffect(() => {
-    if (disabled) {
-      setPlaceHolderState('out');
-    }
+    if (disabled) setPlaceHolderState('out');
   }, [disabled]);
 
   // PlaceHolder animation
