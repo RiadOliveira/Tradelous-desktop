@@ -13,7 +13,7 @@
 Contents
 =================
 <!--ts-->
-   * [🛠 Technologies](#technologies)
+   * [🛠️ Technologies](#technologies)
    * [:computer: Install & Run](#install&run)
       * [Prerequisites](#prerequisites)
       * [Running the app](#running)
@@ -35,7 +35,7 @@ Contents
 <!--te-->
 </br>
 
-<h2 id="technologies">🛠 Technologies</h2>
+<h2 id="technologies">🛠️ Technologies</h2>
 Tools used on this project:
 
 - [React](https://reactjs.org/)
