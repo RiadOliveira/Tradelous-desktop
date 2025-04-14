@@ -7,7 +7,7 @@
 ![147826010-25e9ef50-474a-49a8-b486-3ead4bed8105](https://github.com/user-attachments/assets/8f798684-4e75-43f2-b829-22f1ddb9203e)
 ![image](https://img.shields.io/github/license/RiadOliveira/Tradelous-frontend-desktop)
 
-</br>
+<br/>
 
 Contents
 =================
@@ -32,14 +32,14 @@ Contents
    * [📝 License](#license)
    * [👨 Author](#author)
 <!--te-->
-</br>
+<br/>
 
 <h2 id="technologies">🛠️ Technologies</h2>
 Tools used on this project:
 
 - [React](https://reactjs.org/)
 - [Electron](https://www.electronjs.org/)
-- [TypeScript](https://www.typescriptlang.org/) </br></br>
+- [TypeScript](https://www.typescriptlang.org/) <br/><br/>
 
 <h2 id="install&run">💻 Install & Run</h2>
 
@@ -67,7 +67,7 @@ Tools used on this project:
     $ yarn start
   ```
 
-</br>
+<br/>
 
 <h2 id="features">⚙️ Features</h2>
 
@@ -77,7 +77,7 @@ Tools used on this project:
 - Product's register, update and delete (By an employee or the admin of the company).
 - It's possible to read a barcode from products, using a scanner, and associate this code to the product saved on the app, being possible to use it on products' search afterwards.
 - System to register product's sales (on current date), determining product's sold quantity and sale's payment method (money or card).
-- Search system to find products (By name) and sales (By date, being possible to choose the type of the search, that can be: day, week and month. Starting on the selected date, example: if the user choose January 10 and type month, will find all sales between January 10 and February 10). </br></br>
+- Search system to find products (By name) and sales (By date, being possible to choose the type of the search, that can be: day, week and month. Starting on the selected date, example: if the user choose January 10 and type month, will find all sales between January 10 and February 10). <br/><br/>
 
 <h2 id="screenshots">📷 Screen Shots</h2>
 
@@ -136,22 +136,22 @@ Tools used on this project:
 <h2 id="license">📝 License</h2>
 This project is MIT Licensed. See <a href="https://github.com/RiadOliveira/Tradelous-desktop/blob/main/LICENSE">LICENSE</a> file for more details.
 
-</br>
+<br/>
 
 <h2 id="author">👨 Author</h2>
 
-<kbd style="display: inline-block; padding: 3px 5px; font: 11px/10px SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace; color: #24292e; vertical-align: middle; background-color: #fafbfc; border: 1px solid #d1d5da; border-radius: 3px; box-shadow: inset 0 -1px 0 #d1d5da;">
+<kbd style="display: inline-block; padding: 6px 6px 10px; font: 11px/10px SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace; border: 1px solid #d1d5da; border-radius: 6px; box-shadow: inset 0 -1px 0 #d1d5da;">
   <a href="https://github.com/RiadOliveira" style="display: block;">
-    <img src="https://avatars.githubusercontent.com/u/69125013?v=4" width="100" alt="Ríad Oliveira" style="border-radius: 4px;"/>
-    </br></br>
-    <p align="center"><b>Ríad Oliveira</b></p>
+    <img src="https://avatars.githubusercontent.com/u/69125013?v=4" width="100" alt="Ríad Oliveira" style="border-radius: 4px; margin: 0;"/>
+    <br/><br/>
+    <p align="center" style="margin: 0;"><b>Ríad Oliveira</b></p>
   </a>
 </kbd>
 
 ### 🌐 Socials
 
-<div style="display: flex; flex-wrap: wrap;">
-  <a href = "mailto:riad.oliveira@hotmail.com"><img src="https://img.shields.io/badge/Microsoft_Outlook-0078D4?style=for-the-badge&logo=microsoft-outlook&logoColor=white" target="_blank"></a>
-  <a href = "mailto:riad.oliveira@gmail.com"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
-  <a href="https://www.linkedin.com/in/ríad-oliveira" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+  <a style="margin: 0;" href = "mailto:riad.oliveira@hotmail.com"><img src="https://img.shields.io/badge/Microsoft_Outlook-0078D4?style=for-the-badge&logo=microsoft-outlook&logoColor=white" target="_blank"></a>
+  <a style="margin: 0;" href = "mailto:riad.oliveira@gmail.com"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+  <a style="margin: 0;" href="https://www.linkedin.com/in/ríad-oliveira" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
 </div>
