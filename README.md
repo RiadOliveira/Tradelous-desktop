@@ -142,7 +142,7 @@ This project is MIT Licensed. See <a href="https://github.com/RiadOliveira/Trade
 
 <kbd style="display: inline-block; padding: 3px 5px; font: 11px/10px SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace; color: #24292e; vertical-align: middle; background-color: #fafbfc; border: 1px solid #d1d5da; border-radius: 3px; box-shadow: inset 0 -1px 0 #d1d5da;">
   <a href="https://github.com/RiadOliveira" style="display: block;">
-    <img src="https://avatars.githubusercontent.com/u/69125013?v=4" width="100" alt="Ríad Oliveira"/>
+    <img src="https://avatars.githubusercontent.com/u/69125013?v=4" width="100" alt="Ríad Oliveira" style="border-radius: 4px;"/>
     </br></br>
     <p align="center"><b>Ríad Oliveira</b></p>
   </a>
