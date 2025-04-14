@@ -140,13 +140,16 @@ This project is MIT Licensed. See <a href="https://github.com/RiadOliveira/Trade
 
 <h2 id="author">👨 Author</h2>
 
-<a href="https://github.com/RiadOliveira">
- <img src="https://avatars.githubusercontent.com/u/69125013?v=4;" width="100px;" alt="Ríad Oliveira"/>
- <br/>
- <sub><b>Ríad Oliveira</b></sub>
-</a>
+<kbd>
+  <a href="https://github.com/RiadOliveira">
+    <img src="https://avatars.githubusercontent.com/u/69125013?v=4" width="100" alt="Ríad Oliveira"/>
+    </br></br>
+    <p align="center"><b>Ríad Oliveira</b></p>
+  </a>
+</kbd>
 
-</br>Contact:</br>
+### 🌐 Socials
 
-[![Linkedin Badge](https://img.shields.io/badge/-Ríad&nbsp;Oliveira-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/r%C3%ADad-oliveira-8492891b4/)](https://www.linkedin.com/in/r%C3%ADad-oliveira-8492891b4/) 
-[![Gmail Badge](https://img.shields.io/badge/-riad.oliveira@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:riad.oliveira@gmail.com)](mailto:riad.oliveira@gmail.com)
+<a href = "mailto:riad.oliveira@hotmail.com"><img src="https://img.shields.io/badge/Microsoft_Outlook-0078D4?style=for-the-badge&logo=microsoft-outlook&logoColor=white" target="_blank"></a>
+<a href = "mailto:riad.oliveira@gmail.com"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+<a href="https://www.linkedin.com/in/ríad-oliveira" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
