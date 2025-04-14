@@ -151,7 +151,13 @@ This project is MIT Licensed. See <a href="https://github.com/RiadOliveira/Trade
 ### 🌐 Socials
 
 <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-  <a href = "mailto:riad.oliveira@hotmail.com"><img style="margin: 0;" src="https://img.shields.io/badge/Microsoft_Outlook-0078D4?style=for-the-badge&logo=microsoft-outlook&logoColor=white" target="_blank" /></a>
-  <a href = "mailto:riad.oliveira@gmail.com"><img style="margin: 0;" src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" target="_blank" /></a>
-  <a href="https://www.linkedin.com/in/ríad-oliveira" target="_blank"><img style="margin: 0;" src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank" /></a>
+  <a href = "mailto:riad.oliveira@hotmail.com">
+    <img src="https://img.shields.io/badge/Microsoft_Outlook-0078D4?style=for-the-badge&logo=microsoft-outlook&logoColor=white" target="_blank" style="border-radius: 4px; margin: 0;"/>
+  </a>
+  <a href = "mailto:riad.oliveira@gmail.com">
+    <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" target="_blank" style="border-radius: 4px; margin: 0;"/>
+  </a>
+  <a href="https://www.linkedin.com/in/ríad-oliveira" target="_blank">
+    <img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank" style="border-radius: 4px; margin: 0;"/>
+  </a>
 </div>
