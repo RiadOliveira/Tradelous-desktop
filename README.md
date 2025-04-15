@@ -1,4 +1,4 @@
-<h1 align="center">🏪 Tradelous (Desktop)</h1>
+<h1 align="center">Tradelous Desktop</h1>
 
 <p align="center">
   An app developed in order to provide an easy way to manage stocks and sales of varied companies.
