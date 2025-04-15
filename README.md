@@ -140,24 +140,24 @@ This project is MIT Licensed. See <a href="https://github.com/RiadOliveira/Trade
 
 <h2 id="author">👨 Author</h2>
 
-<kbd style="display: inline-block; padding: 6px 6px 10px; font: 11px/10px SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace; border: 1px solid #d1d5da; border-radius: 6px; box-shadow: inset 0 -1px 0 #d1d5da;">
-  <a href="https://github.com/RiadOliveira" style="display: block;">
-    <img src="https://avatars.githubusercontent.com/u/69125013?v=4" width="100" alt="Ríad Oliveira" style="border-radius: 4px; margin: 0;"/>
+<kbd>
+  <a href="https://github.com/RiadOliveira">
+    <img src="https://avatars.githubusercontent.com/u/69125013?v=4" width="100" alt="Ríad Oliveira"/>
     <br/><br/>
-    <p align="center" style="margin: 0;"><b>Ríad Oliveira</b></p>
+    <p align="center"><b>Ríad Oliveira</b></p>
   </a>
 </kbd>
 
 ### 🌐 Socials
 
-<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<div id="socials">
   <a href = "mailto:riad.oliveira@hotmail.com">
-    <img src="https://img.shields.io/badge/Microsoft_Outlook-0078D4?style=for-the-badge&logo=microsoft-outlook&logoColor=white" target="_blank" style="border-radius: 2px; margin: 0;"/>
+    <img class="badge" src="https://img.shields.io/badge/Microsoft_Outlook-0078D4?style=for-the-badge&logo=microsoft-outlook&logoColor=white" target="_blank"/>
   </a>
   <a href = "mailto:riad.oliveira@gmail.com">
-    <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" target="_blank" style="border-radius: 2px; margin: 0;"/>
+    <img class="badge" src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"/>
   </a>
   <a href="https://www.linkedin.com/in/ríad-oliveira" target="_blank">
-    <img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank" style="border-radius: 2px; margin: 0;"/>
+    <img class="badge" src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"/>
   </a>
 </div>
