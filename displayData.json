@@ -1,0 +1,10 @@
+{
+  "coverImage": "147826010-25e9ef50-474a-49a8-b486-3ead4bed8105.png",
+  "highlightColor": "emerald",
+  "technologies": [
+    "React",
+    "Electron",
+    "TypeScript",
+    "StyledComponents"
+  ]
+}
