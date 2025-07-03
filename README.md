@@ -138,7 +138,7 @@ This project is MIT Licensed. See <a href="https://github.com/RiadOliveira/Trade
 
 <br/>
 
-<h2 id="author">👨 Author</h2>
+<h2 id="author">👨‍💻 Author</h2>
 
 <kbd>
   <a href="https://github.com/RiadOliveira">
