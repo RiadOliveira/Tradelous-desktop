@@ -1,7 +1,7 @@
 <h1 align="center">Tradelous Desktop</h1>
 
 <p align="center">
-  Tradelous is an application developed as a personal project, primarily for honing skills in stock and sales management. It provides a practical platform designed to facilitate the control of products and sales for various businesses.
+  Tradelous is an application developed as a personal project. It provides a practical platform designed to facilitate the control of products and sales for various businesses.
 </p>
 
 ![image](https://user-images.githubusercontent.com/69125013/147826010-25e9ef50-474a-49a8-b486-3ead4bed8105.png)
