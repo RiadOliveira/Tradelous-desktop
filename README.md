@@ -18,14 +18,16 @@ Contents
       * [Running the app](#running)
    * [⚙️ Features](#features)
    * [📷 Screenshots](#screenshots)
-      * [Authentication](#auth-screens)
+      * [Authentication](#authentication)
         * [Landing Screen](#landing)
         * [SignUp](#sign-up)
         * [SignIn](#sign-in)
         * [Forgot Password](#forgot-password)
         * [Recover Password](#recover-password)
       * [Dashboard](#dashboard-screens) 
-        * [Company](#company)
+        * [Company (Employer View)](#company-employer)
+        * [Company (Employee View)](#company-employee)
+        * [Company (Unemployed View)](#company-unemployed)
         * [Profile](#profile)
         * [Products](#products)
         * [Sales](#sales)
@@ -82,7 +84,7 @@ $ yarn start
 
 <h2 id="screenshots">📷 Screenshots</h2>
 
-<h3 id="auth-screens">Authentication</h3>
+<h3 id="authentication">Authentication</h3>
 
 ![Landing-transition](https://user-images.githubusercontent.com/69125013/148226991-258b5e0c-93b6-4800-ae37-f431eeffe7e2.gif)
 
@@ -110,15 +112,15 @@ $ yarn start
   
 ![Dashboard-transition](https://user-images.githubusercontent.com/69125013/148225486-c60a203b-2799-4a5b-86ae-f3f314c7e605.gif)
 
-- <h4 id="company">Company - Employer View</h4>
+- <h4 id="company-employer">Company (Employer View)</h4>
 
 ![image](https://user-images.githubusercontent.com/69125013/147825927-cabeddf6-f544-4aed-808a-ab2a1701d80b.png)
 
-- <h4 id="company">Company - Employee View</h4>
+- <h4 id="company-employee">Company (Employee View)</h4>
 
 ![image](https://user-images.githubusercontent.com/69125013/147826456-0737cf42-6836-4ba4-8abc-90b3ccfae628.png)
 
-- <h4 id="company">Company - Unemployed View</h4>
+- <h4 id="company-unemployed">Company (Unemployed View)</h4>
 
 ![image](https://user-images.githubusercontent.com/69125013/147827544-8ad91f31-40f5-4cc8-add4-37854ad8cf6e.png)
 
