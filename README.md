@@ -50,23 +50,23 @@ Tools used on this project:
   
 <h3 id="running">Running the app</h3>
   
-  ```bash
-    # Clone this repository
-    $ git clone https://github.com/RiadOliveira/Tradelous-desktop.git
-  
-    # Access project's folder
-    $ cd Tradelous-desktop
+```bash
+# Clone this repository
+$ git clone https://github.com/RiadOliveira/Tradelous-desktop.git
 
-    # Install the dependecies
-    $ npm install
-    or
-    $ yarn
+# Access project's folder
+$ cd Tradelous-desktop
 
-    # Run the app (With backend running on background)
-    $ npm start
-    or
-    $ yarn start
-  ```
+# Install the dependecies
+$ npm install
+or
+$ yarn
+
+# Run the app (With backend running on background)
+$ npm start
+or
+$ yarn start
+```
 
 <br/>
 
