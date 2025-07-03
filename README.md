@@ -31,7 +31,7 @@ Contents
         * [Sales](#sales)
    * [📝 License](#license)
    * [👨‍💻 Author](#author)
-   * [🌐 Socials](#socials-topic)
+   * [🌐 Socials](#socials)
 <!--te-->
 <br/>
 
@@ -149,7 +149,7 @@ This project is MIT Licensed. See <a href="https://github.com/RiadOliveira/Trade
   </a>
 </kbd>
 
-<h2 id="socials-topic">🌐 Socials</h2>
+## 🌐 Socials
 
 <div id="socials">
   <a href = "mailto:riad.oliveira@hotmail.com">
