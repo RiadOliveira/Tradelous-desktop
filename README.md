@@ -17,7 +17,7 @@ Contents
       * [Prerequisites](#prerequisites)
       * [Running the app](#running)
    * [⚙️ Features](#features)
-   * [📷 Screen Shots](#screenshots)
+   * [📷 Screenshots](#screenshots)
       * [Authentication](#auth-screens)
         * [Landing Screen](#landing)
         * [SignUp](#sign-up)
@@ -80,7 +80,7 @@ $ yarn start
 - System to register product's sales (on current date), determining product's sold quantity and sale's payment method (money or card).
 - Search system to find products (By name) and sales (By date, being possible to choose the type of the search, that can be: day, week and month. Starting on the selected date, example: if the user choose January 10 and type month, will find all sales between January 10 and February 10). <br/><br/>
 
-<h2 id="screenshots">📷 Screen Shots</h2>
+<h2 id="screenshots">📷 Screenshots</h2>
 
 <h3 id="auth-screens">Authentication</h3>
 
