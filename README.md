@@ -24,10 +24,11 @@ Contents
         * [SignIn](#sign-in)
         * [Forgot Password](#forgot-password)
         * [Recover Password](#recover-password)
-      * [Dashboard](#dashboard-screens) 
-        * [Company (Employer View)](#company-employer)
-        * [Company (Employee View)](#company-employee)
-        * [Company (Unemployed View)](#company-unemployed)
+      * [Dashboard](#dashboard-screens)
+        * [Company](#company) 
+          * [Employer View](#company-employer)
+          * [Employee View](#company-employee)
+          * [Unemployed View](#company-unemployed)
         * [Profile](#profile)
         * [Products](#products)
         * [Sales](#sales)
@@ -112,15 +113,17 @@ $ yarn start
   
 ![Dashboard-transition](https://user-images.githubusercontent.com/69125013/148225486-c60a203b-2799-4a5b-86ae-f3f314c7e605.gif)
 
-- <h4 id="company-employer">Company (Employer View)</h4>
+<h4 id="company">Company</h4>
+
+- <h5 id="company-employer">Employer View</h5>
 
 ![image](https://user-images.githubusercontent.com/69125013/147825927-cabeddf6-f544-4aed-808a-ab2a1701d80b.png)
 
-- <h4 id="company-employee">Company (Employee View)</h4>
+- <h5 id="company-employee">Employee View</h5>
 
 ![image](https://user-images.githubusercontent.com/69125013/147826456-0737cf42-6836-4ba4-8abc-90b3ccfae628.png)
 
-- <h4 id="company-unemployed">Company (Unemployed View)</h4>
+- <h5 id="company-unemployed">Unemployed View</h5>
 
 ![image](https://user-images.githubusercontent.com/69125013/147827544-8ad91f31-40f5-4cc8-add4-37854ad8cf6e.png)
 
