@@ -13,9 +13,9 @@ Contents
 =================
 <!--ts-->
    * [🛠️ Technologies](#technologies)
-   * [💻 Install & Run](#install-run)
+   * [🚀 Getting Started](#getting-started)
       * [Prerequisites](#prerequisites)
-      * [Running the app](#running)
+      * [Installation & Setup](#setup)
    * [⚙️ Features](#features)
    * [📷 Screenshots](#screenshots)
       * [Authentication](#authentication)
@@ -45,43 +45,43 @@ Tools used on this project:
 - [Electron](https://www.electronjs.org/)
 - [TypeScript](https://www.typescriptlang.org/) <br/><br/>
 
-<h2 id="install-run">💻 Install & Run</h2>
+<h2 id="getting-started">🚀 Getting Started</h2>
 
 <h3 id="prerequisites">Prerequisites</h3>
-  
-  Before you start, it will be necessary to install those tools on your machine: [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/). Also, you will need the backend of this app installed and running on your machine, which is explained how to do on this repository: [Tradelous Backend](https://github.com/RiadOliveira/Tradelous-backend).
-  
-<h3 id="running">Running the app</h3>
+
+Before running the application, ensure the following tools are installed on your system:
+- [Git](https://git-scm.com)
+- [Node.js](https://nodejs.org/en/)
+
+**Important**: This application requires the backend service to be running. Please refer to the [Tradelous Backend](https://github.com/RiadOliveira/Tradelous-backend) repository for installation and setup instructions.
+
+<h3 id="setup">Installation & Setup</h3>
   
 ```bash
-# Clone this repository
+# Clone the repository
 $ git clone https://github.com/RiadOliveira/Tradelous-desktop.git
 
-# Access project's folder
+# Navigate to project directory
 $ cd Tradelous-desktop
 
-# Install the dependecies
+# Install dependencies
 $ npm install
-or
-$ yarn
 
-# Run the app (With backend running on background)
+# Start the application (ensure backend is running)
 $ npm start
-or
-$ yarn start
 ```
 
 <br/>
 
 <h2 id="features">⚙️ Features</h2>
 
-- User's register, update and delete. The user can be admin or employee of a company.
-- Company's register, update and delete (After user's account has been created).
-- [Admin] Can hire (Using their IDs, which the user can access on profile's screen) and fire employees from the company.
-- Product's register, update and delete (By an employee or the admin of the company).
-- It's possible to read a barcode from products, using a scanner, and associate this code to the product saved on the app, being possible to use it on products' search afterwards.
-- System to register product's sales (on current date), determining product's sold quantity and sale's payment method (money or card).
-- Search system to find products (By name) and sales (By date, being possible to choose the type of the search, that can be: day, week and month. Starting on the selected date, example: if the user choose January 10 and type month, will find all sales between January 10 and February 10). <br/><br/>
+- **User Management System** - Complete user lifecycle management with role-based access control, supporting administrator and employee permission levels with secure authentication.
+- **Company Administration** - Full company profile management with registration, updates, and configuration capabilities accessible post-user authentication.
+- **Employee Management** - Administrative dashboard for hiring and terminating employees using unique user IDs, with streamlined workforce management workflows.
+- **Product Catalog Management** - Comprehensive product CRUD operations with role-based permissions, enabling both administrators and employees to maintain inventory records.
+- **Barcode Integration** - Advanced barcode scanning functionality that associates physical products with digital records, enabling efficient product identification and search capabilities.
+- **Sales Transaction System** - Sales recording with quantity tracking and multiple payment method support (cash and card transactions).
+- **Advanced Search & Analytics** - Intelligent search system with dual functionality: product lookup by name and sales analytics with flexible date ranges (daily, weekly, monthly periods) starting from user-selected dates. <br/><br/>
 
 <h2 id="screenshots">📷 Screenshots</h2>
 
