@@ -7,5 +7,22 @@
     "Electron",
     "TypeScript",
     "StyledComponents"
+  ],
+  "features": [
+    {
+      "name": "User Management",
+      "description": "User registration and role management with employer permissions.",
+      "icon": "users"
+    },
+    {
+      "name": "Company Administration",
+      "description": "Company management with employee hiring and dismissal workflows.",
+      "icon": "building"
+    },
+    {
+      "name": "Product Control",
+      "description": "Product management and inventory control with categorization system.",
+      "icon": "boxOpen"
+    }
   ]
 }
