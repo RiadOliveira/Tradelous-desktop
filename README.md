@@ -78,9 +78,9 @@ $ npm start
 - **Company Administration** - Full company profile management with registration, updates, and configuration capabilities accessible post-user authentication.
 - **Employee Management** - Administrative dashboard for hiring and terminating employees using unique user IDs, with streamlined workforce management workflows.
 - **Product Catalog Management** - Comprehensive product CRUD operations with role-based permissions, enabling both administrators and employees to maintain inventory records.
-- **Barcode Integration** - Advanced barcode scanning functionality that associates physical products with digital records, enabling efficient product identification and search capabilities.
+- **Barcode Integration** - Barcode scanning functionality that associates physical products with digital records, enabling efficient product identification and search capabilities.
 - **Sales Transaction System** - Sales recording with quantity tracking and multiple payment method support (cash and card transactions).
-- **Advanced Search & Analytics** - Intelligent search system with dual functionality: product lookup by name and sales analytics with flexible date ranges (daily, weekly, monthly periods) starting from user-selected dates. <br/><br/>
+- **Search & Analytics** - Intelligent search system with dual functionality: product lookup by name and sales analytics with flexible date ranges (daily, weekly, monthly periods) starting from user-selected dates. <br/><br/>
 
 <h2 id="screenshots">📷 Screenshots</h2>
 
