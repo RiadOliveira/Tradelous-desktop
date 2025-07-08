@@ -39,7 +39,7 @@ Contents
 <br/>
 
 <h2 id="technologies">🛠️ Technologies</h2>
-Tools used on this project:
+Built with:
 
 - [React](https://reactjs.org/)
 - [Electron](https://www.electronjs.org/)
