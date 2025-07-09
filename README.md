@@ -5,7 +5,7 @@
 </p>
 
 ![image](https://user-images.githubusercontent.com/69125013/147826010-25e9ef50-474a-49a8-b486-3ead4bed8105.png)
-![image](https://img.shields.io/github/license/RiadOliveira/Tradelous-frontend-desktop)
+![image](https://img.shields.io/github/license/RiadOliveira/Tradelous-desktop)
 
 <br/>
 
