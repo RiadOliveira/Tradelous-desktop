@@ -4,8 +4,8 @@
   Tradelous is an application developed as a personal project. It provides a practical platform designed to facilitate the control of products and sales for various businesses.
 </p>
 
-![image](https://user-images.githubusercontent.com/69125013/147826010-25e9ef50-474a-49a8-b486-3ead4bed8105.png)
-![image](https://img.shields.io/github/license/RiadOliveira/Tradelous-desktop)
+![Preview](https://user-images.githubusercontent.com/69125013/147826010-25e9ef50-474a-49a8-b486-3ead4bed8105.png)
+![License](https://img.shields.io/github/license/RiadOliveira/Tradelous-desktop)
 
 <br/>
 
@@ -86,54 +86,54 @@ $ npm start
 
 <h3 id="authentication">Authentication</h3>
 
-![Landing-transition](https://user-images.githubusercontent.com/69125013/148226991-258b5e0c-93b6-4800-ae37-f431eeffe7e2.gif)
+![Authentication](https://user-images.githubusercontent.com/69125013/148226991-258b5e0c-93b6-4800-ae37-f431eeffe7e2.gif)
 
 - <h4 id="landing">Landing Screen</h4>
 
-![image](https://user-images.githubusercontent.com/69125013/147825665-aff715c5-473f-475f-964e-9657411c5313.png)
+![Landing_Screen](https://user-images.githubusercontent.com/69125013/147825665-aff715c5-473f-475f-964e-9657411c5313.png)
 
-- <h4 id="sign-up">SignUp</h4>
+- <h4 id="sign-up">Sign Up</h4>
 
-![image](https://user-images.githubusercontent.com/69125013/148123918-ca63c481-98d6-4517-a7d4-f5a89546bdc0.png)
+![Sign_Up](https://user-images.githubusercontent.com/69125013/148123918-ca63c481-98d6-4517-a7d4-f5a89546bdc0.png)
 
-- <h4 id="sign-in">SignIn</h4>
+- <h4 id="sign-in">Sign In</h4>
 
-![image](https://user-images.githubusercontent.com/69125013/147825769-131d2aad-e4f4-4f89-9259-0e255fbf6ae6.png)
+![Sign_In](https://user-images.githubusercontent.com/69125013/147825769-131d2aad-e4f4-4f89-9259-0e255fbf6ae6.png)
 
 - <h4 id="password-recovery">Password Recovery</h4>
 
-![image](https://user-images.githubusercontent.com/69125013/147825808-ad1b14ff-51a2-4ecc-8d6e-5e1f315a8a12.png)
-![image](https://user-images.githubusercontent.com/69125013/148124121-6f14aab9-eadd-4c50-ac0d-b79f86a3206e.png)
+![Password_Recovery_1](https://user-images.githubusercontent.com/69125013/147825808-ad1b14ff-51a2-4ecc-8d6e-5e1f315a8a12.png)
+![Password_Recovery_2](https://user-images.githubusercontent.com/69125013/148124121-6f14aab9-eadd-4c50-ac0d-b79f86a3206e.png)
 
 <h3 id="dashboard">Dashboard</h3>
   
-![Dashboard-transition](https://user-images.githubusercontent.com/69125013/148225486-c60a203b-2799-4a5b-86ae-f3f314c7e605.gif)
+![Dashboard](https://user-images.githubusercontent.com/69125013/148225486-c60a203b-2799-4a5b-86ae-f3f314c7e605.gif)
 
 <h4 id="company">Company Management</h4>
 
 - <h5 id="company-employer">Employer Dashboard</h5>
 
-![image](https://user-images.githubusercontent.com/69125013/147825927-cabeddf6-f544-4aed-808a-ab2a1701d80b.png)
+![Employer_Dashboard](https://user-images.githubusercontent.com/69125013/147825927-cabeddf6-f544-4aed-808a-ab2a1701d80b.png)
 
 - <h5 id="company-employee">Employee Dashboard</h5>
 
-![image](https://user-images.githubusercontent.com/69125013/147826456-0737cf42-6836-4ba4-8abc-90b3ccfae628.png)
+![Employee_Dashboard](https://user-images.githubusercontent.com/69125013/147826456-0737cf42-6836-4ba4-8abc-90b3ccfae628.png)
 
 - <h5 id="company-user">User Dashboard</h5>
 
-![image](https://user-images.githubusercontent.com/69125013/147827544-8ad91f31-40f5-4cc8-add4-37854ad8cf6e.png)
+![User_Dashboard](https://user-images.githubusercontent.com/69125013/147827544-8ad91f31-40f5-4cc8-add4-37854ad8cf6e.png)
 
 - <h4 id="profile">User Profile</h4>
 
-![image](https://user-images.githubusercontent.com/69125013/147825972-7dd9d435-fc7f-4074-98ec-379920fa977f.png)
+![User_Profile](https://user-images.githubusercontent.com/69125013/147825972-7dd9d435-fc7f-4074-98ec-379920fa977f.png)
 
 - <h4 id="products">Product Management</h4>
 
-![image](https://user-images.githubusercontent.com/69125013/147826010-25e9ef50-474a-49a8-b486-3ead4bed8105.png)
+![Product_Management](https://user-images.githubusercontent.com/69125013/147826010-25e9ef50-474a-49a8-b486-3ead4bed8105.png)
 
 - <h4 id="sales">Sales Management</h4>
 
-![image](https://user-images.githubusercontent.com/69125013/147826176-79d6cf9a-9b0c-4369-8596-2f4bd7f3be20.png)
+![Sales_Management](https://user-images.githubusercontent.com/69125013/147826176-79d6cf9a-9b0c-4369-8596-2f4bd7f3be20.png)
 
 <h2 id="license">📝 License</h2>
 This project is MIT Licensed. See <a href="https://github.com/RiadOliveira/Tradelous-desktop/blob/main/LICENSE">LICENSE</a> file for more details.
@@ -153,7 +153,8 @@ This project is MIT Licensed. See <a href="https://github.com/RiadOliveira/Trade
 ## 🌐 Socials
 
 <div id="socials">
-  <a href = "mailto:riad.oliveira@hotmail.com"><img class="badge" src="https://img.shields.io/badge/Microsoft_Outlook-0078D4?style=for-the-badge&logo=microsoft-outlook&logoColor=white" target="_blank"/></a>
-  <a href = "mailto:riad.oliveira@gmail.com"><img class="badge" src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"/></a>
-  <a href="https://www.linkedin.com/in/ríad-oliveira" target="_blank"><img class="badge" src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"/></a>
+  <a href="https://portfolio-riadoliveira.vercel.app"><img class="badge" src="https://img.shields.io/badge/Portfolio-%23000000.svg?style=for-the-badge&logo=firefox&logoColor=#FF7139" alt="Portfolio" target="_blank"></a>
+  <a href = "mailto:riad.oliveira@hotmail.com"><img class="badge" src="https://img.shields.io/badge/Microsoft_Outlook-0078D4?style=for-the-badge&logo=microsoft-outlook&logoColor=white" alt="E-mail" target="_blank"/></a>
+  <a href = "mailto:riad.oliveira@gmail.com"><img class="badge" src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail" target="_blank"/></a>
+  <a href="https://www.linkedin.com/in/ríad-oliveira" target="_blank"><img class="badge" src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="Linkedin" target="_blank"/></a>
 </div>
